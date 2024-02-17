@@ -39,6 +39,46 @@
      padding-bottom :5em !important;
  }
 
+/* Margin classes for top and bottom */
+.m-margin-tb-mini {
+    margin-top: 0.25em !important;
+    margin-bottom: 0.25em !important;
+}
+
+.m-margin-tb-tiny {
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+}
+
+.m-margin-tb-small {
+    margin-top: 0.5em !important;
+    margin-bottom: 0.5em !important;
+}
+
+.m-margin-tb-medium {
+    margin-top: 1em !important;
+    margin-bottom: 1em !important;
+}
+
+.m-margin-tb-large {
+    margin-top: 1.5em !important;
+    margin-bottom: 1.5em !important;
+}
+
+.m-margin-tb-big {
+    margin-top: 2em !important;
+    margin-bottom: 2em !important;
+}
+
+.m-margin-tb-huge {
+    margin-top: 3em !important;
+    margin-bottom: 3em !important;
+}
+
+.m-margin-tb-massive {
+    margin-top: 4em !important;
+    margin-bottom: 4em !important;
+}
 
 
 .m-text{
@@ -48,7 +88,7 @@
     line-height:1.8 !important;
 }
 .m-text-thin{
-     font-weight:900 !important;
+     font-weight:300 !important;
  }
 .m-text-spaced{
      letter-spacing:1px !important;
@@ -73,4 +113,9 @@ opacity:0.8 !important;
 .m-container{
     margin:auto!important;
     max-width: 72em!important;
+}
+/*color*/
+.m-black
+{
+color:#333333;
 }
