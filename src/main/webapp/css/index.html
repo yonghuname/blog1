@@ -6,20 +6,22 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>首页</title>
     <link rel="stylesheet" href="../semantics-dist/semantic.min.css">
     <link rel="stylesheet" href="./me.css">
 
+    <script src="../js/jquery-3.7.1.min.js"></script>
     <script src="../semantics-dist/semantic.min.js"></script>
 </head>
 <body>
-    <nav class = "ui inverted attached segment m-padded-tb-mini">
+    <nav class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
         <div class="ui container"  >
             <div class="ui inverted secondary stackable menu">
                 <h3 class="ui teal header item">T's BLOG</h3>
                 <a class="m-item m-mobile-hidden item"> <i class="ui home icon">  </i>首页</a>
                 <a class="m-item m-mobile-hidden item"> <i class="ui idea icon">  </i>分类</a>
                 <a class="m-item m-mobile-hidden item"><i class="ui tags icon">  </i>标签</a>
+                <a class="m-item m-mobile-hidden item"><i class="ui clone icon">  </i>归档</a>
                 <a class="m-item m-mobile-hidden item"><i class="ui info icon"></i>关于我</a>
                 <div class="right item">
                     <div class="ui icon inverted input">
@@ -36,18 +38,18 @@
         </a>
     </nav>
     <!--    中间内容 -->
-    <div class="m-padded-tb-large" >
-    <!--        为什么对不上啊-->
+    <div class="m-padded-tb-large " >
+
         <div class="ui container">
             <div class="ui two stackable grid">
 <!--                实际上包括文章栏在内的文章区域 左边的文章列表-->
-                <div class="eleven wide column">
+                <div class="eleven wide column m-padded-tb-large">
                     <div class="ui top attached segment">
 <!--                        头部-->
                         <div class="ui middle aligned two column grid">
 <!--                            two column 要一起 不分开-->
                             <div class="  column">
-                                <h3 class="ui teal header">博客1222 </h3>
+                                <h3 class="ui teal header">博客  </h3>
                             </div>
                             <div class="   right aligned column">
                                 共
@@ -337,7 +339,7 @@
 
                         <!--                        底部-->
                     <div>
-                        <div class="ui attached segment">
+                        <div class="ui attached segment  ">
                             <div class="ui middle aligned two column grid">
                                 <div class="  column">
                                     <a href="#" class="ui teal basic button">上一页</a>
@@ -353,7 +355,7 @@
                 </div>
 <!--侧边栏-->
 
-                <div class="five wide column">
+                <div class="five wide column m-padded-tb-small ">
 
 <!--分类卡片-->
                     <div class="ui  segments m-margin-tb-large">
@@ -515,7 +517,7 @@
 
 <!--111111111111111111111111111111-->
 
-            <div class="ui inverted section divider ">
+            <div class="ui inverted section divider m-padded-tb-">
             </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
         </div>
     </footer>
@@ -526,8 +528,9 @@
 <!--<script  src="https://cdn.jsdeliver.net/npm/jquery@3.2/dist/jquery.min.js"></script>-->
 
 </html>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 <script>
+
     $(document).ready(function() {
         $('.menu.toggle').click(function() {
             $('.m-item').toggleClass('m-mobile-hidden');
