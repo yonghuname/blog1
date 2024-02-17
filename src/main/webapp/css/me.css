@@ -119,3 +119,49 @@ opacity:0.8 !important;
 {
 color:#333333;
 }
+/*mobile phone */
+/*平时赋值 而且条件判断放最底下*/
+.m-mobile-show{
+    display: none!important;}
+
+
+
+@media screen and (max-width: 768px) {
+    .m-mobile-hidden {
+        display: none !important;
+    }
+
+    .m-mobile-show {
+        display: block !important;
+    }
+}
+
+
+/*position 位置*/
+/* 左上角 */
+.m-top-left {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+/* 右上角 */
+.m-top-right {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+}
+
+/* 左下角 */
+.m-bottom-left {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+}
+
+/* 右下角 */
+.m-bottom-right {
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+}
