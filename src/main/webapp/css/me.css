@@ -1,5 +1,5 @@
 body{
-    background: url("../images/anime11.png");
+    background: url("../../resources/images/anime11.png");
 }
 
 
@@ -217,6 +217,9 @@ color:#333333;
 }
 
 
+.m-input-max{
+    max-width: 50%;
+}
 
 
 @media screen and (max-width: 768px) {
