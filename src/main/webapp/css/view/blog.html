@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>博客内容</title>
     <link rel="stylesheet" href="../../semantics-dist/semantic.min.css">
+    <link rel="stylesheet" href="../../lib/beautifyArticle/typo.css"/>
+
+    <link rel="stylesheet" href="../../lib/beautifyArticle/animate.css"/>
     <link rel="stylesheet" href="../me.css">
 
     <script src="../../js/jquery-3.7.1.min.js"></script>
@@ -23,7 +26,7 @@
                 <a class="m-item m-mobile-hidden item"><i class="ui tags icon">  </i>标签</a>
                 <a class="m-item m-mobile-hidden item"><i class="ui clone icon">  </i>归档</a>
                 <a class="m-item m-mobile-hidden item"><i class="ui info icon"></i>关于我</a>
-                <div class="right item">
+                <div class="right item ">
                     <div class="ui icon inverted input">
                         <input type="text" placeholder="搜索....">
                         <i class="ui search icon"></i>
@@ -38,7 +41,7 @@
         </a>
     </nav>
     <!--    中间内容 -->
-    <div class="m-container-small m-padded-tb-big">
+    <div class="m-container-small m-padded-tb-big animated fadeIn   ">
         <div class="ui container">
             <div class="ui top attached segment">
                 <div class="ui mini horizontal link list">
@@ -66,50 +69,108 @@
                     <div class="ui orange label">原创</div>
                 </div>
                 <h1 class="ui centered header">英语复习技巧</h1>
-                <div id="content" class="m-padded-lr-huge m-padded-tb-large">
+<!--                正文主体-->
+                <div id="content" class="typo typo-selection m-padded-lr-huge m-padded-tb-large">
 
-                    <div class="m-padded-tb-large">
-                        <h3>背单词阶段：3～7月</h3>
-                        <p>单词的重要性不言而喻，其优先级远大于语法。推荐使用墨墨记单词应用，按频度来背诵，先掌握核心词汇。建议每天新学+复习单词量控制在100～200个，根据个人情况调整。整个过程大约需要20分钟，应坚持每天进行，形成习惯。</p>
-                        <p>如果英语基础稍弱，可以同时分析长难句，特别是真题中的句子。如有信心，可跳过语法和长难句的学习。</p>
-                    </div>
+                    <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
 
-                    <div class="m-padded-tb-large">
-                        <h3>做真题阶段：8～10月中旬</h3>
-                        <p>从8月开始进行真题练习，留下最近两年的真题用于12月模拟。先从阅读开始，每天完成1～2篇。做题时避免自以为是，要学会站 老师的角度思考问题。如遇到关于美国政治体制的问题，务必参考相关讲解。同时，也建议完成完形填空和新题型的练习。</p>
+                    <p><i class="serif">Typo.css</i> 的目的是，在一致化浏览器排版效果的同时，构建最适合中文阅读的网页排版。</p>
+                    <h4>现状和如何去做：</h4>
 
-                    </div>
+                    <p class="typo-first">排版是一个麻烦的问题 <sup><a href="#appendix1"># 附录一</a></sup>，需要精心设计，而这个设计却是常被视觉设计师所忽略的。前端工程师更常看到这样的问题，但不便变更。因为在多个 OS 中的不同浏览器渲染不同，改动需要多的时间做回归测试，所以改变变得更困难。而像我们一般使用的
+                        Yahoo、Eric Meyer 和 Alice base.css 中采用的 Reset 都没有很好地考虑中文排版。<i class="serif">Typo.css</i> 要做的就是解决中文排版的问题。</p>
 
-                    <div class="m-padded-tb-large">
-                        <h3>冲刺阶段：10月下旬～考前</h3>
-                        <p>此阶段主要是反复刷真题，准备作文，练习翻译。重点复习阅读错题，分析错误类型。作文方面，可以选择适合自己的老师或资料进行学习。同时，练习书写作文，注意卷面整洁，可购买专门的作文纸进行练习。作文内容完成后，可以使用批改网上的智能批改功能进行检查。</p>
-                    </div>
+                    <p><strong><i class="serif">Typo.css</i> 测试于如下平台：</strong></p>
+                    <table class="ui table" summary="Typo.css 的测试平台列表">
+                        <thead>
+                        <tr>
+                            <th>OS/浏览器</th>
+                            <th>Firefox</th>
+                            <th>Chrome</th>
+                            <th>Safari</th>
+                            <th>Opera</th>
+                            <th>IE9</th>
+                            <th>IE8</th>
+                            <th>IE7</th>
+                            <th>IE6</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>OS X</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Win 7</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Win XP</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>-</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                        </tr>
+                        <tr>
+                            <td>Ubuntu</td>
+                            <td>✔</td>
+                            <td>✔</td>
+                            <td>-</td>
+                            <td>✔</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                    <div class="m-padded-tb-large">
-                        <h3>总结</h3>
-                        <p>在整个备考过程中，英语的投入时间可能不到总备考时间的10%，建议根据个人实际情况合理安排时间。</p>
-                    </div>
-                    <div class="m-padded-tb-large">
-                        <h3>背单词阶段：3～7月</h3>
-                        <p>单词的重要性不言而喻，其优先级远大于语法。推荐使用墨墨记单词应用，按频度来背诵，先掌握核心词汇。建议每天新学+复习单词量控制在100～200个，根据个人情况调整。整个过程大约需要20分钟，应坚持每天进行，形成习惯。</p>
-                        <p>如果英语基础稍弱，可以同时分析长难句，特别是真题中的句子。如有信心，可跳过语法和长难句的学习。</p>
-                    </div>
+                    <h4>中文排版的重点和难点</h4>
 
-                    <div class="m-padded-tb-large">
-                        <h3>做真题阶段：8～10月中旬</h3>
-                        <p>从8月开始进行真题练习，留下最近两年的真题用于12月模拟。先从阅读开始，每天完成1～2篇。做题时避免自以为是，要学会站 老师的角度思考问题。如遇到关于美国政治体制的问题，务必参考相关讲解。同时，也建议完成完形填空和新题型的练习。</p>
+                    <p>在中文排版中，HTML4 的很多标准在语义在都有照顾到。但从视觉效果上，却很难利用单独的 CSS 来实现，像<abbr title="在文字下多加一个点">着重号</abbr>（例：这里<em class="typo-em">强调一下</em>）。在 HTML4 中，专名号标签（<code>&lt;u&gt;</code>）已经被放弃，而
+                        HTML5 被<a href="//html5doctor.com/u-element/">重新提起</a>。<i class="serif">Typo.css</i> 也根据实际情况提供相应的方案。我们重要要注意的两点是：</p>
+                    <ol>
+                        <li>语义：语义对应的用法和样式是否与中文排版一致</li>
+                        <li>表现：在各浏览器中的字体、大小和缩放是否如排版预期</li>
+                    </ol>
+                    <p>对于这些，<i class="serif">Typo.css</i> 排版项目的中文偏重注意点，都添加在附录中，详见：</p>
+                    <blockquote>
+                        <b>附录一</b>：<a href="#appendix1"><i class="serif">Typo.css</i> 排版偏重点</a>
+                    </blockquote>
 
-                    </div>
+                    <p>目前已有像百姓网等全面使用 <i class="serif">Typo.css</i> 的项目，测试平台的覆盖，特别是在<abbr title="手机、平板电脑等移动平台">移动端</abbr>上还没有覆盖完主流平台，希望有能力的同学能加入测试行列，或者加入到 <i class="serif">Typo.css</i>
+                        的开发。加入方法：<a href="https://github.com/sofish/Typo.css">参与 <i class="serif">Typo.css</i> 开发</a>。如有批评、建议和意见，也随时欢迎给在 Github 直接提 <a
+                                href="https://github.com/sofish/Typo.css/issues">issues</a>，或给<abbr title="Sofish Lin, author of Typo.css"
+                                                                                                      role="author">我</abbr>发<a
+                                href="mailto:sofish@icloud.com">邮件</a>。</p>
 
-                    <div class="m-padded-tb-large">
-                        <h3>冲刺阶段：10月下旬～考前</h3>
-                        <p>此阶段主要是反复刷真题，准备作文，练习翻译。重点复习阅读错题，分析错误类型。作文方面，可以选择适合自己的老师或资料进行学习。同时，练习书写作文，注意卷面整洁，可购买专门的作文纸进行练习。作文内容完成后，可以使用批改网上的智能批改功能进行检查。</p>
-                    </div>
 
-                    <div class="m-padded-tb-large">
-                        <h3>总结</h3>
-                        <p>在整个备考过程中，英语的投入时间可能不到总备考时间的10%，建议根据个人实际情况合理安排时间。</p>
-                    </div>
+                    <h2 id="section2">二、排版实例：</h2>
+
+                    <p>提供2个排版实例，第一个中文实例来自于来自于<cite class="typo-unique">张燕婴</cite>的《论语》，由于古文排版涉及到的元素比较多，所以采用《论语》中《学而》的第一篇作为排版实例介绍；第2个来自到经典的
+                        Lorem Ipsum，并加入了一些代码和列表等比较具有代表性的排版元素。</p>
+
+                    <h3 id="section2-1">例1：论语学而篇第一</h3>
+
+
                 </div>
 <!--                标签-->
                 <div>
