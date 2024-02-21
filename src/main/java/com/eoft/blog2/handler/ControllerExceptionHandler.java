@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.slf4j.Logger;
+
+
+
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
@@ -28,9 +31,12 @@ public class ControllerExceptionHandler {
         if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
             throw e;
         }
+
         ModelAndView mav = new ModelAndView();
         mav.addObject("url", request.getRequestURL());
         mav.addObject("exception", e);
+
+
         mav.setViewName("error/error");
 
         return mav;
@@ -38,7 +44,7 @@ public class ControllerExceptionHandler {
 }
 
 
-
+//todo 完善 错误抛出前端 html ，解决
 
 
 

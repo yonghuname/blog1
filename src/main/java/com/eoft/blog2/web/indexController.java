@@ -13,11 +13,13 @@ public class indexController {
     @GetMapping("/")
     public String index(){
 //        int i = 9 / 0;
+/*
         String blog = null;
         if(blog == null){
            throw new NoFoundException("文章不存在");
         }
-
+*/
+        System.out.println("----------index------------");
         return "index" ;
 
 

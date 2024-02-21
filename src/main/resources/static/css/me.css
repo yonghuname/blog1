@@ -1,0 +1,242 @@
+body{
+    background: url("../images/anime11.png");
+}
+
+
+
+.m-padded-mini{
+    padding  :0.2em !important;
+}
+
+.m-padded-tiny{
+     padding  :0.3em !important;
+ }
+
+.m-padded-tb-mini{
+    padding-top :0.1em !important;
+    padding-bottom :0.1em !important;
+}
+.m-padded-tb-tiny{
+     padding-top :0.3em !important;
+     padding-bottom :0.3em !important;
+ }
+.m-padded-tb-small{
+    padding-top :0.5em !important;
+    padding-bottom :0.5em !important;
+}
+.m-padded-tb{
+    padding-top :1em !important;
+    padding-bottom :1em !important;
+}
+.m-padded-tb-large{
+    padding-top :2em !important;
+    padding-bottom :2em !important;
+}
+.m-padded-tb-big{
+    padding-top :3em !important;
+    padding-bottom :3em !important;
+}
+.m-padded-tb-huge{
+    padding-top :4em !important;
+    padding-bottom :4em !important;
+}
+
+.m-padded-tb-massive{
+     padding-top :5em !important;
+     padding-bottom :5em !important;
+ }
+
+/* 最小左右内边距 */
+.m-padded-lr-mini {
+    padding-left: 0.1em !important;
+    padding-right: 0.1em !important;
+}
+
+/* 较小左右内边距 */
+.m-padded-lr-tiny {
+    padding-left: 0.3em !important;
+    padding-right: 0.3em !important;
+}
+
+/* 小左右内边距 */
+.m-padded-lr-small {
+    padding-left: 0.5em !important;
+    padding-right: 0.5em !important;
+}
+
+/* 中等左右内边距 */
+.m-padded-lr-medium {
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
+
+/* 大左右内边距 */
+.m-padded-lr-large {
+    padding-left: 2em !important;
+    padding-right: 2em !important;
+}
+
+/* 巨大左右内边距 */
+.m-padded-lr-huge {
+    padding-left: 3em !important;
+    padding-right: 3em !important;
+}
+
+/* 巨大无比左右内边距 */
+.m-padded-lr-massive {
+    padding-left: 5em !important;
+    padding-right: 5em !important;
+}
+
+
+/* Margin classes for top and bottom */
+.m-margin-tb-mini {
+    margin-top: 0.25em !important;
+    margin-bottom: 0.25em !important;
+}
+
+.m-margin-tb-tiny {
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+}
+
+.m-margin-tb-small {
+    margin-top: 0.5em !important;
+    margin-bottom: 0.5em !important;
+}
+
+.m-margin-tb-medium {
+    margin-top: 1em !important;
+    margin-bottom: 1em !important;
+}
+
+.m-margin-tb-large {
+    margin-top: 1.5em !important;
+    margin-bottom: 1.5em !important;
+}
+
+.m-margin-tb-big {
+    margin-top: 2em !important;
+    margin-bottom: 2em !important;
+}
+
+.m-margin-tb-huge {
+    margin-top: 3em !important;
+    margin-bottom: 3em !important;
+}
+
+.m-margin-tb-massive {
+    margin-top: 4em !important;
+    margin-bottom: 4em !important;
+}
+
+.m-text{
+    font-size: 0.8em;
+    font-weight:300 !important;
+    letter-spacing: 1px!important;
+    line-height:1.8 !important;
+}
+.m-text-thin{
+     font-weight:300 !important;
+ }
+.m-text-spaced{
+     letter-spacing:1px !important;
+ }
+.m-text-lined{
+    line-height:1.8 !important;
+  }
+
+/*opacity 透明度*/
+.m-opacity-mini{
+opacity:0.8 !important;
+}
+.test-container {
+    background-color: red !important;
+    color: yellow !important;
+    padding: 10px !important;
+    border-radius: 5px!important;
+}
+/*display*/
+.m-inline-block{
+    display: inline-block;
+}
+
+.m-container{
+    margin:auto!important;
+    max-width: 72em!important;
+}
+.m-container-small{
+    margin:auto!important;
+    max-width: 70em!important;
+}
+/*color*/
+.m-black
+{
+color:#333333;
+}
+/*mobile phone */
+/*平时赋值 而且条件判断放最底下*/
+.m-mobile-show{
+    display: none!important;}
+
+
+
+
+
+/*position 位置*/
+/* 左上角 */
+.m-top-left {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+/* 右上角 */
+.m-top-right {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+}
+
+/* 左下角 */
+.m-bottom-left {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+}
+
+/* 右下角 */
+.m-bottom-right {
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+}
+.m-shadow-small{
+    -webkit-box-shadow:0 4px 8px rgba(0,0,0,0.2) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+}
+
+
+.m-input-max{
+    max-width: 50%;
+}
+
+
+@media screen and (max-width: 768px) {
+    .m-mobile-hidden {
+        display: none !important;
+    }
+
+    .m-mobile-show {
+        display: block !important;
+    }
+    /*h好像下面这个只给了博客正文部分使用*/
+    .m-padded-lr-huge {
+        padding-left: 1em !important;
+        padding-right: 1em !important;
+    }
+
+    .m-container-small{
+        margin:0.5em!important;
+    }
+}
