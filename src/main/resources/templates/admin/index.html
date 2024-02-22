@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head th:replace="/admin/_fragments :: head(${title})"></head>
+<head th:replace="admin/_fragments :: head(~{::title})">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,7 +68,7 @@
 <br>
 <br>
 
-<footer th:replace="~{/admin/_fragments ::footer}" class="ui inverted vertical segment m-padded-tb-massive  ">
+<footer th:replace="~{admin/_fragments ::footer}" class="ui inverted vertical segment m-padded-tb-massive  ">
 
 
     <div class="ui center aligned container">

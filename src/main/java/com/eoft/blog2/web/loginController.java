@@ -19,22 +19,29 @@ public class loginController {
     @Autowired
     private UserService userService;
 
-
-    @GetMapping
+    @GetMapping()
     public String loginPage(){
 
         return "admin/login";
     }
+    @GetMapping("/login")
+    public String loginPage2(){
 
-
+        return "admin/login";
+    }
     @PostMapping("/login")
     public  String login(@RequestParam String username,
                          @RequestParam String password,
-                         HttpSession session, RedirectAttributes attributes
+                         HttpSession session,
+                         RedirectAttributes attributes
                          )
     {
         User user = userService.checkUser(username,password);
+        System.out.println(username);
+        System.out.println("------------------*************************************************** ");
+        System.out.println(password);
         if(user != null){
+
             user.setPassword(null);
             session.setAttribute("user",user);
             return "admin/index";
@@ -44,6 +51,7 @@ public class loginController {
         }
     }
 
+    // 退出登录
     @GetMapping("/logout")
     public String logout(HttpSession session){
     session.removeAttribute("user");
