@@ -7,11 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>关于我</title>
-    <link rel="stylesheet" href="../static/semantics-dist/semantic.min.css">
-    <link rel="stylesheet" href="../static/css/me.css">
+    <link rel="stylesheet" href="../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
 
-    <script src="../static/js/jquery-3.7.1.min.js"></script>
-    <script src="../static/semantics-dist/semantic.min.js"></script>
+    <script src="../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
+    <script src="../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 </head>
 <body>
 <nav class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
@@ -47,7 +47,7 @@
             <div class="ui grid">
                 <div class="eleven wide column">
                     <div class="ui segment">
-                    <img class="ui fluid image" src="../main/resources/images/mio1.png">
+                    <img class="ui fluid image" src="../static/images/mio1.png">
                     </div>
                 </div>
                 <div class="five wide column">
@@ -110,7 +110,7 @@
 
                 <div class="middle aligned">
 
-                    <img src="../main/resources/images/mio1.png"
+                    <img src="../static/images/mio1.png"
                          class="ui middle aligned round image" alt="" style="width: 150px">
                 </div>
 

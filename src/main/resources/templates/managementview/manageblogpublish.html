@@ -7,15 +7,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>后台管理</title>
-    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
 
-    <link rel="stylesheet" href="../../static/css/me.css">
-    <link rel="stylesheet" href="../../static/lib/editormd-master/css/editormd.min.css" />
+    <link rel="stylesheet" href="../../static/lib/editormd-master/css/editormd.min.css"  th:href="@{/lib/editormd-master/css/editormd.min.css}">
 
-    <script src="../../static/js/mjs.js"></script>
-    <script src="../../static/js/jquery-3.7.1.min.js"></script>
-    <script src="../../static/lib/editormd-master/editormd.min.js" ></script>
-    <script src="../../static/semantics-dist/semantic.min.js"></script>
+
+    <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
+
+<!--    <script src="http://zeptojs.com/zepto.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>-->
+    <script src="../../static/lib/editormd-master/editormd.min.js" th:src="@{/lib/editormd-master/editormd.min.js}"> </script>
+
+
+    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 
 </head>
 <body>
@@ -28,7 +32,7 @@
             <a class="m-item m-mobile-hidden item"><i class="ui tags icon">  </i>标签</a>
             <div class="right m-mobile-hidden menu">
                 <div class="ui dropdown item">
-                    <img class="ui avatar image" src="../../main/resources/images/mio3.jpg" alt="mio图">
+                    <img class="ui avatar image" src="../../static/images/mio3.jpg" alt="mio图">
                     长野原美绪
                     <i class="dropdown icon"></i>
                     <div class="menu">
@@ -215,7 +219,7 @@
 
                 <div class="middle aligned">
 
-                    <img src="../../main/resources/images/mio1.png"
+                    <img src="../../static/images/mio1.png"
                          class="ui middle aligned round image" alt="" style="width: 150px">
                 </div>
 
@@ -308,5 +312,21 @@
 
 
     });
+    // 确保jQuery已经加载
+    function initEditormd() {
+        if (typeof jQuery !== 'undefined') {
+            // jQuery已经加载，可以初始化Editor.md
+            var editor = editormd("editormd", {
+                // 你的Editor.md配置
+            });
+        } else {
+            // jQuery尚未加载，设置一个定时器来检查
+            setTimeout(initEditormd, 100);
+        }
+    }
 
+    // 页面加载完成后，执行初始化函数
+    $(document).ready(function() {
+        initEditormd();
+    });
 </script>

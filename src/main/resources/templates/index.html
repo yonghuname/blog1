@@ -2,23 +2,23 @@
 <html lang="en">
 
 
-<head>
+<head th:replace="~{_fragments:: head(~{::title})}">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首页</title>
-    <link rel="stylesheet" href="../static/semantics-dist/semantic.min.css">
-    <link rel="stylesheet" href="../static/css/me.css">
+    <link rel="stylesheet" href="../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
 
-    <script src="../static/js/jquery-3.7.1.min.js"></script>
-    <script src="../static/semantics-dist/semantic.min.js"></script>
+    <script src="../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
+    <script src="../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 </head>
 <body>
-    <nav class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <nav  th:replace="~{_fragments ::menu(1)}" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
         <div class="ui container"  >
             <div class="ui inverted secondary stackable menu">
                 <h3 class="ui teal header item">T's BLOG</h3>
-                <a class="active m-mobile-hidden item"> <i class="ui home icon">  </i>首页</a>
+                <a class="m-item m-mobile-hidden item"> <i class="ui home icon">  </i>首页</a>
                 <a class="m-item m-mobile-hidden item"> <i class="ui idea icon">  </i>分类</a>
                 <a class="m-item m-mobile-hidden item"><i class="ui tags icon">  </i>标签</a>
                 <a class="m-item m-mobile-hidden item"><i class="ui clone icon">  </i>归档</a>
@@ -84,7 +84,7 @@
                                             <div class="twelve wide column">
                                                 <div class="ui mini horizontal link list">
                                                     <div class="item">
-                                                        <img alt=""  class="ui avatar image" src="../main/resources/images/mio1.png"> <!-- 头像 -->
+                                                        <img alt=""  class="ui avatar image" src="../static/images/mio1.png"  th:src="@{/images/mio1.png}" > <!-- 头像 -->
 
                                                         <div class="content">
                                                             <a href="#" class="header">长野原美绪</a> <!-- 名字 -->
@@ -112,8 +112,8 @@
                                 <div class="ui five wide column">
                                     <div class="items">
 
-                                        <img src="../main/resources/images/mio1.png"
-                                             class="ui round image" alt="" style="width: 130px">
+                                        <img src="../static/images/mio1.png"
+                                             class="ui round image" th:src="@{/images/mio1.png}" alt="" style="width: 130px">
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                                             <div class="twelve wide column">
                                                 <div class="ui mini horizontal link list">
                                                     <div class="item">
-                                                        <img alt=""  class="ui avatar image" src="../main/resources/images/mio1.png"> <!-- 头像 -->
+                                                        <img alt=""  class="ui avatar image" src="../static/images/mio1.png"  th:src="@{/images/mio1.png}" > <!-- 头像 -->
 
                                                         <div class="content">
                                                             <a href="#" class="header">长野原美绪</a> <!-- 名字 -->
@@ -166,8 +166,8 @@
                                 <div class="ui five wide column">
                                     <div class="items">
 
-                                        <img src="../main/resources/images/mio1.png"
-                                             class="ui round image" alt="" style="width: 130px">
+                                        <img src="../static/images/mio1.png"
+                                             class="ui round image" th:src="@{/images/mio1.png}" alt="" style="width: 130px">
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                                             <div class="twelve wide column">
                                                 <div class="ui mini horizontal link list">
                                                     <div class="item">
-                                                        <img alt=""  class="ui avatar image" src="../main/resources/images/mio1.png"> <!-- 头像 -->
+                                                        <img alt=""  class="ui avatar image" src="../static/images/mio1.png"  th:src="@{/images/mio1.png}" > <!-- 头像 -->
 
                                                         <div class="content">
                                                             <a href="#" class="header">长野原美绪</a> <!-- 名字 -->
@@ -220,8 +220,8 @@
                                 <div class="ui five wide column">
                                     <div class="items">
 
-                                        <img src="../main/resources/images/mio1.png"
-                                             class="ui round image" alt="" style="width: 130px">
+                                        <img src="../static/images/mio1.png"
+                                             class="ui round image" th:src="@{/images/mio1.png}" alt="" style="width: 130px">
                                     </div>
                                 </div>
                             </div>
@@ -246,7 +246,7 @@
                                             <div class="twelve wide column">
                                                 <div class="ui mini horizontal link list">
                                                     <div class="item">
-                                                        <img alt=""  class="ui avatar image" src="../main/resources/images/mio1.png"> <!-- 头像 -->
+                                                        <img alt=""  class="ui avatar image" src="../static/images/mio1.png"  th:src="@{/images/mio1.png}" > <!-- 头像 -->
 
                                                         <div class="content">
                                                             <a href="#" class="header">长野原美绪</a> <!-- 名字 -->
@@ -274,62 +274,8 @@
                                 <div class="ui five wide column">
                                     <div class="items">
 
-                                        <img src="../main/resources/images/mio1.png"
-                                             class="ui round image" alt="" style="width: 130px">
-                                    </div>
-                                </div>
-                            </div>
-                            <!--                        </div>-->
-                        </div>
-                        <div class="ui padded segment m-padded-tb-large">
-                            <div class="ui mobile reversed stackable  grid">
-
-                                <div class="ui eleven wide column">
-
-
-                                    <h3 class="ui header">深化单词</h3>
-
-                                    <p class="m-text"> 深化单词理解
-                                        上下文学习：将单词放入句子或短文中，理解其在具体语境中的含义和用法。并更好地理解其背后的文化和语境。
-                                        词根词缀：学习词根和词缀的知识，更容易记忆和推测新单词的含义。
-                                        同义词和反义词：并在写作和阅读中更灵活地运用。</p>
-
-
-                                    <div>
-                                        <div class="ui grid">
-                                            <div class="twelve wide column">
-                                                <div class="ui mini horizontal link list">
-                                                    <div class="item">
-                                                        <img alt=""  class="ui avatar image" src="../main/resources/images/mio1.png"> <!-- 头像 -->
-
-                                                        <div class="content">
-                                                            <a href="#" class="header">长野原美绪</a> <!-- 名字 -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <i class="calendar icon"></i>2024-2-15
-                                                    </div> <!-- 时间 -->
-                                                    <div class="item">
-                                                        <i class="eye icon"></i>55555
-                                                    </div> <!-- 观看数 -->
-
-                                                </div>
-                                            </div>
-                                            <div class="right aligned middle aligned four wide  column m-padded-mini m-text-thin">
-                                                <a href="#" target="_blank" class="ui teal mini basic  left pointing label">认知升级</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-                                <!--                        首图-->
-                                <div class="ui five wide column">
-                                    <div class="items">
-
-                                        <img src="../main/resources/images/mio1.png"
-                                             class="ui round image" alt="" style="width: 130px">
+                                        <img src="../static/images/mio1.png"
+                                             class="ui round image" th:src="@{/images/mio1.png}" alt="" style="width: 130px">
                                     </div>
                                 </div>
                             </div>
@@ -462,7 +408,7 @@
                     </div>
                     <h3 class="ui horizontal  divider header"> 这里原本是二维码公众号是吧</h3>
                     <div class="ui centered card">
-                        <img src="../main/resources/images/木头人观察.jpg" alt="木头人观察图" class="ui rounded image"  >
+                        <img src="../static/images/木头人观察.jpg" alt="木头人观察图" class="ui rounded image" th:src="@{/images/木头人观察.jpg}">
                     </div>
                 </div>
             </div>
@@ -473,7 +419,7 @@
     <br>
     <br>
 
-    <footer class="ui inverted vertical segment m-padded-tb-massive  ">
+    <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive  ">
 
 
         <div class="ui center aligned container">
@@ -483,8 +429,8 @@
 
                         <div class="middle aligned">
 
-                            <img src="../main/resources/images/mio1.png"
-                                 class="ui middle aligned round image" alt="" style="width: 150px">
+                            <img src="../static/images/mio1.png"
+                                 class="ui middle aligned round image" alt="" style="width: 150px" th:src="@{/images/mio1.png}">
                         </div>
 
 
