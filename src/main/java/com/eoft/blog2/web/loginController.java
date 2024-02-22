@@ -22,7 +22,7 @@ public class loginController {
 
     @GetMapping
     public String loginPage(){
-        return "managementview/login";
+        return "admin/login";
     }
 
 
@@ -36,15 +36,18 @@ public class loginController {
         if(user != null){
             user.setPassword(null);
             session.setAttribute("user",user);
-            return "managementview/index";
+            return "admin/index";
         } else{
-            addtributes.addFlashAttribute()
-            return "redirect:managementview";
+            attributes.addFlashAttribute("message","用户名或密码错误");
+            return "redirect:/admin";
         }
-
-
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+    session.removeAttribute("user");
+    return "redirect:/admin";
+    }
 
 
 

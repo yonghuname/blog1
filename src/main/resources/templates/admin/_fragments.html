@@ -3,7 +3,7 @@
 <head th:fragment = "head(title)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:replace="${title}">后台管理</title>
+    <title th:replace="~{${title}}">后台管理</title>
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
 

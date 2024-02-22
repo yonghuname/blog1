@@ -31,17 +31,18 @@
         <div class="ui middle aligned center aligned grid">
             <div class="column">
                 <h2 class="ui teal image header">
-                    <img src="../../static/images/mio3.jpg" class="image">
+                    <img src="../../static/images/mio3.jpg" class="image"   th:src = "@{/images/mio3.jpg}">
+
                     <div class="content">
-                        Log-in to your account
+                        账号登录
                     </div>
                 </h2>
-                <form class="ui large form" method="post" action = "#">
+                <form class="ui large form" method="post" action = "#" th:action = "@{/admin/login}">
                     <div class="ui stacked segment">
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="email" placeholder="用户名">
+                                <input type="text" name="username" placeholder="用户名">
                             </div>
                         </div>
                         <div class="field">
@@ -50,7 +51,7 @@
                                 <input type="password" name="password" placeholder="密码">
                             </div>
                         </div>
-                        <div class="ui fluid large teal submit button">登录</div>
+                        <button class="ui fluid large teal submit button">登录</button>
                     </div>
 
                     <div class="ui error message"></div>

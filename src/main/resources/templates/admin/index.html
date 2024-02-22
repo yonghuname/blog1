@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<nav  th:replace="~{/admin/_fragments ::menu(1)}" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav  th:replace="~{admin/_fragments ::menu(0)}" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container"  >
         <div class="ui inverted secondary stackable menu">
             <h3 class="ui teal header item">博客管理后台</h3>
@@ -30,7 +30,7 @@
                     <i class="dropdown icon"></i>
                     <div class="menu">
                         <a href="#" class="item">管理账号</a>
-                        <a href="#" class="item">退出登录</a>
+                        <a href="#" class="item" th:href="@{/admin/logout}">退出登录</a>
                     </div>
                 </div>
 
