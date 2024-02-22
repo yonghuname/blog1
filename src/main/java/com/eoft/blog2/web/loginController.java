@@ -42,10 +42,14 @@ public class loginController {
         System.out.println(password);
         if(user != null){
 
+            System.out.println("登录在等待啊啊 啊啊啊啊 啊啊");
             user.setPassword(null);
             session.setAttribute("user",user);
+
+            System.out.println("登录成功了啊了哈哈哈哈哈哈哈 ");
             return "admin/index";
         } else{
+            System.out.println("登录失败了了了了了了了");
             attributes.addFlashAttribute("message","用户名或密码错误");
             return "redirect:/admin";
         }
