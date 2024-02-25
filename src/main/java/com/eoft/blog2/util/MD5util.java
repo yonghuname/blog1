@@ -42,6 +42,6 @@ public class MD5util {
 
 
     public static void main(String[] args) {
-        System.out.println(code("123456e"));
+        System.out.println(code("blog123456"));
     }
 }

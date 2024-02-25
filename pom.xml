@@ -50,6 +50,8 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.21</version> <!-- 使用最新版本 -->
         </dependency>
+
+
     </dependencies>
 
 

@@ -1,4 +1,4 @@
-package com.eoft.blog2.web;
+package com.eoft.blog2.web.admin;
 
 
 import org.springframework.stereotype.Controller;
