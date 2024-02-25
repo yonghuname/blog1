@@ -1,0 +1,25 @@
+2024-02-25T23:28:30.809+08:00  INFO 26464 --- [main] com.eoft.blog2.Blog2Application          : Starting Blog2Application using Java 21.0.2 with PID 26464 (E:\ IdeaProjects\blog2\target\classes started by 35011 in E:\ IdeaProjects\blog2)
+2024-02-25T23:28:30.816+08:00  INFO 26464 --- [main] com.eoft.blog2.Blog2Application          : The following 1 profile is active: "dev"
+2024-02-25T23:28:31.586+08:00  INFO 26464 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-25T23:28:31.645+08:00  INFO 26464 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 50 ms. Found 1 JPA repository interface.
+2024-02-25T23:28:32.697+08:00  INFO 26464 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-02-25T23:28:32.704+08:00  INFO 26464 --- [main] o.a.catalina.core.AprLifecycleListener   : An older version [1.2.37] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.5]
+2024-02-25T23:28:32.705+08:00  INFO 26464 --- [main] o.a.catalina.core.AprLifecycleListener   : Loaded Apache Tomcat Native library [1.2.37] using APR version [1.7.4].
+2024-02-25T23:28:32.716+08:00  INFO 26464 --- [main] o.a.catalina.core.AprLifecycleListener   : OpenSSL successfully initialized [OpenSSL 1.1.1u  30 May 2023]
+2024-02-25T23:28:32.729+08:00  INFO 26464 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-02-25T23:28:32.730+08:00  INFO 26464 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-02-25T23:28:32.796+08:00  INFO 26464 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-02-25T23:28:32.796+08:00  INFO 26464 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1918 ms
+2024-02-25T23:28:33.042+08:00  INFO 26464 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-25T23:28:33.143+08:00  INFO 26464 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-25T23:28:33.185+08:00  INFO 26464 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-02-25T23:28:33.471+08:00  INFO 26464 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-25T23:28:33.499+08:00  INFO 26464 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-02-25T23:28:33.923+08:00  INFO 26464 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@13374ca6
+2024-02-25T23:28:33.926+08:00  INFO 26464 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-02-25T23:28:34.943+08:00  INFO 26464 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-25T23:28:35.053+08:00  INFO 26464 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-25T23:28:35.570+08:00  WARN 26464 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-25T23:28:35.624+08:00  INFO 26464 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2024-02-25T23:28:36.109+08:00  INFO 26464 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2024-02-25T23:28:36.114+08:00  INFO 26464 --- [main] com.eoft.blog2.Blog2Application          : Started Blog2Application in 5.888 seconds (process running for 6.731)
