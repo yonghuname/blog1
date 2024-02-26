@@ -39251,3 +39251,31 @@ Caused by: org.thymeleaf.exceptions.TemplateInputException: Error resolving temp
 2024-02-26T22:26:53.769+08:00  INFO 15264 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-02-26T22:26:53.774+08:00  INFO 15264 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-02-26T22:26:53.790+08:00  INFO 15264 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-02-26T22:26:55.698+08:00  INFO 18688 --- [main] com.eoft.blog2.Blog2Application          : Starting Blog2Application using Java 21.0.2 with PID 18688 (E:\ IdeaProjects\blog2\target\classes started by 35011 in E:\ IdeaProjects\blog2)
+2024-02-26T22:26:55.699+08:00  INFO 18688 --- [main] com.eoft.blog2.Blog2Application          : The following 1 profile is active: "dev"
+2024-02-26T22:26:56.202+08:00  INFO 18688 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-26T22:26:56.244+08:00  INFO 18688 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37 ms. Found 2 JPA repository interfaces.
+2024-02-26T22:26:56.756+08:00  INFO 18688 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-02-26T22:26:56.758+08:00  INFO 18688 --- [main] o.a.catalina.core.AprLifecycleListener   : An older version [1.2.37] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.5]
+2024-02-26T22:26:56.759+08:00  INFO 18688 --- [main] o.a.catalina.core.AprLifecycleListener   : Loaded Apache Tomcat Native library [1.2.37] using APR version [1.7.4].
+2024-02-26T22:26:56.761+08:00  INFO 18688 --- [main] o.a.catalina.core.AprLifecycleListener   : OpenSSL successfully initialized [OpenSSL 1.1.1u  30 May 2023]
+2024-02-26T22:26:56.768+08:00  INFO 18688 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-02-26T22:26:56.768+08:00  INFO 18688 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-02-26T22:26:56.804+08:00  INFO 18688 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-02-26T22:26:56.804+08:00  INFO 18688 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1073 ms
+2024-02-26T22:26:56.920+08:00  INFO 18688 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-26T22:26:56.948+08:00  INFO 18688 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-26T22:26:56.980+08:00  INFO 18688 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-02-26T22:26:57.152+08:00  INFO 18688 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-26T22:26:57.170+08:00  INFO 18688 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-02-26T22:26:57.383+08:00  INFO 18688 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@26d8908e
+2024-02-26T22:26:57.384+08:00  INFO 18688 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-02-26T22:26:58.121+08:00  INFO 18688 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-26T22:26:58.186+08:00  INFO 18688 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-26T22:26:58.622+08:00  WARN 18688 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-26T22:26:58.652+08:00  INFO 18688 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2024-02-26T22:26:59.152+08:00  INFO 18688 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2024-02-26T22:26:59.156+08:00  INFO 18688 --- [main] com.eoft.blog2.Blog2Application          : Started Blog2Application in 3.834 seconds (process running for 4.265)
+2024-02-26T22:28:34.242+08:00  INFO 18688 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-26T22:28:34.242+08:00  INFO 18688 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-02-26T22:28:34.244+08:00  INFO 18688 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
