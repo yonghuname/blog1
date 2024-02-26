@@ -5,7 +5,7 @@
 <head th:replace="~{/admin/_fragments:: head(~{::title})}">
 
     <!--<head>-->
-    <title> 标签</title>
+    <title> 标签输入</title>
 
 </head>
 
@@ -41,51 +41,47 @@
 
 
 
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a href="#" th:href="@{/admin/tags/input}" class="item">新增</a>
+            <a href="#" th:href="@{/admin/tags}" class="teal active item">列表</a>
+        </div>
+    </div>
+</div>
+
+
+
 <!--中间内容-->
 <div  class="m-container-small m-padded-tb-big">
     <div class="ui container">
-        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
-            <i class="close icon"></i>
-            <div class="header">提示：</div>
-            <p th:text="${message}">恭喜，操作成功！</p>
-        </div>
-        <table class="ui celled table">
-            <thead>
-            <tr>
-                <th></th>
-                <th>名称</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="type,iterStat : ${page.content}">
-                <td th:text="${iterStat.count}">1</td>
-                <td th:text="${type.name}">刻意练习清单</td>
-                <td>
-                    <a href="#" th:href="@{/admin/tags/{id}/input(id=${type.id})}" class="ui mini teal basic button">编辑</a>
-                    <a href="#" th:href="@{/admin/tags/{id}/delete(id=${type.id})}" class="ui mini red basic button">删除</a>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="6" >
-                    <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
-                        <a th:href="@{/admin/tags(page=${page.number}-1)}" class="  item" th:unless="${page.first}">上一页</a>
-                        <a th:href="@{/admin/tags(page=${page.number}+1)}" class=" item" th:unless="${page.last}">下一页</a>
-                    </div>
-                    <a href="#" th:href="@{/admin/tags/input}"  class="ui mini right floated teal basic button">新增</a>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
+        <form action="#" method="post"  th:object="${tag}" th:action="*{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})} "  class="ui form">
+            <input type="hidden" name="id" th:value="*{id}">
+            <div class=" field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">名称</label>
+                    <input type="text" name="name" placeholder="分类名称" th:value="*{name}" >
+                </div>
+            </div>
+
+            <div class="ui error message"></div>
+            <!--/*/
+            <div class="ui negative message" th:if="${#fields.hasErrors('name')}"  >
+              <i class="close icon"></i>
+              <div class="header">验证失败</div>
+              <p th:errors="*{name}">提交信息不符合规则</p>
+            </div>
+             /*/-->
+            <div class="ui right aligned container">
+                <button type="button" class="ui button" onclick="window.history.go(-1)" >返回</button>
+                <button class="ui teal submit button">提交</button>
+            </div>
+
+        </form>
     </div>
 </div>
 
 <br>
-
-<br>
-<br>
 <br>
 <br>
 <br>
@@ -93,8 +89,6 @@
 <br>
 
 
-
-<!--底部footer-->
 
 <footer th:replace="~{admin/_fragments ::footer}" class="ui inverted vertical segment m-padded-tb-massive  ">
 

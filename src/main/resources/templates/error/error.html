@@ -7,7 +7,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404</title>
+    <title>error/</title>
     <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
 
@@ -19,7 +19,7 @@
 
 
 
-<nav  th:replace="~{../_fragments ::menu(0)}" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav  th:replace="~{_fragments ::menu(0)}" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container"  >
         <div class="ui inverted secondary stackable menu">
             <h3 class="ui teal header item">T's BLOG</h3>
@@ -42,24 +42,35 @@
         <i class="sidebar icon m-top-right "></i>
     </a>
 </nav>
-<h1>错误啊</h1>
+<br>
+<br>
+<div class="m-container-small m-padded-tb-massive">
+    <div class="ui error message m-padded-tb-massive">
+        <div class="ui container">
 
-<div>
-<!--    <div th:utext="'&lt;!&#45;&#45;'" th:remove="tag"></div>-->
+            <h2> 自定义error页面</h2>
+            <p>报错返回信息</p>
+            <div>
+                <!--    <div th:utext="'&lt;!&#45;&#45;'" th:remove="tag"></div>-->
 
-    <div th:utext="'Failed Request URL : ' + ${url}" th:remove="tag"></div>
+                <div th:utext="'Failed Request URL : ' + ${url}" th:remove="tag"></div>
 
 
-    <div th:utext="'Exception message : '   + ${exception?.message}" th:remove="tag"></div>
-        <ul th:remove="tag">
+                <div th:utext="'Exception message : '   + ${exception?.message}" th:remove="tag"></div>
+                <ul th:remove="tag">
 
-<!--            <li th:each="st :#{exception.stackTrace}" th:remove="tag">-->
-<!--                <span th:utext="${st}" th:remove="tag"></span></li>-->
-    </ul>
-<!--    <div th:utext="'&#45;&#45;&gt;'" th:remove="tag"></div>-->
+                    <!--            <li th:each="st :#{exception.stackTrace}" th:remove="tag">-->
+                    <!--                <span th:utext="${st}" th:remove="tag"></span></li>-->
+                </ul>
+                <!--    <div th:utext="'&#45;&#45;&gt;'" th:remove="tag"></div>-->
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive  ">
+
+<footer th:replace="~{_fragments :: footer}" class="ui inverted vertical segment m-padded-tb-massive  ">
 
 
     <div class="ui center aligned container">

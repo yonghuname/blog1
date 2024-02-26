@@ -29,6 +29,11 @@ public class indexController {
         System.out.println("----------blog------------");
         return "blog" ;
     }
+    @GetMapping("/404")
+    public String e404(){
+        System.out.println("----------blog------------");
+        return "404" ;
+    }
 
 }
 

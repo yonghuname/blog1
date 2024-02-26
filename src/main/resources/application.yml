@@ -1,7 +1,7 @@
 spring:
   thymeleaf:
     mode: HTML
-
+    prefix: classpath:/templates/
     resources:
       static-locations: classpath:/static/
   profiles:
