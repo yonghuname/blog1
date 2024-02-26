@@ -18,4 +18,14 @@ public class Tag {
     private  String name;
     @ManyToMany(mappedBy = "tags")
     private List<Blog> blogs = new ArrayList<>();
+
+
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
