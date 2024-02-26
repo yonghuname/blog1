@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -16,7 +19,7 @@ public class Type {
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "分类名称不可以为空")
+    @NotBlank(message = "分类名称不可以为空1")
     private  String name;
 
     //    被维护之间的关系

@@ -10,7 +10,7 @@
 <body>
 
 <!--导航-->
-<nav th:replace="admin/_fragments :: menu(2)"  class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:replace="~{admin/_fragments :: menu(2)}"  class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container"  >
         <div class="ui inverted secondary stackable menu">
             <h3 class="ui teal header item">博客管理后台</h3>
@@ -48,7 +48,8 @@
 <!--中间内容-->
 <div  class="m-container-small m-padded-tb-big">
     <div class="ui container">
-        <form action="#" method="post"  th:object="${type}" th:action="*{id}==null ? @{/admin/types} : @{/admin/types/{id}(id=*{id})} "  class="ui form">
+        <form action="#" method="post"  th:object="${type}" th:action="*{id}==null ? @{/admin/types} : @{/admin/types/{id}(id=*{id})}" class="ui form">
+<!--               "   -->
             <input type="hidden" name="id" th:value="*{id}">
             <div class=" field">
                 <div class="ui left labeled input">
@@ -67,7 +68,7 @@
              /*/-->
             <div class="ui right aligned container">
                 <button type="button" class="ui button" onclick="window.history.go(-1)" >返回</button>
-                <button class="ui teal submit button">新增</button>
+                <button class="ui teal submit button">提交</button>
             </div>
 
         </form>
@@ -83,7 +84,7 @@
 <br>
 <br>
 <!--底部footer-->
-<footer class="ui inverted vertical segment m-padded-tb-massive  ">
+<footer th:replace="~{admin/_fragments ::footer}" class="ui inverted vertical segment m-padded-tb-massive  ">
 
 
     <div class="ui center aligned container">
@@ -132,10 +133,6 @@
     </div>
 </footer>
 
-<!--/*/<th:block th:replace="_fragments :: script">/*/-->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-<!--/*/</th:block>/*/-->
 
 <script>
 
@@ -150,7 +147,7 @@
     $('.ui.form').form({
         fields : {
             title : {
-                identifier: 'nam1e',
+                identifier: 'name2',
                 rules: [{
                     type : 'empty',
                     prompt: '请输入分类名称'

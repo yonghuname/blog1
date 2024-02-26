@@ -6,7 +6,7 @@
     <title th:replace="${title}">后台管理</title>
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
-
+    <link rel="icon" th:href="@{/images/icon1logo32.ico}" href="/favicon.ico">
     <link rel="stylesheet" href="../../static/lib/editormd-master/css/editormd.min.css"  th:href="@{/lib/editormd-master/css/editormd.min.css}">
 
     <script src="../../static/lib/editormd-master/editormd.min.js" th:src="@{/lib/editormd-master/editormd.min.js}"> </script>
@@ -91,7 +91,7 @@
                                         <div class="twelve wide column">
                                             <div class="ui mini horizontal link list">
                                                 <div class="item">
-                                                    <img alt=""  class="ui avatar image" src="../static/images/mio1.png"> <!-- 头像 -->
+                                                    <img alt=""  class="ui avatar image" src="../static/images/mio1.png" th:src="@{/images/mio1.png}"> <!-- 头像 -->
 
                                                     <div class="content">
                                                         <a href="#" class="header">长野原美绪</a> <!-- 名字 -->

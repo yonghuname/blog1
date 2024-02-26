@@ -55,6 +55,7 @@ public class TypeServiceImpl implements TypeService {
         BeanUtils.copyProperties(type,t);
         return typeRepository.save(t);
     }
+//    通过找id 来修改update
 
 
 

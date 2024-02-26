@@ -55,12 +55,17 @@ Model model：同样用于在控制器和视图之间传递数据。
 
 
     @PostMapping("/types")
-    public String post(@Valid Type type, BindingResult result, RedirectAttributes attributes) {
-   Type type1 = typeService.getTypeByName(type.getName());
+    public String post(@Validated Type type, BindingResult result, RedirectAttributes attributes) {
+   Type type1 = typeService.getTypeByName(type.getName()) ;
+//   这是在数据库搜到的看有没有重复 同名type1 ，if 空 说明可以添加
+
         if (type1 != null) {
+
             result.rejectValue("name","nameError","不能添加重复的分类");
         }
+
         if (result.hasErrors()) {
+//      无用      attributes.addFlashAttribute("org.springframework.web.servlet.mvc.support.RedirectAttributes.ERRORS_ORIGINAL_ATTRIBUTE", result.getFieldErrors());
             return "admin/types-input";
         }
 
@@ -68,7 +73,7 @@ Model model：同样用于在控制器和视图之间传递数据。
         if (t == null ) {
             attributes.addFlashAttribute("message", "操作失败");
         } else {
-            attributes.addFlashAttribute("message", "新增成功");
+            attributes.addFlashAttribute("message", "提交成功");
         }
 //        重定向才会又查询的数据
         return "redirect:/admin/types";
@@ -80,7 +85,7 @@ Model model：同样用于在控制器和视图之间传递数据。
         return "admin/types-input";
     }
 
-/*
+
 
 
     @PostMapping("/types/{id}")
@@ -108,5 +113,5 @@ Model model：同样用于在控制器和视图之间传递数据。
         return "redirect:/admin/types";
     }
 
-*/
+
 }
