@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 @Entity
@@ -15,10 +15,12 @@ public class Type {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+
+    @NotBlank(message = "分类名称不可以为空")
     private  String name;
+
+    //    被维护之间的关系
     @OneToMany(mappedBy = "type")
-//    被维护之间的关系
     private List<Blog> blogs =new ArrayList<>();
 }
 

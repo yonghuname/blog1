@@ -32,12 +32,12 @@ public class TypeServiceImpl implements TypeService {
 //        getone代替了findone 新版
 
     }
-/*
+
     @Override
     public Type getTypeByName(String name) {
         return typeRepository.findByName(name);
     }
-*/
+
     @Transactional
     @Override
     public Page<Type> listType(Pageable pageable) {

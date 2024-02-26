@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.Valid;
+//import org.springframework.web.bind.annotation.validation;
+import javax.validation.Valid;
 
+//import org.springframework.web.bind.annotation.Valid;
 
 
 @Controller
@@ -50,16 +52,18 @@ Model model：同样用于在控制器和视图之间传递数据。
         model.addAttribute("type", new Type());
         return "admin/types-input";
     }
+
+
     @PostMapping("/types")
-    public String post(@Validated Type type, BindingResult result, RedirectAttributes attributes) {
-      /*   Type type1 = typeService.getTypeb(type.getName());
+    public String post(@Valid Type type, BindingResult result, RedirectAttributes attributes) {
+   Type type1 = typeService.getTypeByName(type.getName());
         if (type1 != null) {
             result.rejectValue("name","nameError","不能添加重复的分类");
         }
         if (result.hasErrors()) {
             return "admin/types-input";
         }
-*/
+
         Type t = typeService.saveType(type);
         if (t == null ) {
             attributes.addFlashAttribute("message", "操作失败");
@@ -70,13 +74,13 @@ Model model：同样用于在控制器和视图之间传递数据。
         return "redirect:/admin/types";
     }
 
-/*
     @GetMapping("/types/{id}/input")
     public String editInput(@PathVariable Long id, Model model) {
         model.addAttribute("type", typeService.getType(id));
         return "admin/types-input";
     }
 
+/*
 
 
     @PostMapping("/types/{id}")
