@@ -169,8 +169,9 @@
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="appreciate" name="appreciate" class="hidden" th:checked="*{appreciation}">
-                        <label for="appreciate" >appreciate3</label>
+                        <input type="checkbox" id="appreciate" name="appreciate" class="hidden" th:checked="*{appreciation}!=null ? *{appreciation}">
+                        <label for="appreciate" >赞赏</label>
+<!--                        todo 搞为什么*{appreciation} 没有默认值的问题 -->
                     </div>
                 </div>
                 <div class="field">
