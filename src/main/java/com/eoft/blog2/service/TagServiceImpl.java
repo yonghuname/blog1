@@ -9,8 +9,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.core.RepositoryInformationSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created by limi on 2017/10/16.
@@ -45,6 +48,11 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Tag> listTag() {
+        return tagRepository.findAll();
+    }
+
 
     @Transactional
     @Override
@@ -65,4 +73,6 @@ public class TagServiceImpl implements TagService {
         tagRepository.deleteById(id);
 //        新版要用 deleteById 而不是delete
     }
+
+
 }

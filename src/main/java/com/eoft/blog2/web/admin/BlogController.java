@@ -21,6 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class BlogController {
 
+
+    private static final String INPUT = "admin/blogs-input";
+    private static final String LIST = "admin/blogs";
+    private static final String REDIRECT_LIST = "redirect:/admin/blogs";
+
     @Autowired
     private BlogService blogService;
 
@@ -45,6 +50,20 @@ public class BlogController {
         return "admin/blogs :: blogList";
 
 //       只返回一个片段  blogList ， 只需要在table 加上 th:fragment="bloglist"
+    }
+
+
+
+
+    @GetMapping("/blogs/input")
+    public String input(Model model) {
+        setTypeAndTag(model);
+        model.addAttribute("blog", new Blog());
+        return INPUT;
+    }
+    private void setTypeAndTag(Model model) {
+        model.addAttribute("types", typeService.listType());
+        model.addAttribute("tags", tagService.listTag());
     }
 
 }
