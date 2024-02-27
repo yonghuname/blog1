@@ -33,7 +33,8 @@ public class Blog {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
-
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateTime;
     @ManyToOne
 //    主动维护关系
     private  Type type;
