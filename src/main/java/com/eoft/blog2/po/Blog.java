@@ -24,10 +24,10 @@ public class Blog {
     @Lob
     private  String content;
 
-    private String firstPictrue;
+    private String firstPicture;
     private String flag;
     private Integer views;
-    private boolean appriciation;
+    private boolean appreciation;
     private boolean shareStatement;
     private boolean commentabled;
 
@@ -54,8 +54,8 @@ public class Blog {
     private String tagIds;
 
     // 关系被维护方加上 mapper
-    @OneToMany(mappedBy = "blog")
-    private List<Comment> comments = new ArrayList<>();
+//    @OneToMany(mappedBy = "blog")
+//    private List<Comment> comments = new ArrayList<>();
 
 
     public void init() {
