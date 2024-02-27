@@ -27,7 +27,7 @@ public class Blog {
     private String firstPicture;
     private String flag;
     private Integer views;
-    private boolean appreciation;
+    private boolean appreciation=false;
     private boolean shareStatement;
     private boolean commentabled;
 
