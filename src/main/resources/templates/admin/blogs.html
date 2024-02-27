@@ -229,6 +229,13 @@
         loaddata();
     });
 
+    //消息提示关闭初始化
+    $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
 
 
     // 定义名为loaddata的函数，用于通过AJAX加载数据

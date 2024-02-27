@@ -20,6 +20,8 @@ public class Blog {
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
     private  String title;
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private  String content;
 
     private String firstPictrue;
@@ -45,10 +47,40 @@ public class Blog {
 //    关系维护方
     private  User user;
 
-    @OneToMany( mappedBy = "blog")
-// 关系被维护方加上 mapper
-
+    @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
+//    不想要设计 comment
+    @Transient
+    private String tagIds;
+
+    // 关系被维护方加上 mapper
+    @OneToMany(mappedBy = "blog")
+    private List<Comment> comments = new ArrayList<>();
+
+
+    public void init() {
+        this.tagIds = tagsToIds(this.getTags());
+    }
+
+
+    private String tagsToIds(List<Tag> tags) {
+        if (!tags.isEmpty()) {
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for (Tag tag : tags) {
+                if (flag) {
+                    ids.append(",");
+                } else {
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        } else {
+            return tagIds;
+        }
+    }
+
 
 
 }
