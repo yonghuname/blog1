@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_blog")
+//todo。当你在类上使用 @Entity 注解时，你告诉 JPA 这个类应该被映射到数据库中的一个表。 所以 blogquery不用 entity  只用data设置getset 就可以了
 
 public class Blog {
     @Id

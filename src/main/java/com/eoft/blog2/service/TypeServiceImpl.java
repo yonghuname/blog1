@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
 
 @Service
 public class TypeServiceImpl implements TypeService {
@@ -43,7 +46,10 @@ public class TypeServiceImpl implements TypeService {
     public Page<Type> listType(Pageable pageable) {
         return typeRepository.findAll(pageable);
     }
-
+    @Override
+    public List<Type> listType() {
+        return typeRepository.findAll();
+    }
 
     @Transactional
     @Override
@@ -55,6 +61,8 @@ public class TypeServiceImpl implements TypeService {
         BeanUtils.copyProperties(type,t);
         return typeRepository.save(t);
     }
+
+
 //    通过找id 来修改update
 
 

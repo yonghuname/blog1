@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
 
     <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
-    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>>
+    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 </head>
 <body>
 <nav th:replace="admin/_fragments :: menu(1)"  class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
@@ -51,25 +51,37 @@
         </div>
     </div>
 </div>
-<!--    中间内容 -->
-<div class="m-padded-tb-large " >
+<!--    中间内容-->
+<br>
+<!--中间内容-->
+<div  class="  m-padded-tb-big">
 
     <div class="ui   container">
-        <form action="#" method="post" class="ui secondary segment form">
+        <div  class="ui secondary segment form">
+            <!--      todo      这个 <form> 元素会触发默认的表单提交行为，而你的 JavaScript 中可能对表单的提交进行了一些处理，导致了问题。通过去掉 <form> 元素，你 essentially 将这部分内容从传统的表单提交行为中解耦，而更加依赖 JavaScript 处理。这样做可以防止浏览器默认的表单提交，确保你的 JavaScript 代码能够正确地处理用户的搜索请求。-->
+
+            <input type="hidden" name="page" >
+            <!--      todo 笔记  要知道隐含域的意义               -->
             <div class=" inline fields">
                 <div class="field">
                     <input type="text" name="title" placeholder="标题">
                 </div>
                 <div class="field">
-                    <div class="ui dropdown selection">
-                        <input type="hidden" name="type">
-                        <div class="default text">分类</div>
-                        <div class="menu">
-                            <div class="item" data-value="1">错误日志</div>
-                            <div class="item" data-value="2">开发者手册</div>
-                            <div class="item" data-value="3">认知升级</div>
+                    <div class="ui labeled action input">
+                        <div class="ui type selection dropdown">
+                            <input type="hidden" name="typeId">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">分类</div>
+                            <div class="menu">
+                                <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
+                                <!--/*-->
+                                <div class="item" data-value="2">开发者手册</div>
+                                <!--*/-->
+                            </div>
                         </div>
+                        <button id="clear-btn" class="ui compact button">clear</button>
                     </div>
+
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
@@ -78,91 +90,63 @@
                     </div>
                 </div>
                 <div class="field">
-                    <button class="ui mini teal basic button">
-                        <i class="search icon"> </i> 搜索
-                    </button>
+                    <button  type="button" id="search-btn" class="ui mini teal basic button"><i class="search icon"></i>搜索</button>
                 </div>
             </div>
-        </form>
+        </div>
+        <div id="table-container">
+            <table th:fragment="blogList" class="ui compact teal table">
+                <thead>
 
-        <table class="ui table">
-            <thead>
                 <tr>
                     <th></th>
                     <th>标题</th>
                     <th>类型</th>
                     <th>推荐</th>
+                    <th>状态</th>
                     <th>更新时间</th>
                     <th>操作</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>   1 </td>
-                    <td>  英语学习 </td>
-                    <td>   认知升级 </td>
-                    <td>  是 </td>
-                    <td>   2024-10-12 </td>
+
+                </thead>
+                <tbody>
+                <tr th:each="blog,iterStat : ${page.content}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${blog.title}">刻意练习清单</td>
+                    <td th:text="${blog.type.name}">认知升级</td>
+                    <td th:text="${blog.recommend} ? '是':'否'">是</td>
+                    <td th:text="${blog.published} ? '发布':'草稿'">草稿</td>
+                    <td th:text="${blog.updateTime}">2017-10-02 09:45</td>
                     <td>
-                        <a href="#" class="ui mini teal button">编辑</a>
-                        <a href="#" class="ui mini   red button">删除</a>
+                        <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
+                        <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui mini red basic button">删除</a>
                     </td>
-
                 </tr>
-            </tbody>
-            <tbody>
-            <tr>
-                <td>   1 </td>
-                <td>  英语学习 </td>
-                <td>   认知升级 </td>
-                <td>  是 </td>
-                <td>   2024-10-12 </td>
-                <td>
-                    <a href="#" class="ui mini teal button">编辑</a>
-                    <a href="#" class="ui mini   red button">删除</a>
-                </td>
-
-            </tr>
-            </tbody>
-            <tbody>
-            <tr>
-                <td>   1 </td>
-                <td>  英语学习 </td>
-                <td>   认知升级 </td>
-                <td>  是 </td>
-                <td>   2024-10-12 </td>
-                <td>
-                    <a href="#" class="ui mini teal button">编辑</a>
-                    <a href="#" class="ui mini   red button">删除</a>
-                </td>
-
-            </tr>
-            </tbody>
-            <tfoot>
+                </tbody>
+                <tfoot>
                 <tr>
-                    <th colspan="6">
-
-                        <div class="ui right floated pagination">
-                            <a  class="icon">
-                                上一页  <i class="left chevron icon"></i>
-                            </a>
-                            <a  class="icon">
-                                <i class="right chevron icon"></i>下一页
-                            </a>
-
-                            <a href="#" class="ui mini red right floated basic button">新增</a>
+                    <th colspan="7">
+                        <div class="ui mini pagination menu" th:if="${page.totalPages}>1" >
+                            <a onclick="page(this)" th:attr="data-page=${page.number}-1" class="item" th:unless="${page.first}">上一页</a>
+                            <a onclick="page(this)" th:attr="data-page=${page.number}+1" class=" item" th:unless="${page.last}">下一页</a>
                         </div>
-
+                        <a href="#" th:href="@{/admin/blogs/input}" class="ui mini right floated teal basic button">新增</a>
                     </th>
                 </tr>
-            </tfoot>
-        </table>
+                </tfoot>
+            </table>
+
+            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示：</div>
+                <p th:text="${message}">恭喜，操作成功！</p>
+            </div>
+
+        </div>
 
     </div>
 </div>
 
-<br>
-<br>
 
 <footer  th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive  ">
 
@@ -233,5 +217,40 @@
             // transition: 'drop',
             on:  'hover'
         })
+    // $是jquery的语法
+    function page(obj) {
+        $("[name='page']").val($(obj).data("page"));
+        loaddata();
+    }
+    // 选取name属性值为DOM 的元素
+    //能拿到 <input type="hidden" name="page"> 这个值吧,他是不是说错了??? 来自弹幕
+    $("#search-btn").click(function () {
+        $("[name='page']").val(0);
+        loaddata();
+    });
+
+
+
+    // 定义名为loaddata的函数，用于通过AJAX加载数据
+    function loaddata() {
+        // 使用jQuery的.load()方法从服务器加载数据
+        // 第一个参数是请求的URL，这里使用了模板字符串来插入后端提供的路径
+        // 路径中的/*@{/admin/blogs/search}
+        // 可能是后端模板引擎的占位符，实际路径会在服务器端解析
+        $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search", {
+            // 第二个参数是一个对象，包含了要发送到服务器的数据
+            // 这些数据将作为查询参数（GET请求）附加到URL上
+
+            // 获取名为'title'的输入框的值
+            title : $("[name='title']").val(),
+            // 获取名为'typeId'的输入框的值
+            typeId : $("[name='typeId']").val(),
+            // 获取名为'recommend'的复选框的选中状态
+            // prop('checked')用于获取复选框的选中状态，返回布尔值
+            recommend : $("[name='recommend']").prop('checked'),
+            // 获取名为'page'的输入框的值
+            page : $("[name='page']").val()
+        });
+    }
 
 </script>
