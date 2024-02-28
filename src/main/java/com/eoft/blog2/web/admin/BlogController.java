@@ -65,8 +65,10 @@ public class BlogController {
         Blog blog = new Blog();
 
         model.addAttribute("blog", new Blog());
-        return INPUT;
+
+                return INPUT;
     }
+
     private void setTypeAndTag(Model model) {
         model.addAttribute("types", typeService.listType());
         model.addAttribute("tags", tagService.listTag());
@@ -77,9 +79,13 @@ public class BlogController {
     public String editInput(@PathVariable Long id, Model model) {
         setTypeAndTag(model);
         Blog blog = blogService.getBlog(id);
+//编辑器
+        System.out.println("编辑文章功能启动");
         blog.init();
+
         model.addAttribute("blog",blog);
-        return INPUT;
+        return "admin/blogs-input";
+//        return INPUT;
     }
 
 

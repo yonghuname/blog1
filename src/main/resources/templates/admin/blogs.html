@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 
 
 <head th:replace="~{/admin/_fragments:: head(~{::title})}">
@@ -259,5 +259,11 @@
             page : $("[name='page']").val()
         });
     }
-
+    $('#clear-btn')
+        .on('click', function() {
+            $('.ui.type.dropdown')
+                .dropdown('clear')
+            ;
+        })
+    ;
 </script>

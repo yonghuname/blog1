@@ -171,7 +171,6 @@
                     <div class="ui checkbox">
                         <input type="checkbox" id="appreciate" name="appreciate" class="hidden" th:checked="*{appreciation}!=null ? *{appreciation}">
                         <label for="appreciate" >赞赏</label>
-<!--                        todo 搞为什么*{appreciation} 没有默认值的问题 -->
                     </div>
                 </div>
                 <div class="field">
@@ -282,7 +281,7 @@
 
 
     // 初始化markdown
-    /*
+
     var contentEditor;
 
     $(function() {
@@ -290,13 +289,14 @@
             width   : "100%",
             height  : 640,
             syncScrolling : "single",
-            path    : "../../static/lib/editormd-master/lib/"
+            path    : "/static/lib/editormd-master/lib/"
+        //     害死人tmd 。相对路径害死人，还是绝对路径可靠，因为相对路径找不到
         });
 
 
     });
-    */
 
+/*
     function initEditormd() {
         if (typeof jQuery !== 'undefined') {
             // jQuery已经加载，可以初始化Editor.md
@@ -317,7 +317,7 @@
         initEditormd();
     });
     // 确保jQuery已经加载
-
+*/
 
 
 
