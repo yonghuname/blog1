@@ -18,16 +18,17 @@
 
 
 </head>
-<body  >
+<!--th:style="'background :url( @{/static/images/anime11.png} );'"-->
+<body   >
 
-<nav th:fragment="menu(n)" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:fragment="menu(n)" class = "ui   attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container"  >
-        <div class="ui inverted secondary stackable menu">
+        <div class="ui   secondary stackable menu">
             <a href="#" th:href="@{/admin/blogs}">
-                <h3 class="ui teal header item" >博客管理后台</h3></a>
-            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 1) ? 'active' : ''}" th:href="@{/admin/blogs/input}"> <i class="ui home icon">  </i>发布</a>
-            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 2) ? 'active' : ''}" th:href="@{/admin/tags}"> <i class="ui idea icon">  </i>分类</a>
-            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/types}"><i class="ui tags icon">  </i>标签</a>
+                <h3 class="ui teal header item" ><i class="ui clipboard outline icon"></i>博客管理</h3></a>
+            <a class="m-item m-mobile-hidden  item"  th:classapend = "${(n == 1) ? 'active' : ''}" th:href="@{/admin/blogs/input}"> <i class="ui  home icon">  </i>发布</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 2) ? 'active' : ''}" th:href="@{/admin/types}"> <i class="ui idea icon">  </i>分类</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui tags icon">  </i>标签</a>
             <div class="right m-mobile-hidden menu">
                 <div class="ui dropdown item">
                     <img class="ui avatar image" src="../../static/images/mio3.jpg" th:src="@{/images/mio3.jpg}">
@@ -43,20 +44,28 @@
         </div>
 
     </div>
-    <a href="#" class="ui menu toggle m-mobile-show black button">
-        <i class="sidebar icon m-top-right "></i>
+    <a href="#" class="ui menu toggle m-mobile-show   button">
+        展开
+        <i class="sidebar  icon m-top-right "></i>
     </a>
 </nav>
 <!--    中间内容 -->
 
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
 
-<footer class="ui inverted vertical segment m-padded-tb-massive  " th:fragment="footer">
+<footer th:fragment="footer"  class = "ui    attached segment m-padded-tb-mini m-shadow-big-up">
 
 
+    <br>
+    <br>
+    <br>
     <div class="ui center aligned container">
-        <div class="ui inverted divided stackable grid">
+        <div class="ui   divided stackable grid">
 
             <div class="three wide column">
 
@@ -69,16 +78,16 @@
 
             </div>
             <div class="three wide column ">
-                <h4 class ="ui inverted header" >最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">等待填充1</a>
+                <h4 class ="ui   header" >最新博客</h4>
+                <div class="ui red  link list">
+                    <a href="#" class="red item">等待填充1</a>
                     <a href="#" class="item">等待填充2</a>
                     <a href="#" class="item">等待填充3</a>
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class ="ui inverted header">github</h4>
-                <div class="ui inverted link list">
+                <h4 class ="ui   header">github</h4>
+                <div class="ui   link list">
                     <a href="#" class="item">yonghuname@github.com</a>
                     <a href="#" class="item">等待填充</a>
                     <a href="#" class="item">等待填充</a>
@@ -87,7 +96,7 @@
 
             <div class="seven wide column">
 
-                <h4 class ="ui inverted header">博客介绍</h4>
+                <h4 class ="ui   header">博客介绍</h4>
 
                 <p  class="m-text-thin m-text-spaced m-opacity-mini ">这是我的个人博客,会分享文章，也可能被拿来做todolist</p>
 
@@ -96,7 +105,7 @@
 
         <!--111111111111111111111111111111-->
 
-        <div class="ui inverted section divider m-padded-tb-">
+        <div class="ui   section divider m-padded-tb-">
         </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
     </div>
 </footer>

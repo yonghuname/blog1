@@ -1,5 +1,5 @@
 body{
-    background: url("../images/anime11.png"    ) ;
+    background: url("/static/images/anime11.png"    ) ;
 }
 
 
@@ -215,6 +215,11 @@ color:#333333;
     -webkit-box-shadow:0 4px 8px rgba(0,0,0,0.2) !important;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
 }
+.m-shadow-big-up {
+     -webkit-box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3) !important;
+     box-shadow: 0 -6px 8px rgba(0, 0, 0, 0.3) !important;
+ }
+
 
 
 .m-input-max{
