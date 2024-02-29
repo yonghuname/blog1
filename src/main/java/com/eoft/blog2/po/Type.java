@@ -3,6 +3,7 @@ package com.eoft.blog2.po;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,12 @@ public class Type {
     //    被维护之间的关系
     @OneToMany(mappedBy = "type")
     private List<Blog> blogs =new ArrayList<>();
+
+/*
+    @Formula("(SELECT COUNT(*) FROM t_blog  b WHERE b.type_id = id)")
+    private int blogCountInType;
+    */
+
 }
 
 

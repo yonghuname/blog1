@@ -8,7 +8,10 @@ import com.eoft.blog2.dao.TagRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.data.repository.core.RepositoryInformationSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,6 +80,12 @@ public class TagServiceImpl implements TagService {
         }
         BeanUtils.copyProperties(tag,t);
         return tagRepository.save(t);
+    }
+
+    @Override
+    public List<Tag> listTagTop(Integer size) {
+        Pageable pageable = PageRequest.of(0, size, JpaSort.unsafe(Sort.Direction.DESC, "SIZE(blogs)"));
+        return tagRepository.findTop(pageable);
     }
 
 

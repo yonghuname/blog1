@@ -9,6 +9,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Size;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -19,6 +21,8 @@ public class Blog {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
+
+    @Size(max = 50)
     private  String title;
     @Basic(fetch = FetchType.LAZY)
     @Lob
@@ -53,6 +57,8 @@ public class Blog {
     @Transient
     private String tagIds;
 
+
+    private String description;
     // 关系被维护方加上 mapper
 //    @OneToMany(mappedBy = "blog")
 //    private List<Comment> comments = new ArrayList<>();

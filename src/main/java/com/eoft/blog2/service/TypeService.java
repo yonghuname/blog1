@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface TypeService {
 
+    List<Type> listTypeTop(Integer size);
+
     Type saveType(Type type);
 
     Type getType(Long id);

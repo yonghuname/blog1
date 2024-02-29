@@ -8,6 +8,9 @@ import com.eoft.blog2.web.NoFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Page;
@@ -21,6 +24,8 @@ public class TypeServiceImpl implements TypeService {
 
     @Autowired
     private TypeRepository typeRepository;
+
+
 
     @Transactional
     @Override
@@ -49,6 +54,19 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public List<Type> listType() {
         return typeRepository.findAll();
+    }
+
+/*
+@Query(value = "select id,name from sys_type order by id :order limit :size", nativeQuery = true)
+ Pageable pageable = PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "blogs.size"));
+*/
+    @Override
+    public List<Type> listTypeTop(Integer size) {
+        System.out.println("尝试起作用");
+//        Pageable pageable = PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "blogCountInType"));
+        Pageable pageable = PageRequest.of(0, size, JpaSort.unsafe(Sort.Direction.DESC, "SIZE(blogs)"));
+        System.out.println("-----------起作用");
+        return typeRepository.findTop(pageable);
     }
 
     @Transactional

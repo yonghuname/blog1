@@ -22,5 +22,7 @@ public interface TagService {
     List<Tag> listTag(String ids);
     Tag updateTag(Long id, Tag type);
 
+    List<Tag> listTagTop(Integer size);
+//    给主页侧边栏使用
     void deleteTag(Long id);
 }

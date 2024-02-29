@@ -13,7 +13,9 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,9 +28,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by limi on 2017/10/20.
- */
+
 @Service
 public class BlogServiceImpl implements BlogService {
 
@@ -44,6 +44,13 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
+    public List<Blog> listRecommendBlogTop(Integer size) {
+        Pageable pageable =   PageRequest.of(0, size, Sort.by(Sort.Direction.DESC,"updateTime"));
+        return blogRepository.findTop(pageable);
+    }
+
+
+    @Override
     public Page<Blog> listBlog(Pageable pageable, BlogQuery blog) {
         return blogRepository.findAll(new Specification<Blog>() {
             @Override
@@ -53,7 +60,7 @@ public class BlogServiceImpl implements BlogService {
                     predicates.add(cb.like(root.<String>get("title"), "%"+blog.getTitle()+"%"));
 //                    todo 需要了解怎么办弄这个 这个是什么意思 这里是模糊查询 ，把本类的所有注释完成了解
                 }
-//mb 屎山化了草蛋。又new一个包是不是脑子有毛病
+//md 屎山化了。又new一个包vo
                 if (blog.getTypeId() != null) {
                     predicates.add(cb.equal(root.<Type>get("type").get("id"), blog.getTypeId() ));
                 }
@@ -69,6 +76,15 @@ public class BlogServiceImpl implements BlogService {
             }
         },pageable);
     }
+    @Override
+    public Page<Blog> listBlog(Pageable pageable){        return blogRepository.findAll(pageable); }
+
+
+
+
+
+
+
 
     @Transactional
     @Override
@@ -94,7 +110,7 @@ public class BlogServiceImpl implements BlogService {
         BeanUtils.copyProperties(blog,b
 //                , MyBeanUtils.getNullPropertyNames(blog)
         );
-//        b.setUpdateTime(new Date());
+        b.setUpdateTime(new Date());
         return blogRepository.save(b);
     }
 

@@ -1,9 +1,17 @@
+
+
+.custom-header{
+    background: url("/static/images/anime11.png"    ) ;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
 body{
     background: url("/static/images/anime11.png"    ) ;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
-
-
-
 .m-padded-mini{
     padding  :0.2em !important;
 }
@@ -131,10 +139,13 @@ body{
 }
 
 .m-text{
-    font-size: 0.8em;
+    font-size: 0.8em!important;
     font-weight:300 !important;
     letter-spacing: 1px!important;
     line-height:1.8 !important;
+
+    word-wrap: break-word!important;
+    overflow-wrap: break-word!important;
 }
 .m-text-thin{
      font-weight:300 !important;
