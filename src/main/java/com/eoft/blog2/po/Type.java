@@ -27,10 +27,10 @@ public class Type {
     @OneToMany(mappedBy = "type")
     private List<Blog> blogs =new ArrayList<>();
 
-/*
+
     @Formula("(SELECT COUNT(*) FROM t_blog  b WHERE b.type_id = id)")
     private int blogCountInType;
-    */
+
 
 }
 

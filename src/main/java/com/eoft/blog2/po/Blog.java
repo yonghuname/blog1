@@ -25,7 +25,7 @@ public class Blog {
     @Size(max = 50)
     private  String title;
     @Basic(fetch = FetchType.LAZY)
-    @Lob
+//    @Lob
     private  String content;
 
     private String firstPicture;
