@@ -33,6 +33,8 @@
             <div class="   right item">
                 <form name="search" action="#"  id="searchForm"  th:action="@{/search}" method="get" target="_blank">
                     <div class="ui icon     input m-margin-tb-tiny">
+                        <input type="hidden" name="page" th:attr="value=${page == null ? 0 : page.number}">
+
                         <input type="text" name="query" placeholder="Search..." th:value="${query}">
                         <i onclick="document.forms['search'].submit()" class="search link icon"></i>
                     </div>
