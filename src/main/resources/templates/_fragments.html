@@ -16,9 +16,14 @@
 
     <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 
+    <script>
+        $(document).ready(function() {
+            $('#newblog-container').load('/footer/newblog' );
+        });
+    </script>
 
 </head>
-<body>
+
 
 <body  >
 <nav th:fragment="menu(n)" class = "ui   attached segment m-padded-tb-mini m-shadow-small">
@@ -507,17 +512,24 @@
             <div class="three wide column ">
                 <h4 class ="ui   header" >最新博客</h4>
                 <div class="ui red  link list">
-                    <a href="#" class="red item">等待填充1</a>
-                    <a href="#" class="item">等待填充2</a>
-                    <a href="#" class="item">等待填充3</a>
+                    <div id="newblog-container">
+                        <div class="ui black  link list" th:fragment="newblogList">
+
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="  black m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
+                            <!--/*-->
+                            <a href="#" class="item">等待填充2</a>
+                            <a href="#" class="item">等待填充3</a>
+                            <!--*/-->
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="three wide column">
                 <h4 class ="ui   header">github</h4>
                 <div class="ui   link list">
                     <a href="#" class="item">yonghuname@github.com</a>
-                    <a href="#" class="item">等待填充</a>
-                    <a href="#" class="item">等待填充</a>
+                    <a href="#" class="item">我真的不能在贴其他邮箱了</a>
+                    <a href="#" class="item">联系方式就这样子吧</a>
                 </div>
             </div>
 
@@ -540,5 +552,6 @@
 </body>
 
 
-</body>
+
+
 </html>

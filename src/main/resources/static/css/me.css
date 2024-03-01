@@ -152,7 +152,16 @@ body{
 
     word-wrap: break-word!important;
     overflow-wrap: break-word!important;
-}
+}.m-text-footer{
+     font-size: 1em!important;
+     font-weight:900 !important;
+     letter-spacing: 1px!important;
+     line-height:1.8 !important;
+    color: #0F192A;
+     word-wrap: break-word!important;
+     overflow-wrap: break-word!important;
+ }
+
 .m-text-thin{
      font-weight:300 !important;
  }

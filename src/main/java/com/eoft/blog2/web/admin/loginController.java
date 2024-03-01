@@ -1,10 +1,12 @@
 package com.eoft.blog2.web.admin;
 
 import com.eoft.blog2.po.User;
+import com.eoft.blog2.service.BlogService;
 import com.eoft.blog2.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,8 +70,13 @@ public class loginController {
         return "admin/user";
     }
 
-
-
+public BlogService blogService;
+    @GetMapping("/footer/newblog")
+    public String newblogs(Model model) {
+        System.out.println("底部渲染");
+        model.addAttribute("newblogs", blogService.listRecommendBlogTop(3));
+        return "_fragments :: newblogList";
+    }
 
 
 }

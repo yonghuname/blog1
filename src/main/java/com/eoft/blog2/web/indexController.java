@@ -94,11 +94,16 @@ private BlogService blogService;
         System.out.println("----------blog------------");
         return "404" ;
     }
-@GetMapping("/aboutme")
-public String aboutme(){
-        return "aboutme" ;
-}
-
+    @GetMapping("/aboutme")
+    public String aboutme(){
+            return "aboutme" ;
+    }
+    @GetMapping("/footer/newblog")
+    public String newblogs(Model model) {
+        System.out.println("底部渲染");
+        model.addAttribute("newblogs", blogService.listRecommendBlogTop(3));
+        return "_fragments :: newblogList";
+    }
 
 }
 
