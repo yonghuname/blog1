@@ -38,6 +38,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog getBlog(Long id) {
+
         return blogRepository.getOne(id);
 
     }

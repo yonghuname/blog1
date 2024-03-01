@@ -110,6 +110,13 @@ public class BlogController {
     }
 
 
+    @GetMapping("/blog/{id}")
+    public String blog(@PathVariable Long id, Model model) {
+        model.addAttribute("blog",blogService.getBlog(id));
+        System.out.println(blogService.getBlog(id).getTitle());
+        return "blog";
+    }
+
 }
 
 
