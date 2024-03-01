@@ -9,7 +9,7 @@
     <title>博客内容</title>
     <link rel="stylesheet" href="../static/lib/prism/prism.css"  th:href="@{/lib/prism/prism.css}">
     <link rel="stylesheet" href="../static/lib/beautifyArticle/typo.css" th:href="@{/lib/prism/prism.css}">
-    <link rel="icon" th:href="@{/images/icon1logo32.ico}" href="/favicon.ico">
+
     <link rel="stylesheet" href="../static/lib/beautifyArticle/animate.css" th:href="@{/lib/beautifyArticle/animate.css}">
 
     <link rel="stylesheet" href="../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
@@ -52,17 +52,17 @@
             <div class="ui top attached segment">
                 <div class="ui mini horizontal link list">
                     <div class="item">
-                        <img alt=""  class="ui avatar image" src="../static/images/mio1.png"    th:src="@{${blog.user.avatar}}"> <!-- 头像 -->
+                        <img alt=""  class="ui avatar image" src="../static/images/mio1.png" th:src="@{/images/mio1.png}"> <!-- 头像 -->
 
                         <div class="content">
-                            <a href="#" class="header"  th:text="@{${blog.user.nickname}}">长野原美绪</a> <!-- 名字 -->
+                            <a href="#" class="header">长野原美绪</a> <!-- 名字 -->
                         </div>
                     </div>
                     <div class="item">
-                        <i class="calendar icon" ></i> <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2024-2-15</span>
+                        <i class="calendar icon"></i>2024-2-15
                     </div> <!-- 时间 -->
                     <div class="item">
-                        <i class="eye icon"></i> <span th:text="${blog.views} ">55555</span>
+                        <i class="eye icon"></i>55555
                     </div> <!-- 观看数 -->
 
                 </div>
@@ -74,11 +74,11 @@
             </div>
             <div class="ui   attached padded segment">
                 <div class="ui right aligned basic segment">
-                    <div class="ui orange label" th:text="${blog.flag}">原创</div>
+                    <div class="ui orange label">原创</div>
                 </div>
-                <h1 class="ui centered header" th:text="${blog.title}">英语复习技巧</h1>
+                <h1 class="ui centered header">英语复习技巧</h1>
 <!--                正文主体-->
-                <div id="content" class="typo typo-selection m-padded-lr-huge m-padded-tb-large" th:text="${blog.content}}">
+                <div id="content" class="typo typo-selection m-padded-lr-huge m-padded-tb-large">
 
                     <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
 
@@ -184,11 +184,9 @@
 
 
                 </div>
-
-
 <!--                标签-->
                 <div>
-                    <a href="#" target="_blank" class="ui teal mini basic  left pointing label" th:each = "tag：${blog.tags}" th:text="${tag.name}" > 方法论</a>
+                    <a href="#" target="_blank" class="ui teal mini basic  left pointing label">认知升级</a>
                 </div>
 <!--                赞赏-->
                 <div class="ui center aligned basic segment">
@@ -213,17 +211,15 @@
             </div>
             <div class="ui positive attached message">
                 博客信息
-                <li> 作者 <span th:text="@{${blog.user.nickname}}"></span> 长野原mio</li>
-                <li> 发布日期 <span th:text="${#dates.format(blog.createTime,'yyyy-MM-dd HH:mm')}"></span> </li>
+                <li> 作者 长野原mio</li>
+                <li> 日期 </li>
                 <li> 其他信息 </li>
                 <li>  笔记 ，segment有白框 container没 </li>
 
 
             </div>
-<!--         todo   笔记 b ，segment有白框 container没-->
+<!--            笔记 ，segment有白框 container没-->
             <div class="ui bottom attached segment">
-
-
 <!--                留言区-->
                <div class="ui teal  segment">
                    <div class="ui comments">
@@ -248,7 +244,6 @@
                                </div>
                            </div>
                        </div>
-
                        <div class="comment">
                            <a class="avatar">
                                <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
@@ -310,8 +305,6 @@
                                <i class="icon edit"></i> 添加回复
                            </div>
                        </form>
-
-
                    </div>
                </div>
 

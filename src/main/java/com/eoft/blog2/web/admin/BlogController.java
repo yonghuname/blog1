@@ -9,7 +9,6 @@ import com.eoft.blog2.service.TypeService;
 import com.eoft.blog2.vo.BlogQuery;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -38,7 +37,7 @@ public class BlogController {
     @GetMapping("/blogs")
     public String blogs(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC)
                         Pageable pageable, BlogQuery blog, Model model) {
-
+        System.out.println("隐射了 吗  ？？？？");
         model.addAttribute("types", typeService.listType());
         model.addAttribute("page",blogService.listBlog(pageable,blog));
 //      todo  原来如此 函数上面的参数是从前端得到的，而且这些 都是往下面service传递的。这就是要对上接口的原因
@@ -110,12 +109,8 @@ public class BlogController {
     }
 
 
-    @GetMapping("/blog/{id}")
-    public String blog(@PathVariable Long id, Model model) {
-        model.addAttribute("blog",blogService.getBlog(id));
-        System.out.println(blogService.getBlog(id).getTitle());
-        return "blog";
-    }
+
+
 
 }
 
