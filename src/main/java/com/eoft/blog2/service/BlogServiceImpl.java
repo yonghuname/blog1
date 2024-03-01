@@ -4,6 +4,7 @@ package com.eoft.blog2.service;
 import com.eoft.blog2.dao.BlogRepository;
 import com.eoft.blog2.po.Blog;
 import com.eoft.blog2.po.Type;
+import com.eoft.blog2.util.MarkdownUtils;
 import com.eoft.blog2.vo.BlogQuery;
 import com.eoft.blog2.web.NoFoundException;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -42,6 +43,19 @@ public class BlogServiceImpl implements BlogService {
 
     }
 
+    public Blog getAndConvert(Long id){
+        Blog blog = blogRepository.getOne(id);
+        if (blog == null) {
+            throw new NoFoundException("此文章不存在");
+        }
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog,b);
+        String content = b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+
+//        blogRepository.updateViews(id);
+        return b;
+    }
 @Override
 public Page<Blog> listBlog(String query,Pageable pageable){
         return blogRepository.findbyQuery(query,pageable);

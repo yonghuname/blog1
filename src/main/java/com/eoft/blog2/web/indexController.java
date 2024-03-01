@@ -58,7 +58,7 @@ private BlogService blogService;
 
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model) {
-        model.addAttribute("blog", blogService.getBlog(id));
+        model.addAttribute("blog", blogService.getAndConvert(id));
 //        System.out.println();
         return "blog";
     }
