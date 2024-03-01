@@ -111,10 +111,8 @@
                     <div class="ui red  link list">
                         <div id="newblog-container">
                             <div class="ui   link list" th:fragment="newblogList">
-                                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
+                                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item black m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
                                        <!--/*-->
-                            <a href="#" class="item">等待填充2</a>
-                            <a href="#" class="item">等待填充3</a>
                                 <!--*/-->
                             </div>
                         </div>
