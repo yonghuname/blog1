@@ -1,17 +1,23 @@
 package com.eoft.blog2.web;
 
+import com.eoft.blog2.po.Blog;
 import com.eoft.blog2.service.BlogService;
 import com.eoft.blog2.service.TagService;
 import com.eoft.blog2.service.TypeService;
 import com.eoft.blog2.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.lang.String;
@@ -37,22 +43,27 @@ private BlogService blogService;
         model.addAttribute("types", typeService.listTypeTop(6));
         model.addAttribute("tags", tagService.listTagTop(8));
 
+//        int i = 9 / 0;
+/*
+        String blog = null;
+        if(blog == null){
+           throw new NoFoundException("文章不存在");
+        }
+*/
         System.out.println("----------index------------");
         return "index" ;
 
+
     }
-//    @GetMapping("/blog")
-//    public String blog(){
-//        System.out.println("----------blog------------");
-//        return "blog";
-//    }
+
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model) {
-        model.addAttribute("blog",blogService.getBlog(id));
-        System.out.println(blogService.getBlog(id).getTitle());
+        model.addAttribute("blog", blogService.getBlog(id));
+//        System.out.println();
         return "blog";
     }
-/*
+
+    /*
     @PostMapping("/search")
     public String search(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                          @RequestParam String query, Model model) {
@@ -82,6 +93,7 @@ private BlogService blogService;
         System.out.println("----------blog------------");
         return "404" ;
     }
+
 
 }
 

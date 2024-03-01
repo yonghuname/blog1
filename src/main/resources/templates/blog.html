@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
@@ -9,7 +10,7 @@
     <title>博客内容</title>
     <link rel="stylesheet" href="../static/lib/prism/prism.css"  th:href="@{/lib/prism/prism.css}">
     <link rel="stylesheet" href="../static/lib/beautifyArticle/typo.css" th:href="@{/lib/prism/prism.css}">
-
+    <link rel="icon" th:href="@{/images/icon1logo32.ico}" href="/favicon.ico">
     <link rel="stylesheet" href="../static/lib/beautifyArticle/animate.css" th:href="@{/lib/beautifyArticle/animate.css}">
 
     <link rel="stylesheet" href="../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
@@ -24,343 +25,352 @@
 </head>
 <body>
 <nav  th:replace="~{_fragments ::menu(1)}" class = "ui inverted   attached segment m-padded-tb-mini m-shadow-small">
-        <div class="ui container"  >
-            <div class="ui inverted secondary stackable menu">
-                <h3 class="ui teal header item">T's BLOG</h3>
-                <a class="m-item m-mobile-hidden item"> <i class="ui home icon">  </i>首页</a>
-                <a class="m-item m-mobile-hidden item"> <i class="ui idea icon">  </i>分类</a>
-                <a class="m-item m-mobile-hidden item"><i class="ui tags icon">  </i>标签</a>
-                <a class="m-item m-mobile-hidden item"><i class="ui clone icon">  </i>归档</a>
-                <a class="m-item m-mobile-hidden item"><i class="ui info icon"></i>关于我</a>
-                <div class="right item ">
-                    <div class="ui icon inverted input">
-                        <input type="text" placeholder="搜索....">
-                        <i class="ui search icon"></i>
+    <div class="ui container"  >
+        <div class="ui inverted secondary stackable menu">
+            <h3 class="ui teal header item">T's BLOG</h3>
+            <a class="m-item m-mobile-hidden item"> <i class="ui home icon">  </i>首页</a>
+            <a class="m-item m-mobile-hidden item"> <i class="ui idea icon">  </i>分类</a>
+            <a class="m-item m-mobile-hidden item"><i class="ui tags icon">  </i>标签</a>
+            <a class="m-item m-mobile-hidden item"><i class="ui clone icon">  </i>归档</a>
+            <a class="m-item m-mobile-hidden item"><i class="ui info icon"></i>关于我</a>
+            <div class="right item ">
+                <div class="ui icon inverted input">
+                    <input type="text" placeholder="搜索....">
+                    <i class="ui search icon"></i>
 
-                    </div>
                 </div>
             </div>
+        </div>
+
+    </div>
+    <a href="#" class="ui menu toggle m-mobile-show black button">
+        <i class="sidebar icon m-top-right "></i>
+    </a>
+</nav>
+<!--    中间内容 -->
+<div class="m-container-small m-padded-tb-big animated fadeIn   ">
+    <div class="ui container">
+        <div class="ui top attached segment">
+            <div class="ui mini horizontal link list">
+                <div class="item">
+                    <img alt=""  class="ui avatar image" src="../static/images/mio1.png"    th:src="@{${blog.user.avatar}}"> <!-- 头像 -->
+
+                    <div class="content">
+                        <a href="#" class="header"  th:text="@{${blog.user.nickname}}">长野原美绪</a> <!-- 名字 -->
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="calendar icon" ></i> <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2024-2-15</span>
+                </div> <!-- 时间 -->
+                <div class="item">
+                    <i class="eye icon"></i> <span th:text="${blog.views} ">55555</span>
+                </div> <!-- 观看数 -->
+
+            </div>
+        </div>
+        <div class="ui   attached segment">
+            <!--                <img src="../static/images/anime11.png" alt="" class="ui fluid rounded image">-->
+            <img src="https://pic1.zhimg.com/80/v2-e097d6ff2dae5503f80a68ff5f8a717a_1440w.webp?source=2c26e567" alt=""  th:src="@{${blog.firstPicture}}"  class="ui fluid rounded image">
 
         </div>
-        <a href="#" class="ui menu toggle m-mobile-show black button">
-            <i class="sidebar icon m-top-right "></i>
-        </a>
-    </nav>
-    <!--    中间内容 -->
-    <div class="m-container-small m-padded-tb-big animated fadeIn   ">
-        <div class="ui container">
-            <div class="ui top attached segment">
-                <div class="ui mini horizontal link list">
-                    <div class="item">
-                        <img alt=""  class="ui avatar image" src="../static/images/mio1.png" th:src="@{/images/mio1.png}"> <!-- 头像 -->
-
-                        <div class="content">
-                            <a href="#" class="header">长野原美绪</a> <!-- 名字 -->
-                        </div>
-                    </div>
-                    <div class="item">
-                        <i class="calendar icon"></i>2024-2-15
-                    </div> <!-- 时间 -->
-                    <div class="item">
-                        <i class="eye icon"></i>55555
-                    </div> <!-- 观看数 -->
-
-                </div>
+        <div class="ui   attached padded segment">
+            <div class="ui right aligned basic segment">
+                <div class="ui orange label" th:text="${blog.flag}">原创</div>
             </div>
-            <div class="ui   attached segment">
-<!--                <img src="../static/images/anime11.png" alt="" class="ui fluid rounded image">-->
-                <img src="https://pic1.zhimg.com/80/v2-e097d6ff2dae5503f80a68ff5f8a717a_1440w.webp?source=2c26e567" alt="" class="ui fluid rounded image">
+            <h1 class="ui centered header" th:text="${blog.title}">英语复习技巧</h1>
+            <!--                正文主体-->
+            <div id="content" class="typo typo-selection m-padded-lr-huge m-padded-tb-large" th:text="${blog.content}">
 
-            </div>
-            <div class="ui   attached padded segment">
-                <div class="ui right aligned basic segment">
-                    <div class="ui orange label">原创</div>
-                </div>
-                <h1 class="ui centered header">英语复习技巧</h1>
-<!--                正文主体-->
-                <div id="content" class="typo typo-selection m-padded-lr-huge m-padded-tb-large">
+                <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
 
-                    <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
+                <p><i class="serif">Typo.css</i> 的目的是，在一致化浏览器排版效果的同时，构建最适合中文阅读的网页排版。</p>
+                <h4>现状和如何去做：</h4>
 
-                    <p><i class="serif">Typo.css</i> 的目的是，在一致化浏览器排版效果的同时，构建最适合中文阅读的网页排版。</p>
-                    <h4>现状和如何去做：</h4>
-
-                    <pre><code class="language-css">p { color: red !important;}p { color: red !important;}p { color: red !important;}
+                <pre><code class="language-css">p { color: red !important;}p { color: red !important;}p { color: red !important;}
                         p { color: red !important;}p { color: red !important;}p { color: red !important;}
                          {style:red}
                     </code></pre>
-                    <p class="typo-first">排版是一个麻烦的问题 <sup><a href="#appendix1"># 附录一</a></sup>，需要精心设计，而这个设计却是常被视觉设计师所忽略的。前端工程师更常看到这样的问题，但不便变更。因为在多个 OS 中的不同浏览器渲染不同，改动需要多的时间做回归测试，所以改变变得更困难。而像我们一般使用的
-                        Yahoo、Eric Meyer 和 Alice base.css 中采用的 Reset 都没有很好地考虑中文排版。<i class="serif">Typo.css</i> 要做的就是解决中文排版的问题。</p>
+                <p class="typo-first">排版是一个麻烦的问题 <sup><a href="#appendix1"># 附录一</a></sup>，需要精心设计，而这个设计却是常被视觉设计师所忽略的。前端工程师更常看到这样的问题，但不便变更。因为在多个 OS 中的不同浏览器渲染不同，改动需要多的时间做回归测试，所以改变变得更困难。而像我们一般使用的
+                    Yahoo、Eric Meyer 和 Alice base.css 中采用的 Reset 都没有很好地考虑中文排版。<i class="serif">Typo.css</i> 要做的就是解决中文排版的问题。</p>
 
-                    <p><strong><i class="serif">Typo.css</i> 测试于如下平台：</strong></p>
-                    <table class="ui table" summary="Typo.css 的测试平台列表">
-                        <thead>
-                        <tr>
-                            <th>OS/浏览器</th>
-                            <th>Firefox</th>
-                            <th>Chrome</th>
-                            <th>Safari</th>
-                            <th>Opera</th>
-                            <th>IE9</th>
-                            <th>IE8</th>
-                            <th>IE7</th>
-                            <th>IE6</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>OS X</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Win 7</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Win XP</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>-</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                        </tr>
-                        <tr>
-                            <td>Ubuntu</td>
-                            <td>✔</td>
-                            <td>✔</td>
-                            <td>-</td>
-                            <td>✔</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <p><strong><i class="serif">Typo.css</i> 测试于如下平台：</strong></p>
+                <table class="ui table" summary="Typo.css 的测试平台列表">
+                    <thead>
+                    <tr>
+                        <th>OS/浏览器</th>
+                        <th>Firefox</th>
+                        <th>Chrome</th>
+                        <th>Safari</th>
+                        <th>Opera</th>
+                        <th>IE9</th>
+                        <th>IE8</th>
+                        <th>IE7</th>
+                        <th>IE6</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>OS X</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Win 7</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Win XP</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>-</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                    </tr>
+                    <tr>
+                        <td>Ubuntu</td>
+                        <td>✔</td>
+                        <td>✔</td>
+                        <td>-</td>
+                        <td>✔</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    </tbody>
+                </table>
 
-                    <h4>中文排版的重点和难点</h4>
+                <h4>中文排版的重点和难点</h4>
 
-                    <p>在中文排版中，HTML4 的很多标准在语义在都有照顾到。但从视觉效果上，却很难利用单独的 CSS 来实现，像<abbr title="在文字下多加一个点">着重号</abbr>（例：这里<em class="typo-em">强调一下</em>）。在 HTML4 中，专名号标签（<code>&lt;u&gt;</code>）已经被放弃，而
-                        HTML5 被<a href="//html5doctor.com/u-element/">重新提起</a>。<i class="serif">Typo.css</i> 也根据实际情况提供相应的方案。我们重要要注意的两点是：</p>
-                    <ol>
-                        <li>语义：语义对应的用法和样式是否与中文排版一致</li>
-                        <li>表现：在各浏览器中的字体、大小和缩放是否如排版预期</li>
-                    </ol>
-                    <p>对于这些，<i class="serif">Typo.css</i> 排版项目的中文偏重注意点，都添加在附录中，详见：</p>
-                    <blockquote>
-                        <b>附录一</b>：<a href="#appendix1"><i class="serif">Typo.css</i> 排版偏重点</a>
-                    </blockquote>
+                <p>在中文排版中，HTML4 的很多标准在语义在都有照顾到。但从视觉效果上，却很难利用单独的 CSS 来实现，像<abbr title="在文字下多加一个点">着重号</abbr>（例：这里<em class="typo-em">强调一下</em>）。在 HTML4 中，专名号标签（<code>&lt;u&gt;</code>）已经被放弃，而
+                    HTML5 被<a href="//html5doctor.com/u-element/">重新提起</a>。<i class="serif">Typo.css</i> 也根据实际情况提供相应的方案。我们重要要注意的两点是：</p>
+                <ol>
+                    <li>语义：语义对应的用法和样式是否与中文排版一致</li>
+                    <li>表现：在各浏览器中的字体、大小和缩放是否如排版预期</li>
+                </ol>
+                <p>对于这些，<i class="serif">Typo.css</i> 排版项目的中文偏重注意点，都添加在附录中，详见：</p>
+                <blockquote>
+                    <b>附录一</b>：<a href="#appendix1"><i class="serif">Typo.css</i> 排版偏重点</a>
+                </blockquote>
 
-                    <p>目前已有像百姓网等全面使用 <i class="serif">Typo.css</i> 的项目，测试平台的覆盖，特别是在<abbr title="手机、平板电脑等移动平台">移动端</abbr>上还没有覆盖完主流平台，希望有能力的同学能加入测试行列，或者加入到 <i class="serif">Typo.css</i>
-                        的开发。加入方法：<a href="https://github.com/sofish/Typo.css">参与 <i class="serif">Typo.css</i> 开发</a>。如有批评、建议和意见，也随时欢迎给在 Github 直接提 <a
-                                href="https://github.com/sofish/Typo.css/issues">issues</a>，或给<abbr title="Sofish Lin, author of Typo.css"
-                                                                                                      role="author">我</abbr>发<a
-                                href="mailto:sofish@icloud.com">邮件</a>。</p>
-
-
-                    <h2 id="section2">二、排版实例：</h2>
-
-                    <p>提供2个排版实例，第一个中文实例来自于来自于<cite class="typo-unique">张燕婴</cite>的《论语》，由于古文排版涉及到的元素比较多，所以采用《论语》中《学而》的第一篇作为排版实例介绍；第2个来自到经典的
-                        Lorem Ipsum，并加入了一些代码和列表等比较具有代表性的排版元素。</p>
-
-                    <h3 id="section2-1">例1：论语学而篇第一</h3>
+                <p>目前已有像百姓网等全面使用 <i class="serif">Typo.css</i> 的项目，测试平台的覆盖，特别是在<abbr title="手机、平板电脑等移动平台">移动端</abbr>上还没有覆盖完主流平台，希望有能力的同学能加入测试行列，或者加入到 <i class="serif">Typo.css</i>
+                    的开发。加入方法：<a href="https://github.com/sofish/Typo.css">参与 <i class="serif">Typo.css</i> 开发</a>。如有批评、建议和意见，也随时欢迎给在 Github 直接提 <a
+                            href="https://github.com/sofish/Typo.css/issues">issues</a>，或给<abbr title="Sofish Lin, author of Typo.css"
+                                                                                                  role="author">我</abbr>发<a
+                            href="mailto:sofish@icloud.com">邮件</a>。</p>
 
 
+                <h2 id="section2">二、排版实例：</h2>
+
+                <p>提供2个排版实例，第一个中文实例来自于来自于<cite class="typo-unique">张燕婴</cite>的《论语》，由于古文排版涉及到的元素比较多，所以采用《论语》中《学而》的第一篇作为排版实例介绍；第2个来自到经典的
+                    Lorem Ipsum，并加入了一些代码和列表等比较具有代表性的排版元素。</p>
+
+                <h3 id="section2-1">例1：论语学而篇第一</h3>
+
+
+            </div>
+
+
+            <!--                标签-->
+            <div>
+<!--                <a href="#" target="_blank" class="ui teal mini basic  left pointing label" th:each = "tag：${blog.tags}" th:text="${tag.name}" > 方法论</a>-->
+
+                <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">方法论</div>
+            </div>
+            <!--                赞赏-->
+            <div class="ui center aligned basic segment">
+                <button id="likesButton" class="ui orange basic circular button"> 赞</button>
+            </div>
+
+            <div class="ui likesImg flowing popup transition hidden">
+
+                <div class="ui  orange basic label">
+                    <div class="ui image">
+                        <div class="image">
+                            <img src="../static/images/mio1.png" alt="" class="ui image"th:src="@{/images/mio1.png}">
+                        </div>
+                    </div>
                 </div>
-<!--                标签-->
-                <div>
-                    <a href="#" target="_blank" class="ui teal mini basic  left pointing label">认知升级</a>
-                </div>
-<!--                赞赏-->
-                <div class="ui center aligned basic segment">
-                    <button id="likesButton" class="ui orange basic circular button"> 赞</button>
+
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="ui positive attached message">
+        博客信息
+        <li> 作者 <span th:text="@{${blog.user.nickname}}"></span> 长野原mio</li>
+        <li> 发布日期 <span th:text="${#dates.format(blog.createTime,'yyyy-MM-dd HH:mm')}"></span> </li>
+        <li> 其他信息 </li>
+        <li>  笔记 ，segment有白框 container没 </li>
+
+
+    </div>
+    <!--         todo   笔记 b ，segment有白框 container没-->
+    <div class="ui bottom attached segment">
+
+
+        <!--                留言区-->
+        <div class="ui teal  segment">
+            <div class="ui comments">
+                <h3 class="ui dividing header">Comments</h3>
+                <div class="comment">
+                    <a class="avatar">
+                        <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
+                    </a>
+                    <div class="content">
+                        <a class="author">Matt</a>
+                        <div class="metadata">
+                            <span class="date">Today at 5:42PM</span>
+                        </div>
+                        <div class="text">
+
+                            <p>  笔记 原来按钮合为一体可以这样子    "/< div class="ui labeled button m-margin-tb-tiny">"
+                                < a href="#" class="ui basic button">开发< /a>
+                                < div class="ui basic left pointing label">21< /div></p>
+                        </div>
+                        <div class="actions">
+                            <a class="reply">Reply</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="ui likesImg flowing popup transition hidden">
-
-                        <div class="ui  orange basic label">
-                            <div class="ui image">
-                                <div class="image">
-                                    <img src="../static/images/mio1.png" alt="" class="ui image"th:src="@{/images/mio1.png}">
+                <div class="comment">
+                    <a class="avatar">
+                        <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
+                    </a>
+                    <div class="content">
+                        <a class="author">Elliot Fu</a>
+                        <div class="metadata">
+                            <span class="date">Yesterday at 12:30AM</span>
+                        </div>
+                        <div class="text">
+                            <p>This has been very useful for my research. Thanks as well!</p>
+                        </div>
+                        <div class="actions">
+                            <a class="reply">Reply</a>
+                        </div>
+                    </div>
+                    <div class="comments">
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
+                            </a>
+                            <div class="content">
+                                <a class="author">Jenny Hess</a>
+                                <div class="metadata">
+                                    <span class="date">Just now</span>
+                                </div>
+                                <div class="text">
+                                    Elliot you are always so right :)
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">Reply</a>
                                 </div>
                             </div>
                         </div>
-
+                    </div>
                 </div>
-
-
-
+                <div class="comment">
+                    <a class="avatar">
+                        <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
+                    </a>
+                    <div class="content">
+                        <a class="author">Joe Henderson</a>
+                        <div class="metadata">
+                            <span class="date">5 days ago</span>
+                        </div>
+                        <div class="text">
+                            Dude, this is awesome. Thanks so much
+                        </div>
+                        <div class="actions">
+                            <a class="reply">Reply</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="ui positive attached message">
-                博客信息
-                <li> 作者 长野原mio</li>
-                <li> 日期 </li>
-                <li> 其他信息 </li>
-                <li>  笔记 ，segment有白框 container没 </li>
+                <form class="ui reply form">
+                    <div class="field">
+                        <textarea></textarea>
+                    </div>
+                    <div class="ui blue labeled submit icon button">
+                        <i class="icon edit"></i> 添加回复
+                    </div>
+                </form>
 
-
-            </div>
-<!--            笔记 ，segment有白框 container没-->
-            <div class="ui bottom attached segment">
-<!--                留言区-->
-               <div class="ui teal  segment">
-                   <div class="ui comments">
-                       <h3 class="ui dividing header">Comments</h3>
-                       <div class="comment">
-                           <a class="avatar">
-                               <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
-                           </a>
-                           <div class="content">
-                               <a class="author">Matt</a>
-                               <div class="metadata">
-                                   <span class="date">Today at 5:42PM</span>
-                               </div>
-                               <div class="text">
-
-                                        <p>  笔记 原来按钮合为一体可以这样子    "/< div class="ui labeled button m-margin-tb-tiny">"
-                                            < a href="#" class="ui basic button">开发< /a>
-                                            < div class="ui basic left pointing label">21< /div></p>
-                               </div>
-                               <div class="actions">
-                                   <a class="reply">Reply</a>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="comment">
-                           <a class="avatar">
-                               <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
-                           </a>
-                           <div class="content">
-                               <a class="author">Elliot Fu</a>
-                               <div class="metadata">
-                                   <span class="date">Yesterday at 12:30AM</span>
-                               </div>
-                               <div class="text">
-                                   <p>This has been very useful for my research. Thanks as well!</p>
-                               </div>
-                               <div class="actions">
-                                   <a class="reply">Reply</a>
-                               </div>
-                           </div>
-                           <div class="comments">
-                               <div class="comment">
-                                   <a class="avatar">
-                                       <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
-                                   </a>
-                                   <div class="content">
-                                       <a class="author">Jenny Hess</a>
-                                       <div class="metadata">
-                                           <span class="date">Just now</span>
-                                       </div>
-                                       <div class="text">
-                                           Elliot you are always so right :)
-                                       </div>
-                                       <div class="actions">
-                                           <a class="reply">Reply</a>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="comment">
-                           <a class="avatar">
-                               <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
-                           </a>
-                           <div class="content">
-                               <a class="author">Joe Henderson</a>
-                               <div class="metadata">
-                                   <span class="date">5 days ago</span>
-                               </div>
-                               <div class="text">
-                                   Dude, this is awesome. Thanks so much
-                               </div>
-                               <div class="actions">
-                                   <a class="reply">Reply</a>
-                               </div>
-                           </div>
-                       </div>
-                       <form class="ui reply form">
-                           <div class="field">
-                               <textarea></textarea>
-                           </div>
-                           <div class="ui blue labeled submit icon button">
-                               <i class="icon edit"></i> 添加回复
-                           </div>
-                       </form>
-                   </div>
-               </div>
 
             </div>
         </div>
+
     </div>
-    <br>
-    <br>
+</div>
+</div>
+<br>
+<br>
 
 <footer th:replace="_fragments :: footer" class="ui inverted  vertical segment m-padded-tb-massive  ">
 
 
-        <div class="ui center aligned container">
-            <div class="ui inverted divided stackable grid">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
 
-                <div class="three wide column">
+            <div class="three wide column">
 
-                    <div class="middle aligned">
+                <div class="middle aligned">
 
-                        <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}"
-                             class="ui middle aligned round image" alt="" style="width: 150px">
-                    </div>
-
-
-                </div>
-                <div class="three wide column ">
-                    <h4 class ="ui inverted header" >最新博客</h4>
-                    <div class="ui inverted link list">
-                        <a href="#" class="item">等待填充1</a>
-                        <a href="#" class="item">等待填充2</a>
-                        <a href="#" class="item">等待填充3</a>
-                    </div>
-                </div>
-                <div class="three wide column">
-                    <h4 class ="ui inverted header">github</h4>
-                    <div class="ui inverted link list">
-                        <a href="#" class="item">yonghuname@github.com</a>
-                        <a href="#" class="item">等待填充</a>
-                        <a href="#" class="item">等待填充</a>
-                    </div>
+                    <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}"
+                         class="ui middle aligned round image" alt="" style="width: 150px">
                 </div>
 
-                <div class="seven wide column">
 
-                    <h4 class ="ui inverted header">博客介绍</h4>
-
-                    <p  class="m-text-thin m-text-spaced m-opacity-mini ">这是我的个人博客,会分享文章，也可能被拿来做todolist</p>
-
+            </div>
+            <div class="three wide column ">
+                <h4 class ="ui inverted header" >最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">等待填充1</a>
+                    <a href="#" class="item">等待填充2</a>
+                    <a href="#" class="item">等待填充3</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class ="ui inverted header">github</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">yonghuname@github.com</a>
+                    <a href="#" class="item">等待填充</a>
+                    <a href="#" class="item">等待填充</a>
                 </div>
             </div>
 
+            <div class="seven wide column">
 
-            <div class="ui inverted section divider m-padded-tb-">
-            </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
+                <h4 class ="ui inverted header">博客介绍</h4>
+
+                <p  class="m-text-thin m-text-spaced m-opacity-mini ">这是我的个人博客,会分享文章，也可能被拿来做todolist</p>
+
+            </div>
         </div>
-    </footer>
+
+
+        <div class="ui inverted section divider m-padded-tb-">
+        </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
+    </div>
+</footer>
 <!--todo 还是需要添加侧边栏和一堆快捷键。但是今年没时间弄这个边边角角 明年再来-->
 
 </body>
@@ -373,15 +383,15 @@
 <script>
 
 
-        $('.menu.toggle').click(function() {
-            $('.m-item').toggleClass('m-mobile-hidden');
-        });
+    $('.menu.toggle').click(function() {
+        $('.m-item').toggleClass('m-mobile-hidden');
+    });
 
-        $('#likesButton').popup( {
-            popup :$('.likesImg.popup'),
-            on : "click",
-            position:"bottom center"
-        });
+    $('#likesButton').popup( {
+        popup :$('.likesImg.popup'),
+        on : "click",
+        position:"bottom center"
+    });
 
 
 </script>
