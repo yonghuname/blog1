@@ -62,7 +62,11 @@ public class loginController {
     return "redirect:/admin";
     }
 
+    @GetMapping("/user")
+    public String userpage(){
 
+        return "admin/user";
+    }
 
 
 

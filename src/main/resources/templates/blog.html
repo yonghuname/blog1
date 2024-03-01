@@ -53,7 +53,7 @@
         <div class="ui top attached segment">
             <div class="ui mini horizontal link list">
                 <div class="item">
-                    <img alt=""  class="ui avatar image" src="../static/images/mio1.png"    th:src="@{https://img2.baidu.com/it/u=1024056879,1494797032&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500}"> <!-- 头像 -->
+                    <img alt=""  class="ui avatar image" src="../static/images/mio1.png"    th:src="@{${blog.user.avatar}}"> <!-- 头像 -->
 
                     <div class="content">
                         <a href="#" class="header"  th:text="@{${blog.user.nickname}}">长野原美绪</a> <!-- 名字 -->
@@ -70,7 +70,7 @@
         </div>
         <div class="ui   attached segment">
             <!--                <img src="../static/images/anime11.png" alt="" class="ui fluid rounded image">-->
-            <img src="https://pic1.zhimg.com/80/v2-e097d6ff2dae5503f80a68ff5f8a717a_1440w.webp?source=2c26e567" alt=""  th:src="@{${blog.firstPicture}}"  class="ui fluid rounded image">
+            <img src="https://pic1.zhimg.com/80/v2-e097d6ff2dae5503f80a68ff5f8a717a_1440w.webp?source=2c26e567" alt=""  th:src="@{${blog.firstPicture}}"  class="ui img3to2 fluid rounded image">
 
         </div>
         <div class="ui   attached padded segment">
@@ -216,10 +216,10 @@
     </div>
     <div class="ui positive attached message">
         博客信息
-        <li> 作者 <span th:text="@{${blog.user.nickname}}"></span> 长野原mio</li>
-        <li> 发布日期 <span th:text="${#dates.format(blog.createTime,'yyyy-MM-dd HH:mm')}"></span> </li>
+        <li> 作者 <span th:text="@{${blog.user.nickname}}">长野原mio</span> </li>
+        <li> 发布日期 <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2024-2-15</span> </li>
         <li> 其他信息 </li>
-        <li>  笔记 ，segment有白框 container没 </li>
+<!--        <li>  笔记 ，segment有白框 container没 </li>-->
 
 
     </div>
@@ -227,96 +227,96 @@
     <div class="ui bottom attached segment">
 
 
-        <!--                留言区-->
-        <div class="ui teal  segment">
-            <div class="ui comments">
-                <h3 class="ui dividing header">Comments</h3>
-                <div class="comment">
-                    <a class="avatar">
-                        <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
-                    </a>
-                    <div class="content">
-                        <a class="author">Matt</a>
-                        <div class="metadata">
-                            <span class="date">Today at 5:42PM</span>
-                        </div>
-                        <div class="text">
+        <!--                留言区 反正不想要盘龙区功能-->
+<!--        <div class="ui teal  segment">-->
+<!--            <div class="ui comments">-->
+<!--                <h3 class="ui dividing header">Comments</h3>-->
+<!--                <div class="comment">-->
+<!--                    <a class="avatar">-->
+<!--                        <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">-->
+<!--                    </a>-->
+<!--                    <div class="content">-->
+<!--                        <a class="author">Matt</a>-->
+<!--                        <div class="metadata">-->
+<!--                            <span class="date">Today at 5:42PM</span>-->
+<!--                        </div>-->
+<!--                        <div class="text">-->
 
-                            <p>  笔记 原来按钮合为一体可以这样子    "/< div class="ui labeled button m-margin-tb-tiny">"
-                                < a href="#" class="ui basic button">开发< /a>
-                                < div class="ui basic left pointing label">21< /div></p>
-                        </div>
-                        <div class="actions">
-                            <a class="reply">Reply</a>
-                        </div>
-                    </div>
-                </div>
+<!--                            <p>  笔记 原来按钮合为一体可以这样子    "/< div class="ui labeled button m-margin-tb-tiny">"-->
+<!--                                < a href="#" class="ui basic button">开发< /a>-->
+<!--                                < div class="ui basic left pointing label">21< /div></p>-->
+<!--                        </div>-->
+<!--                        <div class="actions">-->
+<!--                            <a class="reply">Reply</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                <div class="comment">
-                    <a class="avatar">
-                        <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
-                    </a>
-                    <div class="content">
-                        <a class="author">Elliot Fu</a>
-                        <div class="metadata">
-                            <span class="date">Yesterday at 12:30AM</span>
-                        </div>
-                        <div class="text">
-                            <p>This has been very useful for my research. Thanks as well!</p>
-                        </div>
-                        <div class="actions">
-                            <a class="reply">Reply</a>
-                        </div>
-                    </div>
-                    <div class="comments">
-                        <div class="comment">
-                            <a class="avatar">
-                                <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
-                            </a>
-                            <div class="content">
-                                <a class="author">Jenny Hess</a>
-                                <div class="metadata">
-                                    <span class="date">Just now</span>
-                                </div>
-                                <div class="text">
-                                    Elliot you are always so right :)
-                                </div>
-                                <div class="actions">
-                                    <a class="reply">Reply</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="comment">
-                    <a class="avatar">
-                        <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">
-                    </a>
-                    <div class="content">
-                        <a class="author">Joe Henderson</a>
-                        <div class="metadata">
-                            <span class="date">5 days ago</span>
-                        </div>
-                        <div class="text">
-                            Dude, this is awesome. Thanks so much
-                        </div>
-                        <div class="actions">
-                            <a class="reply">Reply</a>
-                        </div>
-                    </div>
-                </div>
-                <form class="ui reply form">
-                    <div class="field">
-                        <textarea></textarea>
-                    </div>
-                    <div class="ui blue labeled submit icon button">
-                        <i class="icon edit"></i> 添加回复
-                    </div>
-                </form>
+<!--                <div class="comment">-->
+<!--                    <a class="avatar">-->
+<!--                        <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">-->
+<!--                    </a>-->
+<!--                    <div class="content">-->
+<!--                        <a class="author">Elliot Fu</a>-->
+<!--                        <div class="metadata">-->
+<!--                            <span class="date">Yesterday at 12:30AM</span>-->
+<!--                        </div>-->
+<!--                        <div class="text">-->
+<!--                            <p>This has been very useful for my research. Thanks as well!</p>-->
+<!--                        </div>-->
+<!--                        <div class="actions">-->
+<!--                            <a class="reply">Reply</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="comments">-->
+<!--                        <div class="comment">-->
+<!--                            <a class="avatar">-->
+<!--                                <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">-->
+<!--                            </a>-->
+<!--                            <div class="content">-->
+<!--                                <a class="author">Jenny Hess</a>-->
+<!--                                <div class="metadata">-->
+<!--                                    <span class="date">Just now</span>-->
+<!--                                </div>-->
+<!--                                <div class="text">-->
+<!--                                    Elliot you are always so right :)-->
+<!--                                </div>-->
+<!--                                <div class="actions">-->
+<!--                                    <a class="reply">Reply</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="comment">-->
+<!--                    <a class="avatar">-->
+<!--                        <img src="../static/images/mio1.png" th:src="@{/images/mio1.png}">-->
+<!--                    </a>-->
+<!--                    <div class="content">-->
+<!--                        <a class="author">Joe Henderson</a>-->
+<!--                        <div class="metadata">-->
+<!--                            <span class="date">5 days ago</span>-->
+<!--                        </div>-->
+<!--                        <div class="text">-->
+<!--                            Dude, this is awesome. Thanks so much-->
+<!--                        </div>-->
+<!--                        <div class="actions">-->
+<!--                            <a class="reply">Reply</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <form class="ui reply form">-->
+<!--                    <div class="field">-->
+<!--                        <textarea></textarea>-->
+<!--                    </div>-->
+<!--                    <div class="ui blue labeled submit icon button">-->
+<!--                        <i class="icon edit"></i> 添加回复-->
+<!--                    </div>-->
+<!--                </form>-->
 
 
-            </div>
-        </div>
+<!--            </div>-->
+<!--        </div>-->
 
     </div>
 </div>

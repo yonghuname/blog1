@@ -19,6 +19,12 @@ body{
 .m-padded-tiny{
      padding  :0.3em !important;
  }
+.m-padded-small-fortags{
+    /*padding  :0.5em !important;*/
+
+    padding-top :0.1em !important;
+    padding-bottom :0.5em !important;
+}
 
 .m-padded-tb-mini{
     padding-top :0.1em !important;
@@ -264,4 +270,22 @@ color:#333333;
     background-color: #fff; /* 容器背景颜色 */
     border: 10px solid black; /* 四周黑色边框 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 阴影效果，模拟四周黑色 */
+}
+.img3to2 {
+     max-width: 100%;
+     height:auto;
+ }
+.custom-div {
+    height: 150%;
+    /* 其他样式属性，根据需要添加 */
+}
+.flex-container {
+         display: flex;
+         flex-direction: column;
+         height: 85%;
+     }
+.flex-container-tag {
+    display: flex;
+    flex-direction: column;
+    height: 75%;
 }

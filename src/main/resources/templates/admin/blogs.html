@@ -14,7 +14,22 @@
     <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
     <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 </head>
-<body>
+
+<!--https://img8.51tietu.net/pic/2016-071105/201607110506065fdxcka1qoc127484.jpg-->
+<!--th:style="'background-image: url('https://img8.51tietu.net/pic/2016-071105/201607110506065fdxcka1qoc127484.jpg'); background-size: cover;'"-->
+<style th:inline="text">
+    body{
+        /*background: ;*/
+        /*url{[[@{https://img8.51tietu.net/pic/2016-071105/201607110506065fdxcka1qoc127484.jpg}]]}*/
+        /*no-repeat center center fixed;*/
+    }
+</style>
+
+
+
+<body >
+
+
 <nav th:replace="~{admin/_fragments :: menu(1)}"  class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container"  >
         <div class="ui inverted secondary stackable menu">
@@ -42,7 +57,7 @@
     </a>
 </nav>
 <!--二级导航-->
-<div class="ui attached pointing menu">
+<div  th:replace="~{admin/_fragments ::div1}"  class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
 

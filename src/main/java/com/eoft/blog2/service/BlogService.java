@@ -16,12 +16,12 @@ public interface BlogService {
     List<Blog> listRecommendBlogTop(Integer size);
     Page<Blog> listBlog(Pageable pageable, BlogQuery blog);
 
-
+    Page<Blog> listBlog2( Long typeid,Pageable pageable);
     Blog getAndConvert(Long id);
     Page<Blog> listBlog(String query,Pageable pageable);
     Page<Blog> listBlog(Pageable pageable);
 
-    Page<Blog> listBlog(Long tagId,Pageable pageable);
+    Page<Blog> listBlog3(Long tagId,Pageable pageable);
     Blog saveBlog(Blog blog);
 
     Blog updateBlog(Long id,Blog blog);

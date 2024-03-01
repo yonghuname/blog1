@@ -74,18 +74,15 @@ public class TypeShowController {
         if (id == -1) {
             id = types.get(0).getId();
         }
-        // 设置活动类型ID
+        // 设置现在都得当前ID
         model.addAttribute("activeTypeId", id);
 
-        // 创建BlogQuery对象
-        BlogQuery blogQuery = new BlogQuery();
-        blogQuery.setTypeId(id);
 
         // 创建PageRequest对象，用于分页
         PageRequest pageRequest = PageRequest.of(page, pageable.getPageSize(), pageable.getSort());
 
         // 获取分页博客列表
-        Page<Blog> pageBlogs = blogService.listBlog(pageRequest, blogQuery);
+        Page<Blog> pageBlogs = blogService.listBlog2(id ,pageRequest  );
 
         // 添加到模型
         model.addAttribute("types", types);

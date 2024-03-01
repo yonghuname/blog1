@@ -66,10 +66,19 @@ public Page<Blog> listBlog(String query,Pageable pageable){
         return blogRepository.findTop(pageable);
     }
 
+
+    /*
+    @Override
+    Page<Blog> listBlog(Pageable pageable, Integer typeid){
+        Pageable pageable =   PageRequest.of(0, typeid, Sort.by(Sort.Direction.DESC,"updateTime"));
+        return blogRepository.findByTAGid(pageable);
+    };
+    */
 // 这个是后台管理的查询，不要和前台查询 弄混了，改了半天最后发现是改后台
 
     @Override
     public Page<Blog> listBlog(Pageable pageable, BlogQuery blog) {
+
         return blogRepository.findAll(new Specification<Blog>()
         {
             @Override
@@ -98,14 +107,26 @@ public Page<Blog> listBlog(String query,Pageable pageable){
             }
         },pageable);
     }
+
+
+
+
     @Override
     public Page<Blog> listBlog(Pageable pageable){        return blogRepository.findbyPublished(pageable); }
+    @Override
+    public Page<Blog> listBlog2(Long typeid , Pageable pageable ){
+//        Pageable pageable =   PageRequest.of(0, typeid, Sort.by(Sort.Direction.DESC,"updateTime"));
+        return blogRepository.findByTypeid
+                (  typeid,pageable);
+    };
+
+    @Override
+    public Page<Blog> listBlog3(Long tagid, Pageable pageable)
 
 
-
-
-
-
+    {   return blogRepository.findByTagid
+            (  tagid,pageable);
+    }
 
 
     @Transactional

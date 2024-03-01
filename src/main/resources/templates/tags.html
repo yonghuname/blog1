@@ -16,7 +16,7 @@
 </head>
 </head>
 <body>
-<nav  th:replace="~{_fragments ::menu(n=2)}" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav  th:replace="~{_fragments ::menu(n=3)}" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container"  >
         <div class="ui inverted secondary stackable menu">
             <h3 class="ui teal header item">T's BLOG</h3>
@@ -46,12 +46,13 @@
         <div class="ui middle aligned two column grid">
             <!--                            two column 要一起 不分开-->
             <div class="  column">
-                <h3 class="ui teal header">标签</h3>
+                <h3 class="ui teal header">标签 </h3>
             </div>
-            <div class="   right aligned column">
+            <div class="   right aligned column" >
                 共
-                <h2 class="ui orange header m-inline-block">14</h2>
-                篇
+                <h2 class="ui orange header m-inline-block" th:text="${#arrays.length(tags)}">14</h2>
+                个
+<!--                todo 可以优化 显示隐藏的文章也被计入SUM-->
             </div>
 
         </div>
@@ -60,23 +61,87 @@
     <div class="ui attached segment">
 
         <div class="ui basic segment">
-
+            <a href="#" th:href="@{'/tags?page=0'+'&id=' +${tag.id }}"  th:classappend="${tag.id==activeTagId} ? 'teal'" th:each="tag : ${tags}" target="_blank" class="ui   basic left pointing label m-margin-tb-tiny">
+                <span th:text="${tag.name}">方法</span>   <div th:text="${#arrays.length(tag.blogs)}" class="detail">23</div>
+            </a>
+<!--/*-->
             <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">方法论
                 <div class="detail">23</div>
             </a>
-
             <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">方法论
                 <div class="detail">23</div>
             </a>
-            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">方法论
-                <div class="detail">23</div>
-            </a>
-
-        </div>
+<!--*/-->
+         </div>
     </div>
     <!--正文-->
     <div class="ui divider"></div>
     <div class="ui teal  attached segment">
+
+        <div class="ui padded   segment m-padded-tb-large" th:each="blog :${page.content}">
+            <div class="ui mobile reversed stackable  grid" >
+
+                <div class="ui eleven wide column">
+
+
+                    <div class="flex-container-tag">
+
+                        <h3 class="ui header" ><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">深化单词</a></h3>
+                        <p class="m-text" th:text="|${blog.description}......|"> 深化单词理解
+                            上下文学习：将单词放入句子或短文中，理解其在具体语境中的含义和用法。并更好地理解其背后的文化和语境。
+                            词根词缀：学习词根和词缀的知识，更容易记忆和推测新单词的含义。
+                            同义词和反义词：并在写作和阅读中更灵活地运用。</p>
+                        <!--                                    引入新的参数才会让描述换行 -->
+                    </div>
+                    <!--                                    引入新的参数才会让描述换行 -->
+
+
+                    <div>
+                        <div class="ui grid">
+                            <div class="twelve wide column">
+                                <div class="ui mini horizontal link list">
+                                    <div class="item">
+                                        <img alt=""  class="ui avatar image"   th:src="@{${blog.user.avatar}}" > <!-- 头像 -->
+
+                                        <div class="content">
+                                            <a href="#" class="header" th:text="${blog.user.nickname}">长野原美绪</a> <!-- 名字 -->
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <i class="calendar icon" ></i> <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2024-2-15</span>
+                                    </div> <!-- 时间 -->
+                                    <div class="item">
+                                        <i class="eye icon"></i> <span th:text="${blog.views} ">55555</span>
+                                    </div> <!-- 观看数 -->
+
+                                </div>
+                            </div>
+                            <div class="ui right aligned middle aligned four wide  column m-padded-mini m-text-thin">
+                                <a href="#" target="_blank" class="ui teal   basic  left pointing label" th:href="@{'/types?page=0'+'&id='+${blog.type.id }}" th:text="${blog.type.name}">认知升级</a>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <a href="#" th:href="@{'/tags?page=0'+'&id=' +${tag.id }}" class="ui  basic left pointing label ..m-padded-small-fortags small " th:classappend="${tag.id==activeTagId} ? 'teal'" th:each="tag : ${blog.tags}" th:text="${tag.name}">方法论</a>
+                            </div>
+                        </div>
+                    </div>
+
+<!--todo 2024年3月2日03:15:41 前端有空在调整没时间了md-->
+
+                </div>
+                <!--                                &lt;!&ndash;                        首图&ndash;&gt;-->
+
+                <div class="five wide column">
+                    <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                        <img  src="../static/images/mio1.png" th:src="@{${blog.firstPicture}}"  alt="" class="ui img3to2 rounded image">
+                    </a>
+                </div>
+            </div>
+            <!--                        </div>-->
+        </div>
+<!--/*-->
         <div class="ui   vertical segment m-padded-tb-large ">]
 
             <div class="ui mobile reversed stackable   grid">
@@ -260,76 +325,16 @@
                 </div>
             </div>
         </div>
-        <div class="ui   vertical segment m-padded-tb-large ">]
-
-            <div class="ui mobile reversed stackable   grid">
-
-                <div class="ui eleven wide column">
-
-
-                    <h3 class="ui header">深化单词</h3>
-
-                    <p class="m-text"> 深化单词理解
-                        上下文学习：将单词放入句子或短文中，理解其在具体语境中的含义和用法。并更好地理解其背后的文化和语境。
-                        词根词缀：学习词根和词缀的知识，更容易记忆和推测新单词的含义。
-                        同义词和反义词：并在写作和阅读中更灵活地运用。</p>
-
-
-                    <div>
-                        <div class="ui grid">
-                            <div class="twelve wide column">
-                                <div class="ui mini horizontal link list">
-                                    <div class="item">
-                                        <img alt=""  class="ui avatar image" src="../static/images/mio1.png"> <!-- 头像 -->
-
-                                        <div class="content">
-                                            <a href="#" class="header">长野原美绪</a> <!-- 名字 -->
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <i class="calendar icon"></i>2024-2-15
-                                    </div> <!-- 时间 -->
-                                    <div class="item">
-                                        <i class="eye icon"></i>55555
-                                    </div> <!-- 观看数 -->
-
-                                </div>
-                            </div>
-                            <div class="right aligned middle aligned four wide  column m-padded-mini m-text-thin">
-                                <a href="#" target="_blank" class="ui teal mini basic  left pointing label">认知升级</a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="column">
-                                <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">方法论
-                                    <div class="detail">23</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-                <!--                        首图-->
-                <div class="ui five wide column">
-                    <div class="items">
-
-                        <img src="../static/images/mio1.png"
-                             class="ui round image" alt="" style="width: 130px">
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--*/-->
     </div>
 
         <div class="ui attached bottom segment  ">
             <div class="ui middle aligned two column grid">
                 <div class="  column">
-                    <a href="#" class="ui teal basic button">上一页</a>
+                    <a href="#" class="ui teal basic button" th:href="@{'/types?page=' + ${page.number - 1} + '&id=' + ${activeTypeId}}" th:unless="${page.last}">上一页</a>
                 </div>
                 <div class=" right aligned column">
-                    <a href="#" class="ui teal basic button">下一页</a>
+                    <a href="#" class="ui teal basic button" th:href="@{'/types?page=' + ${page.number + 1} + '&id=' + ${activeTypeId}}" th:unless="${page.last}">下一页</a>
                 </div>
             </div>
         </div>

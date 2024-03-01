@@ -94,6 +94,10 @@ private BlogService blogService;
         System.out.println("----------blog------------");
         return "404" ;
     }
+@GetMapping("/aboutme")
+public String aboutme(){
+        return "aboutme" ;
+}
 
 
 }
