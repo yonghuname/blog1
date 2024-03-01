@@ -256,3 +256,12 @@ color:#333333;
         margin:0.5em!important;
     }
 }
+.black-border-container {
+    width: 80%; /* 或者你想要的任何宽度 */
+    max-width: 600px; /* 最大宽度，防止在小屏幕上过于宽 */
+    margin: 20px auto; /* 上下边距和自动水平居中 */
+    padding: 20px; /* 内边距 */
+    background-color: #fff; /* 容器背景颜色 */
+    border: 10px solid black; /* 四周黑色边框 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 阴影效果，模拟四周黑色 */
+}

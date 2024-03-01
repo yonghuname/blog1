@@ -98,6 +98,7 @@ public class BlogController {
         } else {
             attributes.addFlashAttribute("message", "操作成功");
         }
+
         return REDIRECT_LIST;
     }
 

@@ -25,11 +25,11 @@
     <div class="ui container"  >
         <div class="ui   secondary stackable menu">
             <h3 class="ui teal header item"><i class="ui     pencil alternate icon"></i>T's BLOG  </h3>
-            <a class="active m-mobile-hidden item" th:classapend = "${(n == 1) ? 'active' : ''}"> <i class="ui home icon">  </i>首页</a>
-            <a class="m-item m-mobile-hidden item" th:classapend = "${(n == 2) ? 'active' : ''}"> <i class="ui idea icon">  </i>分类</a>
-            <a class="m-item m-mobile-hidden item" th:classapend = "${(n == 3) ? 'active' : ''}"><i class="ui tags icon">  </i>标签</a>
-            <a class="m-item m-mobile-hidden item" th:classapend = "${(n == 4) ? 'active' : ''}"><i class="ui clone icon">  </i>归档</a>
-            <a class="m-item m-mobile-hidden item" th:classapend = "${(n == 5) ? 'active' : ''}"><i class="ui info icon"></i>关于我</a>
+            <a class="m-item m-mobile-hidden item" th:href="@{/}" th:classapend = "${(n == 1) ? 'active' : ''}"> <i class="ui home icon">  </i>首页</a>
+            <a class="m-item m-mobile-hidden item" th:href="@{'/types?page=0&id=-1' }" th:classapend = "${(n == 2) ? 'active' : ''}"> <i class="ui idea icon" > </i>分类</a>
+            <a class="m-item m-mobile-hidden item" th:href="@{/tags/-1}" th:classapend = "${(n == 3) ? 'active' : ''}"><i class="ui tags icon" >   </i>标签</a>
+            <a class="m-item m-mobile-hidden item" th:href="@{/archive}" th:classapend = "${(n == 4) ? 'active' : ''}"><i class="ui clone icon">  </i>归档</a>
+            <a class="m-item m-mobile-hidden item" th:href="@{/aboutme}" th:classapend = "${(n == 5) ? 'active' : ''}"><i class="ui info icon" ></i>关于我</a>
             <div class="   right item">
                 <form name="search" action="#"  id="searchForm"  th:action="@{/search}" method="get" target="_blank">
                     <div class="ui icon     input m-margin-tb-tiny">

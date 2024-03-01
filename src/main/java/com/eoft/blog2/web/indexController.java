@@ -38,6 +38,7 @@ private BlogService blogService;
     @GetMapping("/")
     public String index(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC)
                             Pageable pageable, BlogQuery blog, Model model){
+
         model.addAttribute("page",blogService.listBlog(pageable));
         model.addAttribute("recommendBlogs", blogService.listRecommendBlogTop(8));
         model.addAttribute("types", typeService.listTypeTop(6));
@@ -73,7 +74,7 @@ private BlogService blogService;
 */
     @GetMapping("/search")
     public String searchBlogs(
-            @PageableDefault(size =2, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size =5, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
             @RequestParam String query,
             Model model) {
         // 使用博客服务根据查询和分页信息获取博客列表

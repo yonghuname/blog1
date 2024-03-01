@@ -15,10 +15,10 @@ public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificat
     @Query("select b from Blog b where b.recommend = true")
     List<Blog> findTop(Pageable pageable);
 
-
-    @Query("select b from Blog b where b.title like ?1 or b.content like ?1")
-    Page<Blog> findbyQuery(String query,Pageable page);
-
+    @Query("SELECT b FROM Blog b WHERE (b.title LIKE ?1 OR b.content LIKE ?1) AND b.published = true")
+    Page<Blog> findbyQuery(String query, Pageable page);
+    @Query("SELECT b FROM Blog b WHERE b.published = true")
+    Page<Blog> findbyPublished(Pageable pageable);
 }
 //    ?1 是第一个 参数的意思
 

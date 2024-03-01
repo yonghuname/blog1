@@ -66,27 +66,32 @@ public Page<Blog> listBlog(String query,Pageable pageable){
         return blogRepository.findTop(pageable);
     }
 
+// 这个是后台管理的查询，不要和前台查询 弄混了，改了半天最后发现是改后台
 
     @Override
     public Page<Blog> listBlog(Pageable pageable, BlogQuery blog) {
-        return blogRepository.findAll(new Specification<Blog>() {
+        return blogRepository.findAll(new Specification<Blog>()
+        {
             @Override
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
-                if (!"".equals(blog.getTitle()) && blog.getTitle() != null) {
-                    predicates.add(cb.like(root.<String>get("title"), "%"+blog.getTitle()+"%"));
+
+                 if (!"".equals(blog.getTitle()) && blog.getTitle() != null) {
+                    predicates.add(cb.like(root.<String>get("title"), "%" + blog.getTitle() + "%"));
 //                    todo 需要了解怎么办弄这个 这个是什么意思 这里是模糊查询 ，把本类的所有注释完成了解
                 }
 //md 屎山化了。又new一个包vo
                 if (blog.getTypeId() != null) {
-                    predicates.add(cb.equal(root.<Type>get("type").get("id"), blog.getTypeId() ));
+                    predicates.add(cb.equal(root.<Type>get("type").get("id"), blog.getTypeId()));
                 }
 
 
                 if (blog.isRecommend()) {
                     predicates.add(cb.equal(root.<Boolean>get("recommend"), blog.isRecommend()));
                 }
+
 //实际上是三个栏目的需求
+//                 这里只搜索发布过 的文章其他去除
                 cq.where(predicates.toArray(new Predicate[predicates.size()]));
 //                这对于 cq cb不知道是什么联合查询吗 ？
                 return null;
@@ -94,7 +99,7 @@ public Page<Blog> listBlog(String query,Pageable pageable){
         },pageable);
     }
     @Override
-    public Page<Blog> listBlog(Pageable pageable){        return blogRepository.findAll(pageable); }
+    public Page<Blog> listBlog(Pageable pageable){        return blogRepository.findbyPublished(pageable); }
 
 
 
