@@ -91,7 +91,7 @@
             <a class="m-item m-mobile-hidden item" th:href="@{'/tags?page=0&id=-1' }"th:classapend = "${(n == 3) ? 'active' : ''}"><i class="ui tags icon" >   </i>标签</a>
             <a class="m-item m-mobile-hidden item" th:href="@{/admin/login}" th:classapend = "${(n == 4) ? 'active' : ''}"><i class="ui clone icon">  </i>登录</a>
             <a class="m-item m-mobile-hidden item" th:href="@{/aboutme}" th:classapend = "${(n == 5) ? 'active' : ''}"><i class="ui info icon" ></i>关于我</a>
-            <div class="   right item">
+            <div class=" m-item m-mobile-hidden right item">
                 <form name="search" action="#"  id="searchForm"  th:action="@{/search}" method="get" target="_blank">
                     <div class="ui icon   tiny  input m-margin-tb-mini">
                         <input type="hidden" name="page" th:attr="value=${page == null ? 0 : page.number}">
@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    </div>
+
     <a href="#" class="ui menu toggle m-mobile-show  button">
         <i class="sidebar icon m-top-right "></i>
     </a>
