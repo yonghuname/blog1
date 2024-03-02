@@ -44,11 +44,11 @@ public class BlogController {
                         Pageable pageable, BlogQuery blog, Model model ,HttpSession session) {
 
         User currentUser = (User) session.getAttribute("user");
-
+//       Long uid = currentUser.getId();
 //是这个blog
         model.addAttribute("types", typeService.listType());
 
-        model.addAttribute("page",blogService.blogssearch(pageable,blog));
+        model.addAttribute("page",blogService.blogssearch(pageable,blog,currentUser));
 
 
 //      todo  原来如此 函数上面的参数是从前端得到的，而且这些 都是往下面service传递的。这就是要对上接口的原因
@@ -60,7 +60,8 @@ public class BlogController {
                          BlogQuery blog, Model model,HttpSession session) {
 //
         User currentUser = (User) session.getAttribute("user");
-        model.addAttribute("page", blogService.blogssearch(pageable, blog));
+//        Long uid = currentUser.getId();
+        model.addAttribute("page", blogService.blogssearch(pageable, blog,currentUser));
         return "admin/blogs :: blogList";
     }
 

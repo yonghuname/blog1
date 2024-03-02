@@ -43,11 +43,12 @@
     </a>
 </nav>
 <!--二级导航-->
-<div class="ui attached pointing menu">
+<div  th:replace="~{admin/_fragments ::div1}"  class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
-            <a href="#" th:href="@{/admin/blogs/input}" class="teal active item">发布</a>
-            <a href="#" th:href="@{/admin/blogs}" class="item">列表</a>
+
+            <a href="#" class="item">发布</a>
+            <a href="#" class="teal active item">列表</a>
         </div>
     </div>
 </div>
@@ -74,6 +75,7 @@
 
             </div>
         </div>
+
         <form id="blog-form" action="#" th:object="${blog}" th:action="@{/admin/blogs}" method="post" class="ui form">
             <input type="hidden" name="user.id" th:value="${blog.user.id}" th:if="${blog.id != null}">
             <input type="hidden" name="published" th:value="*{published}">
@@ -104,7 +106,7 @@
                 </div>
             </div>
             <!--            这个插件我套了好多层就是为了手机也可以用，这里退出全屏会默认回 到第一次打开的页面宽度，所有在pc端打开前 浏览器缩放的很窄的 后小心变小-->
-            <div class="ui container">
+            <div class="ui   container">
 
                 <div class="ui segment">
 

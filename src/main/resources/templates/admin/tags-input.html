@@ -38,14 +38,12 @@
         <i class="sidebar icon m-top-right "></i>
     </a>
 </nav>
-
-
-
-<div class="ui attached pointing menu">
+<div  th:replace="~{admin/_fragments ::div1}"  class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
-            <a href="#" th:href="@{/admin/tags/input}" class="item">新增</a>
-            <a href="#" th:href="@{/admin/tags}" class="teal active item">列表</a>
+
+            <a href="#" class="item">发布</a>
+            <a href="#" class="teal active item">列表</a>
         </div>
     </div>
 </div>

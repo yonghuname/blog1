@@ -1,5 +1,6 @@
 package com.eoft.blog2.service;
 import com.eoft.blog2.po.Blog;
+import com.eoft.blog2.po.User;
 import com.eoft.blog2.vo.BlogQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +15,7 @@ public interface BlogService {
     Blog getBlog(Long id);
 
     List<Blog> listRecommendBlogTop(Integer size);
-    Page<Blog> blogssearch(Pageable pageable, BlogQuery blog);
+    Page<Blog> blogssearch(Pageable pageable, BlogQuery blog, User user);
 
     Page<Blog> listBlog2( Long typeid,Pageable pageable);
     Blog getAndConvert(Long id);

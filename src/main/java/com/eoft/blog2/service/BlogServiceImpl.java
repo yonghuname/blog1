@@ -4,6 +4,7 @@ package com.eoft.blog2.service;
 import com.eoft.blog2.dao.BlogRepository;
 import com.eoft.blog2.po.Blog;
 import com.eoft.blog2.po.Type;
+import com.eoft.blog2.po.User;
 import com.eoft.blog2.util.MarkdownUtils;
 import com.eoft.blog2.vo.BlogQuery;
 import com.eoft.blog2.web.NoFoundException;
@@ -76,11 +77,11 @@ public Page<Blog> listBlog(String query,Pageable pageable){
     };
     */
 // 这个是后台管理的查询，不要和前台查询 弄混了，改了半天最后发现是改后台
-    public Page<Blog> blogssearch( Pageable pageable,BlogQuery blogQuery) {
+    public Page<Blog> blogssearch(Pageable pageable, BlogQuery blogQuery , User currentUser) {
         if (blogQuery == null) {
             return blogRepository.findAll(pageable); // 查询全部
         }
-
+        Long uid = currentUser.getId();
         String title = blogQuery.getTitle();
         Long typeId = blogQuery.getTypeId();
         Boolean recommend = blogQuery.isRecommend();
@@ -88,28 +89,13 @@ public Page<Blog> listBlog(String query,Pageable pageable){
 
         // 检查是否所有条件都为空
         if (StringUtils.isBlank(title) && typeId == null && recommend == false) {
-            System.out.println("查询全部了");
-            return blogRepository.findAll(pageable); // 查询全部
+           if(currentUser.getType()==1) return blogRepository.findAll(pageable);
+           else  return blogRepository.findByUID(pageable,uid); //          如果是管理员类型 的账户就全搜索.这是没初试条件的搜索
         }
-        System.out.println("查询部分了");
-        // 其他条件非空，交给 repository 处理
-//        验证阶段
         {
-            Page<Blog>b2= blogRepository.findByTitleTypeRecommend(title, typeId, recommend, pageable);
-//            if (b2 != null && b2.hasContent()) {
-//                System.out.println("开始输出结果 符号条件的标题了");
-//                List<Blog> resultList = b2.getContent();
-//
-//                // 输出查询到的结果
-//                for (Blog blog : resultList) {
-//                    System.out.println(blog.getTitle());
-//                }
-//            } else {
-//                // 输出未检索到值的信息
-//                System.out.println("未检索到结果");
-//            }
-//            没问题
-        return b2;}
+            if(currentUser.getType()==1) return blogRepository.findByTitleTypeRecommend(title, typeId, recommend,pageable);
+         else return  blogRepository.findByTitleTypeRecommendUid(title, typeId, recommend, pageable,uid);
+  }
     }
 
 
