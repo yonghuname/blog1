@@ -57,7 +57,9 @@ public class BlogController {
     }
     @PostMapping("/blogs/search")
     public String search(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
-                         BlogQuery blog, Model model) {
+                         BlogQuery blog, Model model,HttpSession session) {
+//
+        User currentUser = (User) session.getAttribute("user");
         model.addAttribute("page", blogService.blogssearch(pageable, blog));
         return "admin/blogs :: blogList";
     }
@@ -65,19 +67,16 @@ public class BlogController {
 //    @PostMapping("/blogs/search")
 //    public String blogssearch(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC)
 //                        Pageable pageable, BlogQuery blog, Model model ,HttpSession session) {
-//
+////
 //        User currentUser = (User) session.getAttribute("user");
-//
-//
-//        model.addAttribute("types", typeService.listType());
-//        Page<Blog> b21=blogService.blogssearch(pageable,blog);
-//
-//
-//        model.addAttribute("page",b21);
-//        System.out.println("到底返回了吗 ？？");
+////
+////
+//        model.addAttribute("page", blogService.blogssearch(pageable, blog));
+////        System.out.println("到底返回了吗 ？？");
 //        return "admin/blogs::bloglist";
+//    我草 不会是大小写l 没写好吧我去 L l 不分了
 //    }
-//    todo 只更新片段的 返回渲染方案
+////    todo 只更新片段的 返回渲染方案
 
 
 //增加 blog 的获得一个空框
