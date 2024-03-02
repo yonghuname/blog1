@@ -51,7 +51,19 @@ public class BlogController {
     }
 
 
+    @GetMapping("/blogs/search")
+    public String blogssearch(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC)
+                        Pageable pageable, BlogQuery blog, Model model ,HttpSession session) {
 
+        User currentUser = (User) session.getAttribute("user");
+
+
+        model.addAttribute("types", typeService.listType());
+        model.addAttribute("page",blogService.listBlog(pageable,blog));
+
+        return "admin/blogs::bloglist";
+    }
+//    todo 只更新片段的 返回渲染方案
 
 
 //增加 blog 的获得一个空框
@@ -100,7 +112,7 @@ public class BlogController {
 //增 和改 blog的推送
     @PostMapping("/blogs")
     public String post(Blog blog, RedirectAttributes attributes, HttpSession session) {
-        System.out.println(blog.getUser().getId());
+//        System.out.println(blog.getUser().getId());
 //        System.out.println(blog.getFirstPicture());
         if(blog.getFirstPicture().equals("1")){
 

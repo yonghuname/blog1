@@ -77,7 +77,7 @@
 
             <div class=" inline fields">
                 <div class="field">
-                    <input type="text" name="title" placeholder="标题">
+                    <input type="text" id="titlesearch" name="title" placeholder="标题">
                 </div>
                 <div class="field">
                     <div class="ui labeled action input">
@@ -142,6 +142,7 @@
                 <tr>
                     <th colspan="7">
                         <div class="ui mini pagination menu" th:if="${page.totalPages}>1" >
+<!--                            th：attr 是自定义 属性  data-page对于后面  val($(obj).data("page"));-->
                             <a onclick="page(this)" th:attr="data-page=${page.number}-1" class="item" th:unless="${page.first}">上一页</a>
                             <a onclick="page(this)" th:attr="data-page=${page.number}+1" class=" item" th:unless="${page.last}">下一页</a>
                         </div>
@@ -252,33 +253,63 @@
                 .transition('fade');
         });
 
+    //
+    // // 定义名为loaddata的函数，用于通过AJAX加载数据
+    // function loaddata() {
+    //     // 使用jQuery的.load()方法从服务器加载数据
+    //     // 第一个参数是请求的URL，这里使用了模板字符串来插入后端提供的路径
+    //     // 路径中的/*@{/admin/blogs/search}
+    //     // 可能是后端模板引擎的占位符，实际路径会在服务器端解析
+    //     $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search", {
+    //         // 第二个参数是一个对象，包含了要发送到服务器的数据
+    //         // 这些数据将作为查询参数（GET请求）附加到URL上
+    //
+    //         // 获取名为'title'的输入框的值
+    //         title : $("[name='title']").val(),
+    //         // 获取名为'typeId'的输入框的值
+    //         typeId : $("[name='typeId']").val(),
+    //         // 获取名为'recommend'的复选框的选中状态
+    //         // prop('checked')用于获取复选框的选中状态，返回布尔值
+    //         recommend : $("[name='recommend']").prop('checked'),
+    //         // 获取名为'page'的输入框的值
+    //         page : $("[name='page']").val()
+    //     });
+    // }
 
-    // 定义名为loaddata的函数，用于通过AJAX加载数据
+
     function loaddata() {
-        // 使用jQuery的.load()方法从服务器加载数据
-        // 第一个参数是请求的URL，这里使用了模板字符串来插入后端提供的路径
-        // 路径中的/*@{/admin/blogs/search}
-        // 可能是后端模板引擎的占位符，实际路径会在服务器端解析
-        $("#table-container").load(/*[[@{/admin/blogs}]]*/"/admin/blogs", {
-            // 第二个参数是一个对象，包含了要发送到服务器的数据
-            // 这些数据将作为查询参数（GET请求）附加到URL上
+        // 获取查询参数
+        var title = $("[name='title']").val();
+        var typeId = $("[name='typeId']").val();
+        var recommend = $("[name='recommend']").prop('checked');
+        var page = $("[name='page']").val();
 
-            // 获取名为'title'的输入框的值
-            title : $("[name='title']").val(),
-            // 获取名为'typeId'的输入框的值
-            typeId : $("[name='typeId']").val(),
-            // 获取名为'recommend'的复选框的选中状态
-            // prop('checked')用于获取复选框的选中状态，返回布尔值
-            recommend : $("[name='recommend']").prop('checked'),
-            // 获取名为'page'的输入框的值
-            page : $("[name='page']").val()
+        // 发送GET请求
+        $.ajax({
+            type: "GET",
+            url: "/admin/blogs/search",
+            data: {
+                title: title,
+                typeId: typeId,
+                recommend: recommend,
+                page: page
+            },
+            success: function (data) {
+                // 将服务器返回的HTML加载到#table-container中
+                $("#table-container").html(data);
+            },
+            error: function (error) {
+                console.error("Error loading data:", error);
+            }
         });
     }
+
     $('#clear-btn')
         .on('click', function() {
             $('.ui.type.dropdown')
                 .dropdown('clear')
             ;
+
         })
     ;
 </script>
