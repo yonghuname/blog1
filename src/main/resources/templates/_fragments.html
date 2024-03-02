@@ -11,9 +11,19 @@
     <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
     <link rel="stylesheet" href="../../static/lib/editormd-master/css/editormd.min.css"  th:href="@{/lib/editormd-master/css/editormd.min.css}">
 
+    <script src="../lib/marked.min.js" th:src="@{/lib/editormd-master/lib/marked.min.js}"></script>
+    <script src="../lib/prettify.min.js" th:src="@{/lib/editormd-master/lib/prettify.min.js}"></script>
+
+    <script src="../lib/raphael.min.js" th:src="@{/lib/editormd-master/lib/raphael.min.js}"></script>
+    <script src="../lib/underscore.min.js" th:src="@{/lib/editormd-master/lib/underscore.min.js}"></script>
+    <script src="../lib/sequence-diagram.min.js" th:src="@{/lib/editormd-master/lib/sequence-diagram.min.js}"></script>
+    <script src="../lib/flowchart.min.js" th:src="@{/lib/editormd-master/lib/flowchart.min.js}"></script>
+    <script src="../lib/jquery.flowchart.min.js" th:src="@{/lib/editormd-master/lib/jquery.flowchart.min.js}"></script>
+
     <script src="../../static/lib/editormd-master/editormd.min.js" th:src="@{/lib/editormd-master/editormd.min.js}"> </script>
 
 
+<!--    <script src="../../static/js/marked.min.js" th:src="@{/js/marked.min.js}" defer></script>-->
     <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 
     <script>
@@ -21,6 +31,8 @@
             $('#newblog-container').load('/footer/newblog' );
         });
     </script>
+
+
 
 </head>
 

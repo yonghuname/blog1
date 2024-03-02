@@ -48,13 +48,13 @@ public class BlogServiceImpl implements BlogService {
         if (blog == null) {
             throw new NoFoundException("此文章不存在");
         }
-        Blog b = new Blog();
-        BeanUtils.copyProperties(blog,b);
-        String content = b.getContent();
-        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+//        Blog b = new Blog();
+//        BeanUtils.copyProperties(blog,b);
+//        String content = b.getContent();
+//        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
 
 //        blogRepository.updateViews(id);
-        return b;
+        return blog;
     }
 @Override
 public Page<Blog> listBlog(String query,Pageable pageable){

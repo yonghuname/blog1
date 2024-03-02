@@ -15,6 +15,20 @@
     <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 </head>
 
+<!--<script  th:inline="javascript">-->
+<!--    function confirmDelete() {-->
+<!--        var result = confirm('您确定要删除这篇文章吗?');-->
+<!--        if (result) {-->
+<!--            // 用户点击了确认，可以执行删除操作-->
+<!--            window.location.href = this.href; // 或者你可以在这里执行AJAX请求-->
+<!--        } else {-->
+<!--            // 用户点击了取消，阻止默认行为-->
+<!--            return false;-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+
+
 <!--https://img8.51tietu.net/pic/2016-071105/201607110506065fdxcka1qoc127484.jpg-->
 <!--th:style="'background-image: url('https://img8.51tietu.net/pic/2016-071105/201607110506065fdxcka1qoc127484.jpg'); background-size: cover;'"-->
 <style th:inline="text">
@@ -134,7 +148,7 @@
                     <td th:text="${blog.updateTime}">2017-10-02 09:45</td>
                     <td>
                         <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
-                        <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui mini red basic button">删除</a>
+                        <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" th:onclick="return confirm('您确定要删除这篇文章吗？') ? true : false;" class="ui mini red basic button"   >删除</a>
                     </td>
                 </tr>
                 </tbody>

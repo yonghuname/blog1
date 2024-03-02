@@ -299,3 +299,8 @@ color:#333333;
     flex-direction: column;
     height: 75%;
 }
+.image-wrapper {
+    border: 1px solid #333;
+
+    /* 可根据需要添加其他样式 */
+}
