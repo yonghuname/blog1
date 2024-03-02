@@ -70,7 +70,7 @@
 <div  class="  m-padded-tb-big">
 
     <div class="ui   container">
-        <div  class="ui secondary segment form">
+        <div  class="ui secondary segment  form">
             <!--      todo      这个 <form> 元素会触发默认的表单提交行为，而你的 JavaScript 中可能对表单的提交进行了一些处理，导致了问题。通过去掉 <form> 元素，你 essentially 将这部分内容从传统的表单提交行为中解耦，而更加依赖 JavaScript 处理。这样做可以防止浏览器默认的表单提交，确保你的 JavaScript 代码能够正确地处理用户的搜索请求。-->
 
             <input type="hidden" name="page" >
@@ -277,30 +277,13 @@
     // }
 
 
-    function loaddata() {
-        // 获取查询参数
-        var title = $("[name='title']").val();
-        var typeId = $("[name='typeId']").val();
-        var recommend = $("[name='recommend']").prop('checked');
-        var page = $("[name='page']").val();
 
-        // 发送GET请求
-        $.ajax({
-            type: "GET",
-            url: "/admin/blogs/search",
-            data: {
-                title: title,
-                typeId: typeId,
-                recommend: recommend,
-                page: page
-            },
-            success: function (data) {
-                // 将服务器返回的HTML加载到#table-container中
-                $("#table-container").html(data);
-            },
-            error: function (error) {
-                console.error("Error loading data:", error);
-            }
+    function loaddata() {
+        $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search",{
+            title : $("[name='title']").val(),
+            typeId : $("[name='typeId']").val(),
+            recommend : $("[name='recommend']").prop('checked'),
+            page : $("[name='page']").val()
         });
     }
 

@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -43,26 +45,38 @@ public class BlogController {
 
         User currentUser = (User) session.getAttribute("user");
 
-
+//是这个blog
         model.addAttribute("types", typeService.listType());
-        model.addAttribute("page",blogService.listBlog(pageable,blog));
+
+        model.addAttribute("page",blogService.blogssearch(pageable,blog));
+
+
 //      todo  原来如此 函数上面的参数是从前端得到的，而且这些 都是往下面service传递的。这就是要对上接口的原因
+//        todo  code 记得删掉再加上b21 ，直接return 。
         return "admin/blogs";
     }
-
-
-    @GetMapping("/blogs/search")
-    public String blogssearch(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC)
-                        Pageable pageable, BlogQuery blog, Model model ,HttpSession session) {
-
-        User currentUser = (User) session.getAttribute("user");
-
-
-        model.addAttribute("types", typeService.listType());
-        model.addAttribute("page",blogService.listBlog(pageable,blog));
-
-        return "admin/blogs::bloglist";
+    @PostMapping("/blogs/search")
+    public String search(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
+                         BlogQuery blog, Model model) {
+        model.addAttribute("page", blogService.blogssearch(pageable, blog));
+        return "admin/blogs :: blogList";
     }
+
+//    @PostMapping("/blogs/search")
+//    public String blogssearch(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC)
+//                        Pageable pageable, BlogQuery blog, Model model ,HttpSession session) {
+//
+//        User currentUser = (User) session.getAttribute("user");
+//
+//
+//        model.addAttribute("types", typeService.listType());
+//        Page<Blog> b21=blogService.blogssearch(pageable,blog);
+//
+//
+//        model.addAttribute("page",b21);
+//        System.out.println("到底返回了吗 ？？");
+//        return "admin/blogs::bloglist";
+//    }
 //    todo 只更新片段的 返回渲染方案
 
 

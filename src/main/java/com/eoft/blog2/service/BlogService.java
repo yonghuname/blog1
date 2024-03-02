@@ -14,7 +14,7 @@ public interface BlogService {
     Blog getBlog(Long id);
 
     List<Blog> listRecommendBlogTop(Integer size);
-    Page<Blog> listBlog(Pageable pageable, BlogQuery blog);
+    Page<Blog> blogssearch(Pageable pageable, BlogQuery blog);
 
     Page<Blog> listBlog2( Long typeid,Pageable pageable);
     Blog getAndConvert(Long id);

@@ -7,6 +7,7 @@ import com.eoft.blog2.po.Type;
 import com.eoft.blog2.util.MarkdownUtils;
 import com.eoft.blog2.vo.BlogQuery;
 import com.eoft.blog2.web.NoFoundException;
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -75,37 +76,40 @@ public Page<Blog> listBlog(String query,Pageable pageable){
     };
     */
 // 这个是后台管理的查询，不要和前台查询 弄混了，改了半天最后发现是改后台
+    public Page<Blog> blogssearch( Pageable pageable,BlogQuery blogQuery) {
+        if (blogQuery == null) {
+            return blogRepository.findAll(pageable); // 查询全部
+        }
 
-    @Override
-    public Page<Blog> listBlog(Pageable pageable, BlogQuery blog) {
+        String title = blogQuery.getTitle();
+        Long typeId = blogQuery.getTypeId();
+        Boolean recommend = blogQuery.isRecommend();
+        System.out.println(title); System.out.println(typeId); System.out.println(recommend);
 
-        return blogRepository.findAll(new Specification<Blog>()
+        // 检查是否所有条件都为空
+        if (StringUtils.isBlank(title) && typeId == null && recommend == false) {
+            System.out.println("查询全部了");
+            return blogRepository.findAll(pageable); // 查询全部
+        }
+        System.out.println("查询部分了");
+        // 其他条件非空，交给 repository 处理
+//        验证阶段
         {
-            @Override
-            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-                List<Predicate> predicates = new ArrayList<>();
-
-                 if (!"".equals(blog.getTitle()) && blog.getTitle() != null) {
-                    predicates.add(cb.like(root.<String>get("title"), "%" + blog.getTitle() + "%"));
-//                    todo 需要了解怎么办弄这个 这个是什么意思 这里是模糊查询 ，把本类的所有注释完成了解
-                }
-//md 屎山化了。又new一个包vo
-                if (blog.getTypeId() != null) {
-                    predicates.add(cb.equal(root.<Type>get("type").get("id"), blog.getTypeId()));
-                }
-
-
-                if (blog.isRecommend()) {
-                    predicates.add(cb.equal(root.<Boolean>get("recommend"), blog.isRecommend()));
-                }
-
-//实际上是三个栏目的需求
-//                 这里只搜索发布过 的文章其他去除
-                cq.where(predicates.toArray(new Predicate[predicates.size()]));
-//                这对于 cq cb不知道是什么联合查询吗 ？
-                return null;
-            }
-        },pageable);
+            Page<Blog>b2= blogRepository.findByTitleTypeRecommend(title, typeId, recommend, pageable);
+//            if (b2 != null && b2.hasContent()) {
+//                System.out.println("开始输出结果 符号条件的标题了");
+//                List<Blog> resultList = b2.getContent();
+//
+//                // 输出查询到的结果
+//                for (Blog blog : resultList) {
+//                    System.out.println(blog.getTitle());
+//                }
+//            } else {
+//                // 输出未检索到值的信息
+//                System.out.println("未检索到结果");
+//            }
+//            没问题
+        return b2;}
     }
 
 

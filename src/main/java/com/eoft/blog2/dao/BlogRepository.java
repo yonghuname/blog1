@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -26,6 +27,14 @@ public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificat
    @Query("SELECT b FROM Blog b JOIN b.tags t WHERE  b.published = true  and t.id= :tagid  ")
     Page<Blog> findByTagid(Long tagid, Pageable pageable);
 
+
+    @Query("SELECT b FROM Blog b WHERE  (:title IS NULL OR LOWER(b.title) LIKE LOWER(CONCAT('%', :title, '%'))) AND  (:typeId IS NULL OR b.type.id = :typeId) AND (:recommend IS NULL OR b.recommend = :recommend)")
+    Page<Blog> findByTitleTypeRecommend(
+            String title,
+             Long typeId,
+           Boolean recommend,
+            Pageable pageable
+    );
 }
 //    ?1 是第一个 参数的意思
 
