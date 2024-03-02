@@ -140,7 +140,11 @@ public Page<Blog> listBlog(String query,Pageable pageable){
         } else {
             blog.setUpdateTime(new Date());
         }
-
+//        System.out.println("-*------save blog  ");
+//        if(blog.getFirstPicture() =="1"){
+//            System.out.println("-*------首图是1 进行转化");
+//            blog.setFirstPicture("https://img1.baidu.com/it/u=314735915,3692012565&fm=253&fmt=auto&app=138&f=JPEG?w=417&h=260");
+//        }
         return blogRepository.save(blog);
     }
 

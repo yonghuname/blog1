@@ -53,10 +53,10 @@ Model model：同样用于在控制器和视图之间传递数据。
 
     @GetMapping("/types/input")
     public String input(Model model, HttpSession session) {
-//        session.
+
         User currentUser = (User) session.getAttribute("user");
-//获得当前用户，检测当前用户 ==管理员 ？ 。不一样就报错 ，
-        if( currentUser.getId()==2){
+
+        if( currentUser.getType()==1 ){
         model.addAttribute("type", new Type());
         return "admin/types-input";}
         else return "/error/noright";
@@ -67,7 +67,7 @@ Model model：同样用于在控制器和视图之间传递数据。
     public String post(@Validated Type type, BindingResult result, RedirectAttributes attributes,HttpSession session) {
         User currentUser = (User) session.getAttribute("user");
 //获得当前用户，检测当前用户 ==管理员 ？ 。不一样就报错 ，
-        if( currentUser.getId()==2) {
+        if( currentUser.getType()==1) {
 
 
             Type type1 = typeService.getTypeByName(type.getName());
@@ -99,7 +99,7 @@ Model model：同样用于在控制器和视图之间传递数据。
     public String editInput(@PathVariable Long id, Model model ,HttpSession session) {
         User currentUser = (User) session.getAttribute("user");
 //获得当前用户，检测当前用户 ==管理员 ？ 。不一样就报错 ，
-        if( currentUser.getId()==2){
+        if( currentUser.getType()==1 ){
         model.addAttribute("type", typeService.getType(id));
         return "admin/types-input";}
         else return "/error/noright";
@@ -112,7 +112,7 @@ Model model：同样用于在控制器和视图之间传递数据。
     public String editPost(@Valid Type type, BindingResult result,@PathVariable Long id, RedirectAttributes attributes,HttpSession session) {
         User currentUser = (User) session.getAttribute("user");
 //获得当前用户，检测当前用户 ==管理员 ？ 。不一样就报错 ，
-        if( currentUser.getId()==2){
+        if( currentUser.getType()==1 ) {
             Type type1 = typeService.getTypeByName(type.getName());
             if (type1 != null) {
                 result.rejectValue("name","nameError","不能添加重复的分类");
@@ -134,7 +134,7 @@ Model model：同样用于在控制器和视图之间传递数据。
     public String delete(@PathVariable Long id,RedirectAttributes attributes ,HttpSession session) {
         User currentUser = (User) session.getAttribute("user");
 //获得当前用户，检测当前用户 ==管理员 ？ 。不一样就报错 ，
-        if( currentUser.getId()==2) {
+        if( currentUser.getType()==1) {
             typeService.deleteType(id);
             attributes.addFlashAttribute("message", "删除成功");
             return "redirect:/admin/types";

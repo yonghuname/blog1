@@ -74,7 +74,7 @@
             <!--      todo      这个 <form> 元素会触发默认的表单提交行为，而你的 JavaScript 中可能对表单的提交进行了一些处理，导致了问题。通过去掉 <form> 元素，你 essentially 将这部分内容从传统的表单提交行为中解耦，而更加依赖 JavaScript 处理。这样做可以防止浏览器默认的表单提交，确保你的 JavaScript 代码能够正确地处理用户的搜索请求。-->
 
             <input type="hidden" name="page" >
-            <!--      todo 笔记  要知道隐含域的意义               -->
+
             <div class=" inline fields">
                 <div class="field">
                     <input type="text" name="title" placeholder="标题">
@@ -114,6 +114,7 @@
                 <tr>
                     <th></th>
                     <th>标题</th>
+                    <th>作者</th>
                     <th>类型</th>
                     <th>推荐</th>
                     <th>状态</th>
@@ -126,6 +127,7 @@
                 <tr th:each="blog,iterStat : ${page.content}">
                     <td th:text="${iterStat.count}">1</td>
                     <td th:text="${blog.title}">刻意练习清单</td>
+                    <td th:text="${blog.user.nickname}">作者</td>
                     <td th:text="${blog.type.name}">认知升级</td>
                     <td th:text="${blog.recommend} ? '是':'否'">是</td>
                     <td th:text="${blog.published} ? '发布':'草稿'">草稿</td>
@@ -257,7 +259,7 @@
         // 第一个参数是请求的URL，这里使用了模板字符串来插入后端提供的路径
         // 路径中的/*@{/admin/blogs/search}
         // 可能是后端模板引擎的占位符，实际路径会在服务器端解析
-        $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search", {
+        $("#table-container").load(/*[[@{/admin/blogs}]]*/"/admin/blogs", {
             // 第二个参数是一个对象，包含了要发送到服务器的数据
             // 这些数据将作为查询参数（GET请求）附加到URL上
 
