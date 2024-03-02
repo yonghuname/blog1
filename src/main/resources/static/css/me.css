@@ -271,6 +271,16 @@ color:#333333;
     .m-container-small{
         margin:0.5em!important;
     }
+    .nav-show {
+        width: 100%!important; ; /* 或者设置其他适当的宽度 */
+        height: auto !important; ; /* 限制宽度不超过屏幕宽度 */   /* 或者设置为 auto，以移除最大高度限制 */
+        max-height:360px !important;
+        position: relative !important;
+        display: block;
+        top: auto
+    }
+
+
 }
 .black-border-container {
     width: 80%; /* 或者你想要的任何宽度 */
@@ -304,3 +314,35 @@ color:#333333;
 
     /* 可根据需要添加其他样式 */
 }
+/*前端也太拿来主义   了 */
+.cz-bg-section {
+    width: 100%;
+    height: 94vh;
+    background: rgba(0, 0, 0, .1);
+    color: #fff;
+    line-height: 100vh;
+    text-align: center;
+}
+.cz-bg-img {
+     background-attachment: fixed !important;
+     background-size: cover !important;
+     background-position: center center !important;
+ }
+.cz-index-title {
+    font-size: 90px;
+    font-weight: 900;
+    line-height: 1.2em;
+    padding-top: 30vh;
+    /*font-family: "Work Sans", "Helvetica Neue", helvetica, arial, sans-serif;*/
+}
+.cz-index-title2 {
+     font-size: 25px;
+     font-weight: 600;
+     line-height: 1.0em;
+ }.m-bg-class_cover {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(17, 17, 17, 0.1);
+      left: 0px;
+      bottom: 0px;
+  }

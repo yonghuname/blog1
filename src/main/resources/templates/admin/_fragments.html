@@ -22,14 +22,18 @@
 
 
     <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
-
-<!--    <style th:inline="text">-->
-<!--        body{-->
-<!--            background: url('/src/main/static/images/anime11.png');-->
-<!--        }-->
-<!--    </style>-->
+<!--    有时候静态页面比thymeleaf好用 -->
+    <style >
+        body {
+            background-image: url(/images/bg_01.png);
+            /*background-size: cover;/*/
+            /*background-position: center;*/
+            /*background-repeat: no-repeat;*/
+            /*background-attachment: fixed;*/
+        }
+    </style>
 </head>
-<!--th:style="'background :url( @{/static/images/anime11.png} );'"-->
+<!--th:style="'background :url(/images/anime11.png);'"-->
 
 <body>
 <!--<div th:style="'background-image: url('https://img8.51tietu.net/pic/2016-071105/201607110506065fdxcka1qoc127484.jpg''); background-size: cover;'">>-->

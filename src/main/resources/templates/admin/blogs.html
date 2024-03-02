@@ -15,36 +15,20 @@
     <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 </head>
 
-<!--<script  th:inline="javascript">-->
-<!--    function confirmDelete() {-->
-<!--        var result = confirm('您确定要删除这篇文章吗?');-->
-<!--        if (result) {-->
-<!--            // 用户点击了确认，可以执行删除操作-->
-<!--            window.location.href = this.href; // 或者你可以在这里执行AJAX请求-->
-<!--        } else {-->
-<!--            // 用户点击了取消，阻止默认行为-->
-<!--            return false;-->
-<!--        }-->
-<!--    }-->
-<!--</script>-->
 
 
-<!--https://img8.51tietu.net/pic/2016-071105/201607110506065fdxcka1qoc127484.jpg-->
-<!--th:style="'background-image: url('https://img8.51tietu.net/pic/2016-071105/201607110506065fdxcka1qoc127484.jpg'); background-size: cover;'"-->
-<style th:inline="text">
-    body{
-        /*background: ;*/
-        /*url{[[@{https://img8.51tietu.net/pic/2016-071105/201607110506065fdxcka1qoc127484.jpg}]]}*/
-        /*no-repeat center center fixed;*/
-    }
-</style>
+
+
+
+
+
 
 
 <body th:style="'background-image: url(@{/static/images/anime11.png}); background-size: cover; background-position: center; background-repeat: no-repeat;'">
 
 
 
-<nav th:replace="~{admin/_fragments :: menu(1)}"  class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="~{admin/_fragments :: menu(1)}"    class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container"  >
         <div class="ui inverted secondary stackable menu">
             <h3 class="ui teal header item">博客管理后台</h3>

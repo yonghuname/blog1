@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:replace="${title}">后台管理</title>
+
+    <style>
+        .nav-hidden {
+            display: none;
+        }
+
+        .nav-show {
+            display: block;
+            position: fixed!important; ;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            max-height: 60px;
+            margin-bottom: 100px!important;
+        }
+
+    </style>
+
+
+
     <link rel="stylesheet" href="../../static/cssc/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
     <link rel="icon" th:href="@{/images/icon1logo32.ico}" href="/favicon.ico">
@@ -32,12 +52,37 @@
         });
     </script>
 
+    <style >
+        body {
+
+            background-image: url(/images/bg_01.png);
+            /*background-size: cover;*/
+            /*background-position: center;*/
+            /*background-repeat: no-repeat;*/
+            /*background-attachment: fixed;*/
+        }
+    </style>
 
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 获取菜单按钮元素
+            var menuButton = document.querySelector('.ui.menu.toggle.button');
+
+            // 获取导航栏元素
+            var navbar = document.getElementById('myNavbar');
+
+            // 添加点击事件监听器
+            menuButton.addEventListener('click', function () {
+                // 切换导航栏的最大高度样式
+                navbar.classList.toggle('expanded'); // 切换类名，你可以在 CSS 中定义这个类的样式
+            });
+        });
+    </script>
 </head>
 
-<body th:style="'background-image: url(\'@{/images/background.jpg}\');'">
-<nav th:fragment="menu(n)" class = "ui   attached segment m-padded-tb-mini m-shadow-small">
+<body  >
+<nav th:fragment="menu(n)" id="myNavbar" class = "nav-show  ui attached  segment m-padded-tb-mini m-shadow-small">
     <div class="ui container"  >
         <div class="ui   secondary stackable menu">
               <h4 class="ui  teal header item" ><i class="ui  pencil icon"></i>T's blog</h4>
