@@ -13,7 +13,10 @@
     <script src="../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
     <script src="../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 </head>
-<body >
+
+
+
+<body th:style="'background-image: url(\'@{/images/background.jpg}\');'">
 <!--        th:style="'background-image: url(@{/static/images/anime11.png}); background-size: cover; background-position: center; background-repeat: no-repeat;'">-->
 
     <nav  th:replace="~{_fragments ::menu(1)}" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
