@@ -67,23 +67,41 @@ public class BlogController {
 
 
     @GetMapping("/blogs/{id}/input")
-    public String editInput(@PathVariable Long id, Model model) {
-        setTypeAndTag(model);
-        Blog blog = blogService.getBlog(id);
-//编辑器
-        System.out.println("编辑文章功能启动");
-        blog.init();
+    public String editInput(@PathVariable Long id, Model model,HttpSession session) {
+        Blog blog= blogService.getBlog(id);
 
-        model.addAttribute("blog",blog);
-        return "admin/blogs-input";
-//        return INPUT;
+        User currentUser = (User) session.getAttribute("user");
+//获得当前用户，检测当前用户和文章用户一样不一样。一样或者是管理员。不一样就报错到404，
+        if( currentUser.getId().equals(    blog.getUser().getId() ) || currentUser.getId() == 2)  {
+
+
+            setTypeAndTag(model);
+            //编辑器
+            System.out.println("编辑文章功能启动");
+            blog.init();
+
+            model.addAttribute("blog", blog);
+            return "admin/blogs-input";
+            //        return INPUT;
+        }
+        else {
+
+            return "/error/noright";
+        }
     }
 
 
 
     @PostMapping("/blogs")
     public String post(Blog blog, RedirectAttributes attributes, HttpSession session) {
-        blog.setUser((User) session.getAttribute("user"));
+
+        System.out.println(blog.getFirstPicture());
+        if(blog.getFirstPicture().equals("1")){
+
+            System.out.println("进入if；了  ---------");
+            blog.setFirstPicture("https://img1.baidu.com/it/u=314735915,3692012565&fm=253&fmt=auto&app=138&f=JPEG?w=417&h=260");
+        }
+        blog.setUser((User) session.getAttribute("user")); // 强制类型转换 ？
         blog.setType(typeService.getType(blog.getType().getId()));
         blog.setTags(tagService.listTag(blog.getTagIds()));
         Blog b;
@@ -104,10 +122,20 @@ public class BlogController {
 
 
     @GetMapping("/blogs/{id}/delete")
-    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+//    tmd
+    public String delete(@PathVariable Long id, RedirectAttributes attributes,HttpSession session) {
+      Blog blog= blogService.getBlog(id);
+
+        User currentUser = (User) session.getAttribute("user");
+//获得当前用户，检测当前用户和文章用户一样不一样。一样或者是管理员。不一样就报错到404，
+       if( currentUser.getId().equals(    blog.getUser().getId() ) || currentUser.getId()==2){
         blogService.deleteBlog(id);
         attributes.addFlashAttribute("message", "删除成功");
-        return REDIRECT_LIST;
+       }
+       else {  attributes.addFlashAttribute("message", "删除失败");
+
+
+       } return "/error/noright";
     }
 
 

@@ -131,20 +131,25 @@ public Page<Blog> listBlog(String query,Pageable pageable){
 
     @Transactional
     @Override
+//    新建
     public Blog saveBlog(Blog blog) {
-        if (blog.getId() == null) {
+        if (blog.getCreateTime() == null) {
             blog.setCreateTime(new Date());
             blog.setUpdateTime(new Date());
             blog.setViews(0);
         } else {
             blog.setUpdateTime(new Date());
         }
+
         return blogRepository.save(blog);
     }
 
     @Transactional
     @Override
+//    更新
     public Blog updateBlog(Long id, Blog blog) {
+
+//        System.out.println("-*------update blog  ");
         Blog b = blogRepository.getOne(id) ;
         if (b == null) {
             throw new NoFoundException("该博客不存在");
@@ -154,6 +159,7 @@ public Page<Blog> listBlog(String query,Pageable pageable){
 //                , MyBeanUtils.getNullPropertyNames(blog)
         );
         b.setUpdateTime(new Date());
+
         return blogRepository.save(b);
     }
 

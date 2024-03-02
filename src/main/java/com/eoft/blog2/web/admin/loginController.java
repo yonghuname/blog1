@@ -39,16 +39,17 @@ public class loginController {
                          )
     {
         User user = userService.checkUser(username,password);
-        System.out.println(username);
-        System.out.println("------------------*************************************************** ");
-        System.out.println(password);
+//        System.out.println(username);
+//        System.out.println("------------------*************************************************** ");
+//        System.out.println(password);
         if(user != null){
 
-            System.out.println("登录在等待啊啊 啊啊啊啊 啊啊");
+//            System.out.println("登录在等待啊啊 啊啊啊啊 啊啊");
             user.setPassword(null);
             session.setAttribute("user",user);
 
-            System.out.println("登录成功了啊了哈哈哈哈哈哈哈 ");
+//            System.out.println("登录成功了啊了哈哈哈哈哈哈哈 ");
+
             return "admin/index";
         } else{
             System.out.println("登录失败了了了了了了了");

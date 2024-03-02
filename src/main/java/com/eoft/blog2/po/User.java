@@ -21,7 +21,7 @@ public class User {
     private String password;
     private String avatar;
     private String email;
-    private Integer type;
+    private Integer type;//当 admin 和普通用户来处理 了
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;

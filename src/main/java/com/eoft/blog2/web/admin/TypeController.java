@@ -2,7 +2,9 @@ package com.eoft.blog2.web.admin;
 
 
 import com.eoft.blog2.po.Type;
+import com.eoft.blog2.po.User;
 import com.eoft.blog2.service.TypeService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -40,6 +42,8 @@ Model model：这是一个用于在控制器和视图之间传递数据的对象
 
 Model model：同样用于在控制器和视图之间传递数据。
 在这个方法内部，它向模型中添加了一个名为"type"的属性，这个属性是一个新创建的Type对象。这通常用于在创建新记录的表单页面中提供一个空的表单模型。然后，返回字符串"admin/types-input"，这同样对应于一个视图模板的名称，这个模板可能是用于输入新类型的表单页面。*/
+
+//   暂时只有管理员权利增删改查 type和tag 因为他们没有userid 实际上 加上userid 复杂度加好多。
     @GetMapping("/types")
     public String types(@PageableDefault(size = 10,sort = {"id"},direction = Sort.Direction.DESC)
                         Pageable pageable, Model model) {
@@ -48,69 +52,93 @@ Model model：同样用于在控制器和视图之间传递数据。
     }
 
     @GetMapping("/types/input")
-    public String input(Model model) {
+    public String input(Model model, HttpSession session) {
+//        session.
+        User currentUser = (User) session.getAttribute("user");
+//获得当前用户，检测当前用户 ==管理员 ？ 。不一样就报错 ，
+        if( currentUser.getId()==2){
         model.addAttribute("type", new Type());
-        return "admin/types-input";
+        return "admin/types-input";}
+        else return "/error/noright";
     }
 
 
     @PostMapping("/types")
-    public String post(@Validated Type type, BindingResult result, RedirectAttributes attributes) {
-   Type type1 = typeService.getTypeByName(type.getName()) ;
-//   这是在数据库搜到的看有没有重复 同名type1 ，if 空 说明可以添加
+    public String post(@Validated Type type, BindingResult result, RedirectAttributes attributes,HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+//获得当前用户，检测当前用户 ==管理员 ？ 。不一样就报错 ，
+        if( currentUser.getId()==2) {
 
-        if (type1 != null) {
 
-            result.rejectValue("name","nameError","不能添加重复的分类");
+            Type type1 = typeService.getTypeByName(type.getName());
+            //   这是在数据库搜到的看有没有重复 同名type1 ，if 空 说明可以添加
+
+            if (type1 != null) {
+
+                result.rejectValue("name", "nameError", "不能添加重复的分类");
+            }
+
+            if (result.hasErrors()) {
+                //      无用      attributes.addFlashAttribute("org.springframework.web.servlet.mvc.support.RedirectAttributes.ERRORS_ORIGINAL_ATTRIBUTE", result.getFieldErrors());
+                return "admin/types-input";
+            }
+
+            Type t = typeService.saveType(type);
+            if (t == null) {
+                attributes.addFlashAttribute("message", "操作失败");
+            } else {
+                attributes.addFlashAttribute("message", "提交成功");
+            }
+            //        重定向才会又查询的数据
+            return "redirect:/admin/types";
         }
-
-        if (result.hasErrors()) {
-//      无用      attributes.addFlashAttribute("org.springframework.web.servlet.mvc.support.RedirectAttributes.ERRORS_ORIGINAL_ATTRIBUTE", result.getFieldErrors());
-            return "admin/types-input";
-        }
-
-        Type t = typeService.saveType(type);
-        if (t == null ) {
-            attributes.addFlashAttribute("message", "操作失败");
-        } else {
-            attributes.addFlashAttribute("message", "提交成功");
-        }
-//        重定向才会又查询的数据
-        return "redirect:/admin/types";
+        else return "/error/noright";
     }
 
     @GetMapping("/types/{id}/input")
-    public String editInput(@PathVariable Long id, Model model) {
+    public String editInput(@PathVariable Long id, Model model ,HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+//获得当前用户，检测当前用户 ==管理员 ？ 。不一样就报错 ，
+        if( currentUser.getId()==2){
         model.addAttribute("type", typeService.getType(id));
-        return "admin/types-input";
+        return "admin/types-input";}
+        else return "/error/noright";
     }
 
 
 
 
     @PostMapping("/types/{id}")
-    public String editPost(@Valid Type type, BindingResult result,@PathVariable Long id, RedirectAttributes attributes) {
-        Type type1 = typeService.getTypeByName(type.getName());
-        if (type1 != null) {
-            result.rejectValue("name","nameError","不能添加重复的分类");
-        }
-        if (result.hasErrors()) {
-            return "admin/types-input";
-        }
-        Type t = typeService.updateType(id,type);
-        if (t == null ) {
-            attributes.addFlashAttribute("message", "更新失败");
-        } else {
-            attributes.addFlashAttribute("message", "更新成功");
-        }
-        return "redirect:/admin/types";
+    public String editPost(@Valid Type type, BindingResult result,@PathVariable Long id, RedirectAttributes attributes,HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+//获得当前用户，检测当前用户 ==管理员 ？ 。不一样就报错 ，
+        if( currentUser.getId()==2){
+            Type type1 = typeService.getTypeByName(type.getName());
+            if (type1 != null) {
+                result.rejectValue("name","nameError","不能添加重复的分类");
+            }
+            if (result.hasErrors()) {
+                return "admin/types-input";
+            }
+            Type t = typeService.updateType(id,type);
+            if (t == null ) {
+                attributes.addFlashAttribute("message", "更新失败");
+            } else {
+                attributes.addFlashAttribute("message", "更新成功");
+            }
+            return "redirect:/admin/types";
+        }else return "/error/noright";
     }
 
     @GetMapping("/types/{id}/delete")
-    public String delete(@PathVariable Long id,RedirectAttributes attributes) {
-        typeService.deleteType(id);
-        attributes.addFlashAttribute("message", "删除成功");
-        return "redirect:/admin/types";
+    public String delete(@PathVariable Long id,RedirectAttributes attributes ,HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+//获得当前用户，检测当前用户 ==管理员 ？ 。不一样就报错 ，
+        if( currentUser.getId()==2) {
+            typeService.deleteType(id);
+            attributes.addFlashAttribute("message", "删除成功");
+            return "redirect:/admin/types";
+        }else return "/error/noright";
     }
 
 

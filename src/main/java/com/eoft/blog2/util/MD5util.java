@@ -39,9 +39,9 @@ public class MD5util {
         }
 
     }
-
+//blog123456
 
     public static void main(String[] args) {
-        System.out.println(code("blog123456"));
+        System.out.println(code("123456"));
     }
 }
