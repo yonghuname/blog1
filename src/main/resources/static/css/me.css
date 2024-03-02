@@ -277,7 +277,9 @@ color:#333333;
         max-height:360px !important;
         position: relative !important;
         display: block;
-        top: auto
+        top: auto;
+
+        margin-bottom: auto;
     }
 
 
