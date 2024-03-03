@@ -4,12 +4,45 @@
 <head th:replace="~{/admin/_fragments:: head(~{::title})}">
     <meta charset="UTF-8">
     <title>用户管理</title>
+233
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <!-- 引入Vue Router -->
+    <script src="https://cdn.jsdelivr.net/npm/vue-router@3.5.1/dist/vue-router.min.js"></script>
+    <!-- 引入Element UI的JS -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 <body>
 
 
-<nav th:replace="menu(1)" class = "ui   attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="~{admin/_fragments :: menu(1)}"    class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container"  >
+        <div class="ui inverted secondary stackable menu">
+            <h3 class="ui teal header item">博客管理后台</h3>
+            <a class="active m-mobile-hidden item"> <i class="ui home icon">  </i>发布</a>
+            <a class="m-item m-mobile-hidden item"> <i class="ui idea icon">  </i>分类</a>
+            <a class="m-item m-mobile-hidden item"><i class="ui tags icon">  </i>标签</a>
+            <div class="right m-mobile-hidden menu">
+                <div class="ui dropdown item">
+                    <img class="ui avatar image" src="../../static/images/mio3.jpg">
+                    长野原美绪
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item">管理账号</a>
+                        <a href="#" class="item">退出登录</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <a href="#" class="ui menu toggle m-mobile-show black button">
+        <i class="sidebar icon m-top-right "></i>
+    </a>
 </nav>
+<!--二级导航-->
 <!-二级导航-->
 <div  th:replace="~{admin/_fragments ::div1}"  class="ui attached pointing menu"></div>
 
@@ -26,43 +59,79 @@
     </head>
     <body>
 
-    <div th:if="${user != null}">
-        <h2>User Profile</h2>
+<!--    -->
+<!--<div class="ui container">-->
+<!--    <div th:if="${user != null}" class = "ui segment">-->
+<!--        <h2>User Profile</h2>-->
 
-        <form th:action="@{/user/update}" th:method="post" th:object="${user}">
-            <input type="hidden" th:field="*{id}" />
+<!--        <form th:action="@{/user/update}" th:method="post" th:object="${user}">-->
+<!--            <input type="hidden" th:field="*{id}" />-->
 
-            <label for="nickname">Nickname:</label>
-            <input type="text" id="nickname" th:field="*{nickname}" required>
+<!--            <label for="nickname">Nickname:</label>-->
+<!--            <input type="text" id="nickname" th:field="*{nickname}" required>-->
 
-            <label for="username">Username:</label>
-            <input type="text" id="username" th:field="*{username}" required>
+<!--            <label for="username">Username:</label>-->
+<!--            <input type="text" id="username" th:field="*{username}" required>-->
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" th:field="*{password}" required>
+<!--            <label for="password">Password:</label>-->
+<!--            <input type="password" id="password" th:field="*{password}" required>-->
 
-            <label for="avatar">Avatar URL:</label>
-            <input type="text" id="avatar" th:field="*{avatar}">
+<!--            <label for="avatar">Avatar URL:</label>-->
+<!--            <input type="text" id="avatar" th:field="*{avatar}">-->
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" th:field="*{email}" required>
 
-            <label for="type">User Type:</label>
-            <select id="type" th:field="*{type}">
-                <option value="0">Admin</option>
-                <option value="1">User</option>
-            </select>
 
-            <button type="submit">Update Profile</button>
-        </form>
-    </div>
+
+<!--            <button type="submit">Update Profile</button>-->
+<!--        </form>-->
+<!--    </div></div>-->
 
     </body>
     </html>
-
+<div id="app">
+    <!-- Vue应用将在这里挂载 -->
+</div>
 
 
     <footer th:replace="~{admin/_fragments ::footer}" class="ui inverted vertical segment m-padded-tb-massive  ">
     </footer>
 </body>
+
+
+
+
+
+
+
+<script>
+    // 创建Vue实例
+    var app = new Vue({
+        el: '#app',
+        data: {
+            // 你的数据
+        },
+        methods: {
+            // 你的方法
+        }
+    });
+
+    // 配置Vue Router
+    var router = new VueRouter({
+        routes: [
+            // 路由配置
+        ],
+        mode: 'history'
+    });
+
+    // 使用Vue Router
+    app.$router = router;
+    app.$router.push({ path: '/user/profile' });
+
+    // 引入Element UI组件
+    // ...
+
+    // 其他Vue代码...
+</script>
+
 </html>
+
