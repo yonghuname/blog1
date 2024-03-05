@@ -47,8 +47,14 @@ public class BlogServiceImpl implements BlogService {
 
     public Blog getAndConvert(Long id){
         Blog blog = blogRepository.getOne(id);
+
         if (blog == null) {
             throw new NoFoundException("此文章不存在");
+        }
+        if (  blog.getViews()==null) {
+            blog.setViews(0);
+        } else {
+            blog.setViews(blog.getViews() + 1);
         }
 //        Blog b = new Blog();
 //        BeanUtils.copyProperties(blog,b);

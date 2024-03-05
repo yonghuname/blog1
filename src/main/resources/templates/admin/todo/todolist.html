@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{/admin/_fragments:: head(~{::title})}">
+
+    <!--<head>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客管理</title>
+    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+
+    <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
+    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
+
+</head>
+<script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+
+<body>
+<nav th:replace="admin/_fragments :: menu(1)" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container"  >
+        <div class="ui inverted secondary stackable menu">
+            <h3 class="ui teal header item">博客管理后台</h3>
+            <a class="active m-mobile-hidden item"> <i class="ui home icon">  </i>发布</a>
+            <a class="m-item m-mobile-hidden item"> <i class="ui idea icon">  </i>分类</a>
+            <a class="m-item m-mobile-hidden item"><i class="ui tags icon">  </i>标签</a>
+            <div class="right m-mobile-hidden menu">
+                <div class="ui dropdown item">
+                    <img class="ui avatar image" src="../../static/images/mio3.jpg" alt="mio图">
+                    长野原美绪
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/admin/blogs/input}" class="teal active item">发布</a>
+                        <a href="#" th:href="@{/admin/blogs}" class="item">列表</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <a href="#" class="ui menu toggle m-mobile-show black button">
+        <i class="sidebar icon m-top-right "></i>
+    </a>
+</nav>
+
+<!--todolisst 设下给你 就i一个主界面吧  要不要设置todolist 属性 我也不知道啊啊  就引用现成的type和标签 -->
+<div   class="ui attached pointing menu">
+
+    <div class="ui container">
+        <div class="right menu">
+
+            <a href="#" th:href="@{/admin/blogs/input}" class="item"><i class="edit teal icon"></i>发布界面</a>
+            <a href="#" th:href="@{/admin/blogs}"  class="teal  item"><i class="ui  teal list icon"></i>博客列表</a>
+            <a class="   teal item"   th:href="@{/admin/types}"> <i class="ui idea teal icon">  </i>分类</a>
+            <a class="  teal  item"   th:href="@{/admin/tags}"><i class="ui tags teal icon">  </i>标签</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

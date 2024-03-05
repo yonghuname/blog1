@@ -39,9 +39,7 @@ public class loginController {
                          )
     {
         User user = userService.checkUser(username,password);
-//        System.out.println(username);
-//        System.out.println("------------------*************************************************** ");
-//        System.out.println(password);
+
         if(user != null){
 
 //            System.out.println("登录在等待啊啊 啊啊啊啊 啊啊");
@@ -58,20 +56,68 @@ public class loginController {
         }
     }
 
+
+
+
+
+
+
+
     // 退出登录
     @GetMapping("/logout")
     public String logout(HttpSession session){
     session.removeAttribute("user");
     return "redirect:/admin";
+
     }
 
-
+//没有index 就用你了
 public BlogService blogService;
     @GetMapping("/footer/newblog")
     public String newblogs(Model model) {
         System.out.println("底部渲染");
         model.addAttribute("newblogs", blogService.listRecommendBlogTop(3));
         return "_fragments :: newblogList";
+    }
+
+    @GetMapping("/register")
+    public String getregister(){
+        return "admin/register";
+    }
+    @PostMapping("/register")
+    public String Posttoregist(@RequestParam String username,
+                               @RequestParam String password1,
+                               @RequestParam String email,
+                               @RequestParam String invitecode,
+                               @RequestParam String nickname,
+                               Model  model){
+
+
+        String errorMessage = userService.registerUser(email, username, password1,
+                invitecode, nickname);
+
+        if(errorMessage ==null) {
+
+            model.addAttribute("message", "注册成功，请登录。");
+            return "redirect:admin/login";
+        }
+        else {
+            System.out.println("错误信息： "+errorMessage);
+            model.addAttribute("message", errorMessage);
+            model.addAttribute( "email",email);
+            model.addAttribute( "username",username);
+            model.addAttribute("password1",password1);
+            model.addAttribute("invitecode",invitecode);
+            model.addAttribute("nickname",nickname);
+            System.out.println("这就是你的重定向吗 ？？？");
+
+//            我擦
+//            return "redirect:admin/register";
+            return null;
+        }
+
+
+
     }
 
 

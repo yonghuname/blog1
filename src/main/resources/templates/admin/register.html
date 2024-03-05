@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head th:replace="~{/admin/_fragments:: head(~{::title})}">
+
+    <!--<head>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册管理</title>
+    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+
+    <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
+    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>>
+</head>
+<body>
+<br>
+<br><br>
+<br><br>
+<br>
+
+<div class="m-container-small m-padded-lr-massive" style=" max-width: 45em !important;">
+
+    <div class="ui container">
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui teal image header">
+                    <img src="../../static/images/mio3.jpg" class="image"   th:src = "@{/images/mio3.jpg}">
+
+                    <div class="content">
+                        账号注册
+                    </div>
+                </h2>
+                <form class="ui large form" method="post" action = "#" id="registrationForm" th:action = "@{/admin/register}">
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="email" placeholder="邮箱">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="username" placeholder="用户名">
+                            </div>
+                        </div>
+
+
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password1" placeholder="密码">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password2" placeholder="确认密码">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="invitecode" placeholder="邀请码">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="nickname" placeholder="昵称">
+                            </div>
+                        </div>
+                        <button class="ui fluid large teal submit button">注册</button>
+                    </div>
+
+
+
+                    <div class="ui error mini message"></div>
+                    <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名和密码错误</div>
+                    <div th:if="${message}" th:text="${message}"></div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+
+<!--    这里是 semantic ui的 的特殊表单确认    -->
+    $('.ui.form').form({
+        fields: {
+            email: {
+                identifier: 'email',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请输入邮箱'
+                    },
+                    // 可以添加邮箱格式验证规则，例如：
+                    {
+                       type: 'email',
+                       prompt: '请输入正确的邮箱格式'
+                    }
+                ]
+            },
+            username: {
+                identifier: 'username',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入用户名'
+                }]
+            },
+            nickname: {
+                identifier: 'nickname',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入昵称'
+                }]
+            },
+            password1: {
+                identifier: 'password1',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入密码'
+                }]
+            },
+            password2: {
+                identifier: 'password2',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请再次输入密码'
+                    },
+                    {
+                        type: 'match[password1]',
+                        prompt: '两次输入的密码不一致'
+                    }
+                ]
+            },
+            invitecode: {
+                identifier: 'invitecode',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请输入邀请码'
+                    }
+                ]
+            }
+        },
+        // on: 'submit',
+        // onSuccess: function() {
+        //     var user = {
+        //         email: $('[name="email"]').val(),
+        //         username: $('[name="username"]').val(),
+        //         nickname: $('[name="nickname"]').val(),
+        //         password1: $('[name="password1"]').val(),
+        //         // invitecode: $('[name="invitecode"]').val()
+        //     };
+        //     var formData = new FormData();
+        //     // 将用户对象转为JSON并设置到隐藏input中
+        //     $('#userJson').val(JSON.stringify(user));
+        //
+        //     // 触发表单提交
+        //     this.form.submit();
+        // }
+    }   );
+// document.getElementById('registrationForm').addEventListener('submit', function(event) {
+//     event.preventDefault(); // 阻止表单的默认提交行为
+//
+//     // 收集表单数据
+//     var formData = new FormData(this);
+//
+//     // 使用 AJAX 提交表单
+//     fetch('/admin/register', {
+//         method: 'POST',
+//         body: formData
+//     })
+//         .then(response => response.json())
+//         .then(data => {
+//             console.log(data);
+//             // 检查服务器返回的数据
+//             if (data.message) {
+//                 console.log(data.message);
+//                 // 显示警告框
+//                 alert(data.message);
+//             } else {
+//                 // 注册成功，可以在这里处理成功逻辑，例如重定向
+//                 window.location.href = '/admin/login'; // 重定向到登录页面
+//             }
+//         })
+// });
+
+</script>
+
+
+
+
+
+
