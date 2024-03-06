@@ -71,8 +71,15 @@
                 <td th:text="${iterStat.count}">1</td>
                 <td th:text="${type.name}">刻意练习清单</td>
                 <td>
-                    <a href="#" th:href="@{/admin/tags/{id}/input(id=${type.id})}" class="ui mini teal basic button">编辑</a>
-                    <a href="#" th:href="@{/admin/tags/{id}/delete(id=${type.id})}" class="ui mini red basic button">删除</a>
+                    <span th:if="${session.user.type} == 1">
+
+                            <a href="#" th:href="@{/admin/tags/{id}/input(id=${type.id})}" class="ui mini teal basic button">编辑</a>
+                            <a href="#" th:href="@{/admin/tags/{id}/delete(id=${type.id})}" class="ui mini red basic button">删除</a>
+
+                    </span>
+                    <span th:unless="${session.user.type} == 1">
+                    <p> 你的 账号没有权限对此进行操作，只能查看</p>
+                    </span>
                 </td>
             </tr>
             </tbody>
@@ -83,7 +90,12 @@
                         <a th:href="@{/admin/tags(page=${page.number}-1)}" class="  item" th:unless="${page.first}">上一页</a>
                         <a th:href="@{/admin/tags(page=${page.number}+1)}" class=" item" th:unless="${page.last}">下一页</a>
                     </div>
-                    <a href="#" th:href="@{/admin/tags/input}"  class="ui mini right floated teal basic button">新增</a>
+                    <span th:if="${session.user.type} == 1">
+                          <a href="#" th:href="@{/admin/tags/input}"  class="ui mini right floated teal basic button">新增</a>
+                    </span>
+                    <span th:unless="${session.user.type} == 1" class=" right floated">
+                       你的账号权限无法新增哦
+                    </span>
                 </th>
             </tr>
             </tfoot>
