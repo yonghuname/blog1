@@ -27,10 +27,10 @@ public class UserServiceImpl implements UserService {
        User samenameuser= userRepository.findByUsername(username);
 //       p判断重复用户名和 邀请码正确否
         if( samenameuser != null) {
-            return "usernameExists";
+            return "用户名已存在";
         }
         if(invitecode != "zhuceyaoqingma233" ){
-            return "inviteCodeInvalid";
+            return "邀请码错误";
         }
         User user=new User();
         user.setUsername(username);
@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
         user.setCreateTime(new Date());
 
         user.setUpdateTime(new Date());
+        user.setType(233);//普通用户
         User savedUser = userRepository.save(user);
         if (savedUser != null) {
             // 注册成功，可以返回null或者空字符串
@@ -50,5 +51,19 @@ public class UserServiceImpl implements UserService {
             // 注册失败，返回错误信息
             return "registrationFailed";
         }
+    }
+    public User updateUser(  String password, String nickname, Long id,String avatar) {
+        System.out.println("开始查找了");
+        User user= userRepository.getOne(id);
+//        getone确保只有一个’
+        System.out.println("找到了 他叫"+user.getNickname());
+        user.setAvatar(avatar);
+        System.out.println("password" + password);
+      if(password != null && password !="")  user.setPassword(MD5util.code(password));
+        user.setNickname(nickname);
+        user.setUpdateTime(new Date());
+        userRepository.save(user);
+        System.out.println("找到了 他现在 是 "+user.getNickname());
+    return user;
     }
 }

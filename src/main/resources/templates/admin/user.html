@@ -2,35 +2,35 @@
 <html lang="en">
 
 <head th:replace="~{/admin/_fragments:: head(~{::title})}">
+
+    <!--<head>-->
     <meta charset="UTF-8">
-    <title>用户管理</title>
-233
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <!-- 引入Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-    <!-- 引入Vue Router -->
-    <script src="https://cdn.jsdelivr.net/npm/vue-router@3.5.1/dist/vue-router.min.js"></script>
-    <!-- 引入Element UI的JS -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户信息修改</title>
+    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+
+    <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
+    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
 </head>
 <body>
 
-
-<nav th:replace="~{admin/_fragments :: menu(1)}"    class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav  th:replace="~{admin/_fragments ::menu(0)}" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container"  >
         <div class="ui inverted secondary stackable menu">
             <h3 class="ui teal header item">博客管理后台</h3>
-            <a class="active m-mobile-hidden item"> <i class="ui home icon">  </i>发布</a>
+            <a class="active m-mobile-hidden item" > <i class="ui home icon">  </i>发布</a>
             <a class="m-item m-mobile-hidden item"> <i class="ui idea icon">  </i>分类</a>
             <a class="m-item m-mobile-hidden item"><i class="ui tags icon">  </i>标签</a>
             <div class="right m-mobile-hidden menu">
                 <div class="ui dropdown item">
-                    <img class="ui avatar image" src="../../static/images/mio3.jpg">
-                    长野原美绪
+                    <img class="ui avatar image" src="../../static/images/mio3.jpg" th:src="@{${session.user.avatar}}" >
+
+                    <a href="#" class="header" th:text="${session.user.nickname}"> </a>
                     <i class="dropdown icon"></i>
                     <div class="menu">
                         <a href="#" class="item">管理账号</a>
-                        <a href="#" class="item">退出登录</a>
+                        <a href="#" class="item" th:href="@{/admin/logout}">退出登录</a>
                     </div>
                 </div>
 
@@ -42,96 +42,158 @@
         <i class="sidebar icon m-top-right "></i>
     </a>
 </nav>
+
+
+
+
 <!--二级导航-->
-<!-二级导航-->
-<div  th:replace="~{admin/_fragments ::div1}"  class="ui attached pointing menu"></div>
+<div  th:replace="~{admin/_fragments ::div1}"  class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
 
-
-
-<div class="ui center aligned segment">
-    <h1> 暂不开放用户注册和管理 </h1>
+            <a href="#" class="item">发布</a>
+            <a href="#" class="teal active item">列表</a>
+        </div>
+    </div>
 </div>
 
-    <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>User Profile</title>
-    </head>
-    <body>
 
-<!--    -->
-<!--<div class="ui container">-->
-<!--    <div th:if="${user != null}" class = "ui segment">-->
-<!--        <h2>User Profile</h2>-->
-
-<!--        <form th:action="@{/user/update}" th:method="post" th:object="${user}">-->
-<!--            <input type="hidden" th:field="*{id}" />-->
-
-<!--            <label for="nickname">Nickname:</label>-->
-<!--            <input type="text" id="nickname" th:field="*{nickname}" required>-->
-
-<!--            <label for="username">Username:</label>-->
-<!--            <input type="text" id="username" th:field="*{username}" required>-->
-
-<!--            <label for="password">Password:</label>-->
-<!--            <input type="password" id="password" th:field="*{password}" required>-->
-
-<!--            <label for="avatar">Avatar URL:</label>-->
-<!--            <input type="text" id="avatar" th:field="*{avatar}">-->
+    <div class="m-container-small m-padded-lr-massive" style="max-width: 45em;">
+        <div class="ui container">
+            <div class="ui middle aligned center aligned grid">
+                <div class="column">
+                    <h2 class="ui teal image header">
+                        <img src="../../static/images/mio3.jpg" class="image" th:src="@{/images/mio3.jpg}">
+                        <div class="content">
+                            用户管理
+                        </div>
+                    </h2>
+                    <!-- 用户信息表单 -->
+                    <form class="ui large form" method="post" action="/admin/user">
+                        <div class="ui stacked segment">
 
 
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="lock icon"></i>
+                                    <input type="password" name="password1" placeholder="密码,不修改密码，只修改头像和名字，留空 " th:value="${password1}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="lock icon"></i>
+                                    <input type="password" name="password2" placeholder="确认密码,不修改密码可以不用输入哦" th:value="${password1}">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="user icon"></i>
+                                    <input type="text" name="nickname" placeholder="昵称" th:value="${nickname}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="picture icon"></i>
+                                    <input type="text" name="avatar" placeholder="头像的url" th:value="${avatar}">
+                                </div>
+                            </div>
+                            <button class="ui fluid large teal submit button">信息更新</button>
+                        </div>
+
+                        <div class="ui error mini message"></div>
+                        <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名和密码错误</div>
 
 
-<!--            <button type="submit">Update Profile</button>-->
-<!--        </form>-->
-<!--    </div></div>-->
 
-    </body>
-    </html>
-<div id="app">
-    <!-- Vue应用将在这里挂载 -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<br>
+<br>
+<br>
+<br>
 
 
     <footer th:replace="~{admin/_fragments ::footer}" class="ui inverted vertical segment m-padded-tb-massive  ">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">
+                    <div class="middle aligned">
+                        <img src="../../static/images/mio1.png"
+                             class="ui middle aligned round image" alt="" style="width: 150px">
+                    </div>
+                </div>
+                <div class="three wide column ">
+                    <h4 class ="ui inverted header" >最新博客</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">等待填充1</a>
+                        <a href="#" class="item">等待填充2</a>
+                        <a href="#" class="item">等待填充3</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class ="ui inverted header">github</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">yonghuname@github.com</a>
+                        <a href="#" class="item">等待填充</a>
+                        <a href="#" class="item">等待填充</a>
+                    </div>
+                </div>
+                <div class="seven wide column">
+                    <h4 class ="ui inverted header">博客介绍</h4>
+                    <p  class="m-text-thin m-text-spaced m-opacity-mini ">这是我的个人博客,会分享文章，也可能被拿来做todolist</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider m-padded-tb-">
+            </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
+        </div>
     </footer>
+
+
 </body>
 
-
-
-
-
-
-
 <script>
-    // 创建Vue实例
-    var app = new Vue({
-        el: '#app',
-        data: {
-            // 你的数据
+    $('.ui.form').form({
+        fields: {
+
+            nickname: {
+                identifier: 'nickname',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入昵称'
+                }]
+            },
+
+            password2: {
+                identifier: 'password2',
+                rules: [
+
+                    {
+                        type: 'match[password1]',
+                        prompt: '两次输入的密码不一致'
+                    }
+                ]
+            },
+
         },
-        methods: {
-            // 你的方法
-        }
     });
 
-    // 配置Vue Router
-    var router = new VueRouter({
-        routes: [
-            // 路由配置
-        ],
-        mode: 'history'
+
+    $(document).ready(function() {
+        $('.menu.toggle').click(function() {
+            $('.m-item').toggleClass('m-mobile-hidden');
+        });
     });
+    $('.ui.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            // transition: 'drop',
+            on:  'hover'
+        })
 
-    // 使用Vue Router
-    app.$router = router;
-    app.$router.push({ path: '/user/profile' });
-
-    // 引入Element UI组件
-    // ...
-
-    // 其他Vue代码...
 </script>
-
 </html>
-

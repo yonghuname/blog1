@@ -90,7 +90,7 @@ public BlogService blogService;
                                @RequestParam String email,
                                @RequestParam String invitecode,
                                @RequestParam String nickname,
-                               Model  model){
+                               Model  model, RedirectAttributes attributes){
 
 
         String errorMessage = userService.registerUser(email, username, password1,
@@ -103,17 +103,17 @@ public BlogService blogService;
         }
         else {
             System.out.println("错误信息： "+errorMessage);
-            model.addAttribute("message", errorMessage);
-            model.addAttribute( "email",email);
-            model.addAttribute( "username",username);
-            model.addAttribute("password1",password1);
-            model.addAttribute("invitecode",invitecode);
-            model.addAttribute("nickname",nickname);
-            System.out.println("这就是你的重定向吗 ？？？");
+//            model.addAttribute("message", errorMessage);
+            attributes.addFlashAttribute( "email",email);
+            attributes.addFlashAttribute( "username",username);
+            attributes.addFlashAttribute("password1",password1);
+            attributes.addFlashAttribute("invitecode",invitecode);
+            attributes.addFlashAttribute("nickname",nickname);
 
+            attributes.addFlashAttribute("message", errorMessage);
 //            我擦
-//            return "redirect:admin/register";
-            return null;
+
+            return "redirect:/admin/register";
         }
 
 
