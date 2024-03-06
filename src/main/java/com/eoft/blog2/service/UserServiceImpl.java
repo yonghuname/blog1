@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
      public User checkUser(String username, String password)
      {
          User user = userRepository.findByUsernameAndPassword( username, MD5util.code(password));
-
+         if(user == null) return null;
          user.setUpdateTime(new Date());
 
                  return user;
