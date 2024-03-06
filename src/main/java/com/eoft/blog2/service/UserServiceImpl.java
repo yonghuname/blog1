@@ -29,8 +29,9 @@ public class UserServiceImpl implements UserService {
         if( samenameuser != null) {
             return "用户名已存在";
         }
-        if(invitecode != "zhuceyaoqingma233" ){
-            return "邀请码错误";
+        if(!invitecode.equals("zhuceyaoqingma233") ){
+            System.out.println("触发要签名错误");
+
         }
         User user=new User();
         user.setUsername(username);
