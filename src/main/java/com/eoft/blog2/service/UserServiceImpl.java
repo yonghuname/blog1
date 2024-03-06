@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         }
         if(!invitecode.equals("zhuceyaoqingma233") ){
             System.out.println("触发要签名错误");
-
+            return "邀请码错误";
         }
         User user=new User();
         user.setUsername(username);
