@@ -93,6 +93,9 @@
                     <span th:if="${session.user.type} == 1">
                           <a href="#" th:href="@{/admin/tags/input}"  class="ui mini right floated teal basic button">新增</a>
                     </span>
+                    <span   class=" right floated">
+                       删除标签请先清空文章
+                    </span>
                     <span th:unless="${session.user.type} == 1" class=" right floated">
                        你的账号权限无法新增哦
                     </span>

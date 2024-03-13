@@ -1,151 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head th:replace="~{/admin/_fragments:: head(~{::title})}">
-
-    <!--<head>-->
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分类管理</title>
-    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
+    <title>Vue TodoList</title>
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
-
+    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
+    <link rel="icon" th:href="@{/images/icon1logo32.ico}" href="/favicon.ico">
     <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
-    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>>
+    <link rel="stylesheet" href="../../static/lib/editormd-master/css/editormd.min.css"  th:href="@{/lib/editormd-master/css/editormd.min.css}">
+    <link rel="stylesheet" href="../../static/vueelement/index.css">
 
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="../../static/vueelement/vue.js"></script>
+
+    <script src="../../static/vueapp/element.js"></script>
+
+
+    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
+    <!--    有时候静态页面比thymeleaf好用 -->
+    <style >
+        body {
+            background-image: url(/images/anime11.png);
+            background-size: cover;/
+        background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
 <body>
 
-<i class="list    icon"></i>
-<!--二级导航-->
-<br>
-<img src="https://i.stack.imgur.com/CQY2e.png">
+<div>   233</div>
+<div id="app">
+    输入
+    <el-input
+            placeholder="请输入内容"
+            v-model="inputValue"
+    ></el-input>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            inputValue: ''
+        }
+    });
+</script>
+
 
 </body>
 
-
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </html>
-
-<script>
-
-    $(document).ready(function() {
-        $('.menu.toggle').click(function() {
-            $('.m-item').toggleClass('m-mobile-hidden');
-        });
-    })
-    $(document).ready(function() {
-        // 在文档加载完成后执行
-        // 选中 textarea 元素，并设置其值为预填充内容
-        //只有这样子文本才生效啊
-
-        // $('input[name="title"]').val('');
-        // tmd 什么shit semantic  输入框还需要我手动初始化为控制后面的js代码才会见效;
-
-        $('input[name="title"]').val('');
-
-        $('textarea[name="content"]').val('');
-    });
-    $('.ui.dropdown')
-        .dropdown({
-            // you can use any ui transition
-            // transition: 'drop',
-            on:  'hover'
-        });
-
-
-    var contentEditor;
-    // 初始化markdown
-    $(window).on('load', function() {
-        contentEditor = editormd("md-content", {
-            width: "100%",
-            height: 640,
-            syncScrolling: "single",
-            path: "/static/lib/editormd-master/lib/"
-        });
-    });
-    /*
-
-        $(function() {
-            contentEditor = editormd("md-content", {
-                width   : "100%",
-                height  : 640,
-                syncScrolling : "single",
-                path    : "/static/lib/editormd-master/lib/"
-            //     害死人tmd 。相对路径害死人，还是绝对路径可靠，因为相对路径找不到
-            });
-
-
-        });*/
-
-    /*
-        function initEditormd() {
-            if (typeof jQuery !== 'undefined') {
-                // jQuery已经加载，可以初始化Editor.md
-                var contentEditor = editormd("md-content", {
-                    width   : "100%",
-                    height  : 640,
-                    syncScrolling : "single",
-                    path    : "../../static/lib/editormd-master/lib/"
-                });
-            } else {
-                // jQuery尚未加载，设置一个定时器来检查
-                setTimeout(initEditormd, 100);
-            }
-        }
-
-        // 页面加载完成后，执行初始化函数
-        $(document).ready(function() {
-            initEditormd();
-        });
-        // 确保jQuery已经加载
-    */
-
-
-
-    $('.ui.form').form({
-        fields : {
-            title : {
-                identifier: 'title',
-                rules: [{
-                    type : 'empty',
-                    prompt: '标题：请输入博客标题'
-                }]
-            },
-            content : {
-                identifier: 'content',
-                rules: [{
-                    type : 'empty',
-                    prompt: '标题：请输入博客内容'
-                }]
-            },
-            typeId : {
-                identifier: 'type.id',
-                rules: [{
-                    type : 'empty',
-                    prompt: '标题：请输入博客分类'
-                }]
-            },
-            firstPicture : {
-                identifier: 'firstPicture',
-                rules: [{
-                    type : 'empty',
-                    prompt: '标题：请输入博客首图'
-                }]
-            }
-        }
-    });
-
-
-    $('#save-btn').click(function () {
-        $('[name="published"]').val(false);
-        $('#blog-form').submit();
-    });
-
-
-    $('#publish-btn').click(function () {
-        $('[name="published"]').val(true);
-        $('#blog-form').submit();
-    });
-
-
-</script>

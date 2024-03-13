@@ -46,10 +46,12 @@
                 <a href="#" th:href="@{/admin/blogs}">
                     <h3 class="ui  teal header item" ><i class="ui clipboard outline icon"></i>博客管理</h3></a>
                 <a class="m-item m-mobile-hidden  item"  th:classapend = "${(n == 1) ? 'active' : ''}" th:href="@{/admin/blogs/input}"> <i class="ui  home icon">  </i>发布</a>
-                <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 2) ? 'active' : ''}" th:href="@{/admin/types}"> <i class="ui tasks  icon">  </i>TODO</a>
-                    <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui chart bar icon">  </i> 图表 </a>
+                <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 2) ? 'active' : ''}" th:href="@{/admin/todolist}"> <i class="ui tasks  icon">  </i>TODO</a>
+                    <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui chart bar icon">  </i> 图标 </a>
                 <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 5) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui compass icon">  </i> 机器人</a>
-                <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 4) ? 'active' : ''}" th:href="@{/}"><i class="ui pencil icon">  </i>主页展示</a>
+                <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 4) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui play  icon">  </i> 学习资源 </a>
+
+                <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 6) ? 'active' : ''}" th:href="@{/}"><i class="ui pencil icon">  </i>主页展示</a>
                 <div class="right m-mobile-hidden menu">
 <!--                    <div class="ui dropdown item">-->
 <!--                        <img class="ui avatar image" src="../../static/images/mio3.jpg" th:src="@{/images/mio3.jpg}">-->
@@ -88,12 +90,14 @@
 
                 <a href="#" th:href="@{/admin/blogs/input}" class="item"><i class="edit teal icon"></i>发布界面</a>
                 <a href="#" th:href="@{/admin/blogs}"  class="teal  item"><i class="ui  teal list icon"></i>博客列表</a>
-                <a class="   teal item"   th:href="@{/admin/types}"> <i class="ui idea teal icon">  </i>分类</a>
-                <a class="  teal  item"   th:href="@{/admin/tags}"><i class="ui tags teal icon">  </i>标签</a>
+                <a class="   teal item"   th:href="@{/admin/types}"> <i class="ui idea teal icon">  </i>分类管理</a>
+                <a class="  teal  item"   th:href="@{/admin/tags}"><i class="ui tags teal icon">  </i>标签管理</a>
             </div>
         </div>
     </div>
-
+    <br>    <br>    <br>    <br>    <br>    <br>    <br>
+    <br>    <br>    <br>    <br>    <br>    <br>    <br>
+    <br>    <br>    <br>
 
     <!--    中间内容 -->
 

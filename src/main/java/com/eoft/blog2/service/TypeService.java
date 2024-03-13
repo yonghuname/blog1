@@ -8,9 +8,6 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-/**
- * Created by limi on 2017/10/16.
- */
 public interface TypeService {
 
     List<Type> listTypeTop(Integer size);
