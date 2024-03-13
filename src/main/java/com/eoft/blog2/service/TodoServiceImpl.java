@@ -4,6 +4,7 @@ import com.eoft.blog2.dao.TodoRepository;
 import com.eoft.blog2.dao.TypeRepository;
 import com.eoft.blog2.po.Todoitem;
 import com.eoft.blog2.po.User;
+import com.eoft.blog2.web.NoFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,13 @@ public class TodoServiceImpl implements  TodoService{
     }
     public void Savetodos(Todoitem todoitem){
         todoRepository.save(todoitem);
+    }
+
+    @Override
+    public void deleteById(User user, Long id) {
+       Todoitem todoitem = todoRepository.getOne(id);
+       if(todoitem.getUser().getId() == user.getId())
+           todoRepository.deleteById(id);
+       else throw new  NoFoundException("你的用户不匹配")  ;
     }
 }

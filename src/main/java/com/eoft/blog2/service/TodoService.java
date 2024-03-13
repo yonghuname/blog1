@@ -10,7 +10,7 @@ public interface TodoService {
     void Savetodos( Todoitem todoitem);
 //
 //    Todoitem Updatetodos(User user,Todoitem id);
-//    Todoitem deletetodos(User user,Todoitem id);
+void deleteById(User user,Long id);
 
 
 }

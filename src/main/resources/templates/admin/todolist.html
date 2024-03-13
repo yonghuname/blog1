@@ -48,7 +48,7 @@
     <br>
     <br>
 
-    <div class="ui container">
+    <div class="ui   container">
 
         <div class="ui two stackable grid">
             <div class="six wide column" th:fragment="todolists"  id = "todolistcolumns">
@@ -66,11 +66,25 @@
 
                 <div class="ui segment">
                     <div class="ui divided relaxed list" id ="alltodolist">
-                        <div class="ui segment" th:each="todo, stat : ${todolist}">
-                            <div class="ui checkbox">
-                                <input type="checkbox" th:checked="${todo.finished}" disabled="disabled" />
-                                <label  th:text="${todo.title}">下班后去拿快递</label>
+                        <div class="ui  m-padded-tb-small segment" th:each="todo, stat : ${todolist}">
+                            <div class="ui m-padded-tb-mini fluid input">
+                                <input type="hidden" th:value="${todo.id}"   />
+                                <!-- 使用input type="text"来创建一个输入框，并绑定todo对象的title属性 -->
+                                <div class="ui labeled floating animated  input">
+                                    <div class="ui label">分类</div>
+                                <input type="text" th:value="${todo.title}"   class="ui     fluid  input" />
+                                    <div class="ui blue icon todos-complete-button   button"  >
+
+                                        <i class=" check circle  icon"></i>
+                                    </div>
+                                    <button class="ui red icon button" onclick="deleteTodo(this)" th:attr="data-id=${todo.id}"   >
+                                        <i class="trash alternate outline icon"></i>
+                                    </button>
+                                </div>
+                                <!-- 如果需要保留复选框来表示任务完成状态，可以保留并绑定到todo对象的finished属性 -->
+
                             </div>
+
                         </div>
 
                     </div>
@@ -108,17 +122,20 @@
             </div>
             <div class="ten wide column">
     <!--  -->
-                <form id="todolist-form" action="#" th:object="${currentTodoitem}" th:action="@{/admin/todolist}" method="post" class="ui form">
+                <form id="todolist-form" action="/admin/todolist" method="post" class="ui form">
                     <div class="ui segment" style="min-height: 300px;">
-                       <div class="ui segment">
-
-                           <input type="checkbox" name="todo" value="" th:checked="${currentTodoitem.finished}">
-                           <label  th:text="${currentTodoitem.title}">下班后去拿快递</label>
-                       </div>
-                        <div class="ui input fluid">
-                            <textarea style="height: 50vh; width: 100%; box-sizing: border-box;"  th:text="${currentTodoitem.content}" placeholder="todo内容..."></textarea>
+                        <div class="ui segment">
+                            <!-- 去掉了 th:checked 属性，使用普通的 checked 属性 -->
+                            <input type="checkbox" name="todo" value="" checked="{{ currentTodoitem.finished }}">
+                            <label>下班后去拿快递</label>
                         </div>
-                        <div class="item"><button> 保存</button></div>
+                        <div class="ui input fluid">
+                            <!-- 去掉了 th:text 属性，直接使用 value 属性 -->
+                            <textarea id="content" style="height: 50vh; width: 100%; box-sizing: border-box;" placeholder="todo内容..."></textarea>
+                        </div>
+                        <div class="item">
+                            <button type="submit" class="ui blue button">保存</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -182,6 +199,12 @@
 
     <!-- JavaScript 代码 -->
     <script>
+        // 假设 currentTodoitem 是从后端获取的数据
+
+
+        // 现在 currentTodoitem 有了默认值，可以安全地使用它
+        // 例如，您可以在模板中使用 Thymeleaf 表达式来显示这些值
+        // <span th:text="${currentTodoitem.title}"></span>
         document.addEventListener('DOMContentLoaded', function() {
             // 获取输入框和按钮元素
             var todoTitleInput = document.getElementById('Todotitleinput');
@@ -232,5 +255,77 @@
 
             });
         });
+
+        document.getElementById('todolist-form').onsubmit = function(event) {
+            event.preventDefault(); // 阻止表单的默认提交行为
+
+            // 获取表单数据
+            var content = document.getElementById('content').value;
+            var finished = document.querySelector('input[name="todo"]:checked') ? true : false;
+
+            // 构建待办事项对象
+            var newTodo = {
+                title: "下班后去拿快递", // 假设标题是固定的
+                content: content,
+                finished: finished
+            };
+
+            // 使用 Axios 发送 POST 请求到后端
+            axios.post('/admin/todolist', newTodo)
+                .then(function(response) {
+                    // 请求成功后的回调函数
+                    alert("保存成功");
+                    // 这里可以进行页面跳转或者更新页面内容
+                })
+                .catch(function(error) {
+                    // 请求失败后的回调函数
+                    alert("保存失败");
+                    console.error('Error:', error);
+                });
+        };
+        function deleteTodo(button) {
+            // 获取最近的兄弟隐藏 input 元素
+            var todoid = button.getAttribute('data-id');
+
+            var res = confirm("确定要删除这个待办事项吗？");
+            if(res){
+
+                // 发送 AJAX 请求到后端以删除待办事项
+                axios.delete('/admin/todolist',
+                    {
+                        params:{
+                            todoid:todoid
+                        }
+                    }
+                )
+                    .then(function(response) {
+                        // 删除成功后的回调函数
+
+                        // 从 DOM 中移除待办事项元素
+                        var todoItem = button.closest('div.ui.segment'); // 获取整个待办事项元素
+                        todoItem.remove();
+                    })
+                    .catch(function(error) {
+                        // 请求失败后的回调函数
+                        alert("删除失败");
+
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+        // 检查 currentTodoitem 是否为 null 或者缺少标题和内容
+        if (!currentTodoitem  ) {
+            // 如果 currentTodoitem 为 null 或者缺少必要的属性，设置默认值
+            currentTodoitem = {
+                title: "输入标题",
+                content: "输入内容",
+                finished: false
+            };
+        }
+
+
+
+
     </script>
     </html>

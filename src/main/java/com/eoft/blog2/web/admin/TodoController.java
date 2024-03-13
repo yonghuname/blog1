@@ -1,84 +1,127 @@
-package com.eoft.blog2.web.admin;
+    package com.eoft.blog2.web.admin;
 
-import com.eoft.blog2.po.Todoitem;
-import com.eoft.blog2.po.User;
-import com.eoft.blog2.service.TagService;
-import com.eoft.blog2.service.TodoService;
-import com.eoft.blog2.vo.BlogQuery;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+    import com.eoft.blog2.po.Todoitem;
+    import com.eoft.blog2.po.User;
+    import com.eoft.blog2.service.TagService;
+    import com.eoft.blog2.service.TodoService;
+    import com.eoft.blog2.vo.BlogQuery;
+    import jakarta.servlet.http.HttpSession;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.data.domain.Pageable;
+    import org.springframework.data.domain.Sort;
+    import org.springframework.data.web.PageableDefault;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.ui.Model;
+    import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.List;
+    import java.util.Date;
+    import java.util.List;
 
-@Controller
-@RequestMapping("/admin")
-public class TodoController {
-    @Autowired
-    private TodoService todoService;
-    @GetMapping("/todolist")
-    public String getTodolist(    Model model , HttpSession session){
-        System.out.println("我被调用了 todogget");
-        User currentUser = (User) session.getAttribute("user");
-       List<Todoitem> todoList = todoService.getalltodos(currentUser);
-        Todoitem  currentTodoitem = new Todoitem();
-        if(todoList.size()>0)
-        {   currentTodoitem = todoList.get(0);}
-        else
-        {   currentTodoitem.setTitle("输入标题");
-            currentTodoitem.setContent("输入内容 ");
-            currentTodoitem.setFinished(false);
+    @Controller
+    @RequestMapping("/admin")
+    public class TodoController {
+        @Autowired
+        private TodoService todoService;
+        @GetMapping("/todolist")
+        public String getTodolist(    Model model , HttpSession session){
+            System.out.println("我被调用了 todogget");
+            User currentUser = (User) session.getAttribute("user");
+           List<Todoitem> todoList = todoService.getalltodos(currentUser);
+            Todoitem  currentTodoitem = new Todoitem();
+            if(todoList.size()>0)
+            {   currentTodoitem = todoList.get(0);}
+            else
+            {   currentTodoitem.setTitle("输入标题");
+                currentTodoitem.setContent("输入内容 ");
+                currentTodoitem.setFinished(false);
+            }
+
+           model.addAttribute("todolist",todoList);
+
+            model.addAttribute("currentTodoitem",currentTodoitem);
+            return "admin/todolist";
         }
 
-       model.addAttribute("todolist",todoList);
+//        @PutMapping("/todolist")
+//        public String addTodo(@RequestBody Todoitem newtodo, HttpSession session, Model model){
+//            User currentUser = (User) session.getAttribute("user");
+//            System.out.println("posttodo开始时了理论了理论了了了");
+//    //        Todoitem newtodo = new Todoitem();
+//    //        newtodo.setTitle(title);
+//            newtodo.setUser(currentUser);
+//            newtodo.setFinished(false);
+//            newtodo.setContent("");
+//            newtodo.setCreateTime(new Date());
+//            newtodo.setUpdateTime(new Date());
+//
+//            todoService.Savetodos(newtodo);
+//            model.addAttribute("currentTodoitem",newtodo);
+//            System.out.println("返回了吗");
+//            List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);
+//
+//            model.addAttribute("todolist", updatedTodos);
+//            return " admin/todolist :: todolists";
+//
+//        }
 
-        model.addAttribute("currentTodoitem",currentTodoitem);
-        return "admin/todolist";
-    }
-    @PostMapping("/todolist233")
-     public String addTodo1(@RequestBody Todoitem newtodo,HttpSession session,Model model){
-        User currentUser = (User) session.getAttribute("user");
+
+        @PostMapping("/todolist/add")
+        public String addTodo(@RequestBody Todoitem newtodo, HttpSession session, Model model){
+            User currentUser = (User) session.getAttribute("user");
 //        Todoitem newtodo = new Todoitem();
 //        newtodo.setTitle(title);
-        newtodo.setUser(currentUser);
-        newtodo.setFinished(false);
-        newtodo.setContent("");
-        newtodo.setCreateTime(new Date());
-        newtodo.setUpdateTime(new Date());
+            newtodo.setUser(currentUser);
+            newtodo.setFinished(false);
+            newtodo.setContent("");
+            newtodo.setCreateTime(new Date());
+            newtodo.setUpdateTime(new Date());
 
-        todoService.Savetodos(newtodo);
-        model.addAttribute("currentTodoitem",newtodo);
+            todoService.Savetodos(newtodo);
+            model.addAttribute("currentTodoitem",newtodo);
+            System.out.println("返回了吗");
+            List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);
 
-        return "admin/todolist";
+            model.addAttribute("todolist", updatedTodos);
+            return "admin/todolist :: todolists";
+
+        }
+        @PostMapping("/todolist")
+        public String updateTodo(@RequestBody Todoitem newtodo, HttpSession session, Model model){
+
+            User currentUser = (User) session.getAttribute("user");
+            //        Todoitem newtodo = new Todoitem();
+            //        newtodo.setTitle(title);
+            newtodo.setUser(currentUser);
+
+            if(newtodo.getContent()==null)newtodo.setContent("");
+            newtodo.setCreateTime(new Date());
+            newtodo.setUpdateTime(new Date());
+
+            todoService.Savetodos(newtodo);
+            model.addAttribute("currentTodoitem",newtodo);
+            System.out.println("返回了吗");
+            List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);
+
+            model.addAttribute("todolist", updatedTodos);
+            return "admin/todolist :: todolists";
+
+        }
+
+        @DeleteMapping("/todolist")
+        public void deleteTodo( HttpSession session,@RequestParam("todoid")Long todoid) {
+//            参数 id的名字要一样不然就映射
+//            System.out.println("id"+id);
+            User currentUser = (User) session.getAttribute("user");
+            todoService.deleteById(currentUser,todoid);
+            System.out.println("delete调用了 ");
+//            return "redirect:/admin/todolist";
+            Todoitem  currentTodoitem = new Todoitem();
+            currentTodoitem.setTitle("输入标题");
+            currentTodoitem.setContent("输入内容 ");
+            currentTodoitem.setFinished(false);
+//            todo 必须 处理当前的必须还是当前的。如果删掉当前的，不让删就完事了，回复一个你正在编辑 比其他好好处理
+
+        }
+
     }
-    @PostMapping("/todolist/add")
-    public String addTodo(@RequestBody Todoitem newtodo, HttpSession session, Model model){
-        User currentUser = (User) session.getAttribute("user");
-//        Todoitem newtodo = new Todoitem();
-//        newtodo.setTitle(title);
-        newtodo.setUser(currentUser);
-        newtodo.setFinished(false);
-        newtodo.setContent("");
-        newtodo.setCreateTime(new Date());
-        newtodo.setUpdateTime(new Date());
-
-        todoService.Savetodos(newtodo);
-        model.addAttribute("currentTodoitem",newtodo);
-        System.out.println("返回了吗");
-        List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);
-
-        model.addAttribute("todolist", updatedTodos);
-        return "admin/todolist :: todolists";
-
-    }
-}

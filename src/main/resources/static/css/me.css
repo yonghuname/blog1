@@ -1,5 +1,7 @@
 
-
+.todos-complete-button {
+    width: 80px;
+}
 .custom-header{
     background: url("/static/images/anime11.png"    ) ;
     background-size: cover;
