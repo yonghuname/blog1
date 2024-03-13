@@ -51,7 +51,7 @@
     <div class="ui   container">
 
         <div class="ui two stackable grid">
-            <div class="six wide column" th:fragment="todolists"  id = "todolistcolumns">
+            <div class="six wide column   "   id = "todolistcolumns">
                 <div class="ui segment">
                     <div class="ui container" style="height: 30px">
                         <h2 class="ui middle aligned header">想要在这里进行切换</h2>
@@ -126,8 +126,8 @@
                     <div class="ui segment" style="min-height: 300px;">
                         <div class="ui segment">
                             <!-- 去掉了 th:checked 属性，使用普通的 checked 属性 -->
-                            <input type="checkbox" name="todo" value="" checked="{{ currentTodoitem.finished }}">
-                            <label>下班后去拿快递</label>
+                            <input type="checkbox" name="todo" value="0"  th:checked="${  currentTodoitem.finished }">
+                            <input type="text"  th:value="${ currentTodoitem.title }"   class="ui fluid input" />
                         </div>
                         <div class="ui input fluid">
                             <!-- 去掉了 th:text 属性，直接使用 value 属性 -->
@@ -236,20 +236,23 @@
                         todoTitleInput.value = '';
                         currentTodoitem = newTodo;
                         var todoListHtml = response.data;
-                        var todoListContainer = document.getElementById('todolistcolumns');
+                        document.body.innerHTML = todoListHtml;
+                        // var todoListContainer = document.get('todolistcolumns');
 
                         // 清空当前的待办事项列表容器
-                        todoListContainer.innerHTML = '';
+                        // todoListContainer.innerHTML = '';
 
-                        console.log("todoListHtml");
-
-                        // 将新的待办事项列表插入到容器中
-                        todoListContainer.innerHTML = todoListHtml;
+                        // console.log("todoListHtml");
+                        //
+                        // // 将新的待办事项列表插入到容器中
+                        // todoListContainer.innerHTML = todoListHtml;
                         // 这里可以添加代码来更新页面上的待办事项列表
+                    //     todo 思考一逻辑，这里是不是可以不刷新整个页面呢 也许还有冲突的可能性，不过新增的时候
                     })
                     .catch(function(error) {
                         // 请求失败后的回调函数
                         alert('待办事项添加失败');
+                        alert(error)
                         console.error('Error:', error);
                     });
 

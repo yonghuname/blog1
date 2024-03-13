@@ -25,11 +25,11 @@
         private TodoService todoService;
         @GetMapping("/todolist")
         public String getTodolist(    Model model , HttpSession session){
-            System.out.println("我被调用了 todogget");
+
             User currentUser = (User) session.getAttribute("user");
            List<Todoitem> todoList = todoService.getalltodos(currentUser);
             Todoitem  currentTodoitem = new Todoitem();
-            if(todoList.size()>0)
+            if(todoList.size()<0)
             {   currentTodoitem = todoList.get(0);}
             else
             {   currentTodoitem.setTitle("输入标题");
@@ -43,31 +43,10 @@
             return "admin/todolist";
         }
 
-//        @PutMapping("/todolist")
-//        public String addTodo(@RequestBody Todoitem newtodo, HttpSession session, Model model){
-//            User currentUser = (User) session.getAttribute("user");
-//            System.out.println("posttodo开始时了理论了理论了了了");
-//    //        Todoitem newtodo = new Todoitem();
-//    //        newtodo.setTitle(title);
-//            newtodo.setUser(currentUser);
-//            newtodo.setFinished(false);
-//            newtodo.setContent("");
-//            newtodo.setCreateTime(new Date());
-//            newtodo.setUpdateTime(new Date());
-//
-//            todoService.Savetodos(newtodo);
-//            model.addAttribute("currentTodoitem",newtodo);
-//            System.out.println("返回了吗");
-//            List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);
-//
-//            model.addAttribute("todolist", updatedTodos);
-//            return " admin/todolist :: todolists";
-//
-//        }
-
-
         @PostMapping("/todolist/add")
         public String addTodo(@RequestBody Todoitem newtodo, HttpSession session, Model model){
+
+//            System.out.println("   @PostMapping( todolist/add ");
             User currentUser = (User) session.getAttribute("user");
 //        Todoitem newtodo = new Todoitem();
 //        newtodo.setTitle(title);
@@ -79,11 +58,11 @@
 
             todoService.Savetodos(newtodo);
             model.addAttribute("currentTodoitem",newtodo);
-            System.out.println("返回了吗");
+//            System.out.println("返回了吗");
             List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);
 
             model.addAttribute("todolist", updatedTodos);
-            return "admin/todolist :: todolists";
+            return "admin/todolist";
 
         }
         @PostMapping("/todolist")
