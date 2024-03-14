@@ -7,6 +7,7 @@ import com.eoft.blog2.service.BlogService;
 import com.eoft.blog2.service.TagService;
 import com.eoft.blog2.service.TypeService;
 import com.eoft.blog2.vo.BlogQuery;
+import com.eoft.blog2.web.NoFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,6 +48,7 @@ public class BlogController {
         User currentUser = (User) session.getAttribute("user");
 //       Long uid = currentUser.getId();
 //是这个blog
+
         model.addAttribute("types", typeService.listType());
 
         model.addAttribute("page",blogService.blogssearch(pageable,blog,currentUser));
@@ -91,6 +93,8 @@ public class BlogController {
         Blog blog= blogService.getBlog(id);
 
         User currentUser = (User) session.getAttribute("user");
+        if(currentUser ==null) throw new NoFoundException("你无法编辑这篇文章");
+
         if( currentUser.getId().equals(    blog.getUser().getId() ) || currentUser.getType() == 1)  {
 
 
