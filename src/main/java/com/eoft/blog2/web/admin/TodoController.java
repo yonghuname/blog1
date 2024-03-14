@@ -43,8 +43,10 @@
             return "admin/todolist";
         }
 
+
+
         @PostMapping("/todolist/add")
-        public String addTodo(@RequestBody Todoitem newtodo, HttpSession session, Model model){
+        public String addTodo (@RequestBody Todoitem newtodo, HttpSession session, Model model){
 
 //            System.out.println("   @PostMapping( todolist/add ");
             User currentUser = (User) session.getAttribute("user");
@@ -62,22 +64,22 @@
             List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);
 
             model.addAttribute("todolist", updatedTodos);
-            return "admin/todolist";
+            return "admin/todolist::todolists";
 
         }
         @PostMapping("/todolist")
         public String updateTodo(@RequestBody Todoitem newtodo, HttpSession session, Model model){
-
+            System.out.println("updateTodo dodooooooooooooooooo");
+           if( newtodo.getId()==null) addTodo(newtodo,session,model);
             User currentUser = (User) session.getAttribute("user");
-            //        Todoitem newtodo = new Todoitem();
-            //        newtodo.setTitle(title);
+
             newtodo.setUser(currentUser);
 
-            if(newtodo.getContent()==null)newtodo.setContent("");
-            newtodo.setCreateTime(new Date());
+            if(newtodo.getContent()==null) newtodo.setContent("");
+//            newtodo.setCreateTime(new Date());
             newtodo.setUpdateTime(new Date());
 
-            todoService.Savetodos(newtodo);
+            todoService.Updatetodos(currentUser,newtodo);
             model.addAttribute("currentTodoitem",newtodo);
             System.out.println("返回了吗");
             List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);

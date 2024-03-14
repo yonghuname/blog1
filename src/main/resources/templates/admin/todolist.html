@@ -63,51 +63,37 @@
                         </button>
                     </div>
                 </div>
+            <div class="ui m-padded-mini segment " th:fragment="todolists" id ="alltodolist" >
 
-                <div class="ui segment">
-                    <div class="ui divided relaxed list" id ="alltodolist">
-                        <div class="ui  m-padded-tb-small segment" th:each="todo, stat : ${todolist}">
-                            <div class="ui m-padded-tb-mini fluid input">
-                                <input type="hidden" th:value="${todo.id}"   />
+
+                    <div class="ui divided relaxed list"  >
+                        <div class="ui  m-padded-tb-small m-margin-tb-small segment" th:each="todo, stat : ${todolist}"  >
+
+
                                 <!-- 使用input type="text"来创建一个输入框，并绑定todo对象的title属性 -->
-                                <div class="ui labeled floating animated  input">
-                                    <div class="ui label">分类</div>
-                                <input type="text" th:value="${todo.title}"   class="ui     fluid  input" />
+                                <div class="ui labeled floating animated m-padded-tb-mini  fluid input" >
+                                    <input type="hidden" th:value="${todo.id}"   />
+                                    <div class="ui mini button" onclick="editTodo(this)" style="width:2em" th:attr="data-content=${todo.content}, data-title=${todo.title}, data-todo-id=${todo.id}, data-finished =  ${todo.finished}" >
+                                        编辑
+                                    </div>
+                                    <input type="text" th:value="${todo.title}"     class="ui fluid input"   readonly   />
+
+
                                     <div class="ui blue icon todos-complete-button   button"  >
 
-                                        <i class=" check circle  icon"></i>
+                                        <i class=" check circle  icon"></i> 完成
                                     </div>
                                     <button class="ui red icon button" onclick="deleteTodo(this)" th:attr="data-id=${todo.id}"   >
                                         <i class="trash alternate outline icon"></i>
                                     </button>
                                 </div>
-                                <!-- 如果需要保留复选框来表示任务完成状态，可以保留并绑定到todo对象的finished属性 -->
-
-                            </div>
 
                         </div>
 
                     </div>
                     <!-- 已完成列表 -->
 
-                </div>
-
-                <div class="ui segment">
-
-                    <div class="ui dropdown item">
-                        未完成
-                        <i class=" right aligned dropdown icon"></i>
-                        <div class="menu">
-                            <div class="ui segment">
-
-                                <input type="checkbox" name="todo" value=" "> <label>下班后去拿快递</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ui segment">
-
-                    <div class="ui dropdown item">
+                <div class="ui dropdown item">
                     已完成
                     <i class=" right aligned dropdown icon"></i>
                     <div class="menu">
@@ -116,8 +102,12 @@
                             <input type="checkbox" name="todo" value=" "> <label>下班后去拿快递</label>
                         </div>
                     </div>
-                    </div>
                 </div>
+                </div>
+
+
+
+
 
             </div>
             <div class="ten wide column">
@@ -126,12 +116,13 @@
                     <div class="ui segment" style="min-height: 300px;">
                         <div class="ui segment">
                             <!-- 去掉了 th:checked 属性，使用普通的 checked 属性 -->
-                            <input type="checkbox" name="todo" value="0"  th:checked="${  currentTodoitem.finished }">
+                            <input type="hidden"   id="currenttodoid"  />
+                            <input type="checkbox" name="todo"   th:checked="${  currentTodoitem.finished }" id="currenttodofinished" >
                             <input type="text"  th:value="${ currentTodoitem.title }"  id="currenttodotitle" class="ui fluid input" />
                         </div>
                         <div class="ui input fluid">
                             <!-- 去掉了 th:text 属性，直接使用 value 属性 -->
-                            <textarea id="content" style="height: 50vh; width: 100%; box-sizing: border-box;" placeholder="todo内容..."></textarea>
+                            <textarea id="currenttodocontent" style="height: 50vh; width: 100%; box-sizing: border-box;" placeholder="todo内容..."></textarea>
                         </div>
                         <div class="item">
                             <button type="submit" class="ui blue button">保存</button>
@@ -141,6 +132,9 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
     <br>
 
 
@@ -223,7 +217,8 @@
 
                 // 构建待办事项对象
                 var newTodo = {
-                    title: todoTitle
+                    title: todoTitle,
+                    finished:false
                     // 如果有其他属性，可以在这里添加
                 };
 
@@ -235,8 +230,10 @@
                         // 清空输入框
                         todoTitleInput.value = '';
                         currentTodoitem = newTodo;
-                        var todoListHtml = response.data;
-                        document.body.innerHTML = todoListHtml;
+                        // var todoListHtml = response.data;
+                        // document.body.innerHTML = todoListHtml;
+                        var todoListContainer = document.getElementById('alltodolist');
+                        todoListContainer.innerHTML = response.data;
                         // var todoListContainer = document.get('todolistcolumns');
 
                         // 清空当前的待办事项列表容器
@@ -273,12 +270,13 @@
             event.preventDefault(); // 阻止表单的默认提交行为
 
             // 获取表单数据
-            var content = document.getElementById('content').value;
-            var finished = document.querySelector('input[name="todo"]:checked') ? true : false;
+            var content = document.getElementById('currenttodocontent').value;
+            var finished = document.getElementById('currenttodofinished').value;
             var title = document.getElementById('currenttodotitle').value
-
+            var id =     document.getElementById('currenttodoid').value
             // 构建待办事项对象
             var newTodo = {
+                id:id,
                 title: title, // 假设标题是固定的
                 content: content,
                 finished: finished
@@ -288,12 +286,14 @@
             axios.post('/admin/todolist', newTodo)
                 .then(function(response) {
                     // 请求成功后的回调函数
-                    alert("保存成功");
+
+
+                    alert("更新成功");
                     // 这里可以进行页面跳转或者更新页面内容
                 })
                 .catch(function(error) {
                     // 请求失败后的回调函数
-                    alert("保存失败");
+                    alert("更新失败");
                     console.error('Error:', error);
                 });
         };
@@ -332,7 +332,7 @@
 
         // 检查 currentTodoitem 是否为 null 或者缺少标题和内容
         if (!currentTodoitem  ) {
-            // 如果 currentTodoitem 为 null 或者缺少必要的属性，设置默认值
+            //  currentTodoitem  置默认值
             currentTodoitem = {
                 title: "输入标题",
                 content: "输入内容",
@@ -343,5 +343,21 @@
 
 
 
+
+        function editTodo(button) {
+
+
+            // 获取待办事项的ID 还有  是 内容和完成状态
+            var todoId = button.getAttribute('data-todo-id');
+            var todoContent = button.getAttribute('data-content');
+                var todoFinished = button.getAttribute('data-finished')  ;
+            var todoTitle = button.getAttribute("data-title");
+
+            document.getElementById('currenttodotitle').value =   todoTitle
+            document.getElementById('currenttodoid').value =   todoId
+            document.getElementById('currenttodofinished').value =   todoFinished
+            document.getElementById('currenttodocontent').value =  todoContent
+
+        }
     </script>
     </html>
