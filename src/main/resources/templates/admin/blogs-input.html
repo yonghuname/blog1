@@ -29,8 +29,7 @@
                     长野原美绪
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="#" th:href="@{/admin/blogs/input}" class="teal active item">发布</a>
-                        <a href="#" th:href="@{/admin/blogs}" class="item">列表</a>
+
                     </div>
                 </div>
 
@@ -218,7 +217,9 @@
 
         </form>
 
-
+            <div th:fragment="blogInputReturnNews">
+                <div   th:text="${message}" class="alert alert-info"></div>
+            </div>
     </div>
 </div>
 
@@ -404,17 +405,41 @@
         }
     });
 
-
-    $('#save-btn').click(function () {
+    function saveBlog() {
         $('[name="published"]').val(false);
-        $('#blog-form').submit();
-    });
 
+        $('#blog-form').submit();
+        alert("保存成功");
+    }
+    $('#save-btn').click(function () {
+        saveBlog();
+
+    });
+    $(document).keydown(function (e) {
+        // 检查是否同时按下了 Ctrl 和 S 键
+        if (e.ctrlKey && e.which === 83) { // 83 是 S 键的键码
+            // 阻止默认的保存行为，如果需要的话
+            e.preventDefault();
+
+            // 执行与点击事件相同的操作
+            saveBlog();
+        }
+    });
 
     $('#publish-btn').click(function () {
         $('[name="published"]').val(true);
         $('#blog-form').submit();
     });
-
+    document.addEventListener('DOMContentLoaded', function() {
+        // 检查是否有消息属性
+        if (document.contains(document.getElementById('message'))) {
+            // 获取消息内容
+            var message = document.getElementById('message').textContent;
+            // 显示消息
+            alert(message);
+            // 阻止页面刷新
+            event.preventDefault();
+        }
+    });
 
 </script>

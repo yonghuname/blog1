@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -108,9 +109,9 @@ public class BlogController {
     }
 
 
-//增 和改 blog的推送
+//增 和改 blog的推送,对于保存按钮我做了进一步优化，这样子不会跳转管理页面，而是保存了，但是不跳转，这里就可以类似doc文档按ctrl+s 保存然后继续书写
     @PostMapping("/blogs")
-    public String post(Blog blog, RedirectAttributes attributes, HttpSession session) {
+    public String post(Blog blog, RedirectAttributes attributes, HttpSession session, RedirectView redirectView) {
 
         if(blog.getFirstPicture().equals("1")){
 
@@ -122,6 +123,7 @@ public class BlogController {
 
         blog.setType(typeService.getType(blog.getType().getId()));
         blog.setTags(tagService.listTag(blog.getTagIds()));
+       String blogidstr = blog.getId().toString() ;
 
 
 //        如果作者不等于当前作者，就是只能把文章变得不可展示，
@@ -134,20 +136,31 @@ public class BlogController {
             blog.setUser( currentUser);
 
             b =  blogService.saveBlog(blog);
+//            return save;
         } else {
             Blog existingBlog =   blogService.getBlog(blog.getId());
             blog.setUser(existingBlog.getUser() );
 //            啊呀光想着怎么从前端传进来了，其实 可以再去后端用id 找到这个blog赋值啊
             b = blogService.updateBlog(blog.getId(), blog);
+//                 blogInputReturnNews
+//           String S= "/admin/blogs/"+  blogidstr+"/input::blogInputReturnNews";    return S;
+      if(!b.isPublished())     return "/admin/blogs-input";
+
         }
 
         if (b == null ) {
             attributes.addFlashAttribute("message", "操作失败");
+
         } else {
             attributes.addFlashAttribute("message", "操作成功");
-        }
 
-        return REDIRECT_LIST;
+
+        }
+        String  returnview= "redirect:/blog/"+blogidstr;
+      return returnview;
+
+
+
     }
 
 

@@ -58,7 +58,9 @@ private BlogService blogService;
 
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model) {
-        model.addAttribute("blog", blogService.getAndConvert(id));
+      Blog blog =   blogService.getAndConvert(id);
+        if(blog.isPublished())   model.addAttribute("blog", blog);
+        else new NoFoundException("这篇文章没有找到，文章可能不存在权限不够");
 
         return "blog";
     }
