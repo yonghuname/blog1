@@ -90,7 +90,8 @@
                     <i class="eye icon"></i> <span th:text="${blog.views} ">55555</span>
                 </div> <!-- 观看数 -->
                 <div class="right aligned item" th:href="@{/admin/blogs/input/{id}(id=${blog.id})}">
-                    <div class="ui  right aligned  blue button"  > 作者编辑</div>
+
+                    <a href="#"  th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui right floated blue   button">作者编辑</a>
                 </div>
             </div>
         </div>

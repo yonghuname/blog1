@@ -418,8 +418,7 @@
     $(document).keydown(function (e) {
         // 检查是否同时按下了 Ctrl 和 S 键
         if (e.ctrlKey && e.which === 83) { // 83 是 S 键的键码
-            // 阻止默认的保存行为，如果需要的话
-            e.preventDefault();
+
 
             // 执行与点击事件相同的操作
             saveBlog();

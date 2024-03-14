@@ -129,6 +129,7 @@ public Page<Blog> listBlog(String query,Pageable pageable){
     @Override
 //    新建
     public Blog saveBlog(Blog blog) {
+//        初次创造就设置初始化
         if (blog.getCreateTime() == null) {
             blog.setCreateTime(new Date());
             blog.setUpdateTime(new Date());

@@ -62,6 +62,8 @@ private BlogService blogService;
         if(!blog.isPublished() )    return "error/noright";
 
         blog.getUser().setPassword(null);
+      Integer views=  blog.getViews();
+        blog.setViews(views+1);
         //这样子不会影响数据库，还可以屏蔽密码丢失。 安全保障
         model.addAttribute("blog", blog);
 

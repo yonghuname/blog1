@@ -42,7 +42,7 @@ public class BlogController {
 
 //    todo 要按userid 搜索
     @GetMapping("/blogs")
-    public String blogs(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC)
+    public String blogs(@PageableDefault(size = 20, sort = {"updateTime"}, direction = Sort.Direction.DESC)
                         Pageable pageable, BlogQuery blog, Model model ,HttpSession session) {
 
         User currentUser = (User) session.getAttribute("user");
@@ -76,7 +76,7 @@ public class BlogController {
         setTypeAndTag(model);
         //要给框框传值你
         Blog blog = new Blog();
-
+        blog.setTitle("2333333ssa");
         model.addAttribute("blog", new Blog());
 
                 return INPUT;
@@ -115,8 +115,10 @@ public class BlogController {
 
 //增 和改 blog的推送,对于保存按钮我做了进一步优化，这样子不会跳转管理页面，而是保存了，但是不跳转，这里就可以类似doc文档按ctrl+s 保存然后继续书写
     @PostMapping("/blogs")
-    public String post(Blog blog, RedirectAttributes attributes, HttpSession session, RedirectView redirectView) {
+    public String post(Blog blog, RedirectAttributes attributes, HttpSession session   ) {
 
+//        if(blog == null) System.out.println("blgos isi iisisi  nulllllllllllllll"); tmd 居然不是空的
+        System.out.println(" 调用 public String post(Blog blog, RedirectAttributes attributes, HttpSession session, RedirectView redirectView) {");
         if(blog.getFirstPicture().equals("1")){
 
 //            if  首图地址写1 就会用下面这个代替他
@@ -127,7 +129,7 @@ public class BlogController {
 
         blog.setType(typeService.getType(blog.getType().getId()));
         blog.setTags(tagService.listTag(blog.getTagIds()));
-       String blogidstr = blog.getId().toString() ;
+
 
 
 //        如果作者不等于当前作者，就是只能把文章变得不可展示，
@@ -140,6 +142,8 @@ public class BlogController {
             blog.setUser( currentUser);
 
             b =  blogService.saveBlog(blog);
+
+            if(!b.isPublished())     return "/admin/blogs-input";
 //            return save;
         } else {
             Blog existingBlog =   blogService.getBlog(blog.getId());
@@ -160,6 +164,7 @@ public class BlogController {
 
 
         }
+        String blogidstr = b.getId().toString() ; //报错原因
         String  returnview= "redirect:/blog/"+blogidstr;
       return returnview;
 
