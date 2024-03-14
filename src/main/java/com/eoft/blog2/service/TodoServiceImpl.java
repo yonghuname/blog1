@@ -56,9 +56,12 @@ public class TodoServiceImpl implements  TodoService{
     public Todoitem Finishtodos(User user, Todoitem todoitem) {
 
         Long id =  todoitem.getId();
-       if( todoitem.getUser().getId() == user.getId()){
         Todoitem todo  =  todoRepository.getOne(id);
-        todo.setFinished(todoitem.isFinished());
+       if( todo.getUser().getId() == user.getId()){
+//      就是 完成 取消完成 这里取反就可以了。。
+        todo.setFinished(!todo.isFinished());
+
+//        直接取反重复利用
         return todoRepository.save(todo);}
        else throw new  NoFoundException("你的用户不匹配")  ;
     }

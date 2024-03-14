@@ -46,7 +46,7 @@
 
 
         @PostMapping("/todolist/add")
-        public String addTodo (@RequestBody Todoitem newtodo, HttpSession session, Model model){
+        public String addTodo (@RequestBody Todoitem newtodo, HttpSession session, Model model) {
 
 //            System.out.println("   @PostMapping( todolist/add ");
             User currentUser = (User) session.getAttribute("user");
@@ -81,7 +81,7 @@
 
             todoService.Updatetodos(currentUser,newtodo);
             model.addAttribute("currentTodoitem",newtodo);
-            System.out.println("返回了吗");
+//            System.out.println("返回了吗");
             List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);
 
             model.addAttribute("todolist", updatedTodos);
@@ -91,6 +91,7 @@
 
         @PutMapping("/todolist")
         public String finishTodo(@RequestBody Todoitem newtodo ,HttpSession session, Model model ){
+            System.out.println("todo完成开始改变了111111111111");
             User currentUser = (User) session.getAttribute("user");
             newtodo.setUpdateTime(new Date());
             Todoitem todoitem=  todoService.Finishtodos(currentUser,newtodo);
@@ -98,6 +99,7 @@
 
             model.addAttribute("todolist", updatedTodos);
             return "admin/todolist :: todolists";
+
         }
 //        更新完成状态
 
