@@ -79,11 +79,11 @@
                                     <input type="text" th:value="${todo.title}"     class="ui fluid input"   readonly   />
 
 
-                                    <div class="ui blue icon todos-complete-button   button"  >
+                                    <div class="ui blue icon todos-complete-button   button"  data-todo-finish-id=${todo.id},>
 
                                         <i class=" check circle  icon"></i> 完成
                                     </div>
-                                    <button class="ui red icon button" onclick="deleteTodo(this)" th:attr="data-id=${todo.id}"   >
+                                    <button class="ui red icon button" onclick="deleteTodo(this)" th:attr="data-id=${todo.id}"  th:id="'completeIcon' + ${todo.id}" >
                                         <i class="trash alternate outline icon"></i>
                                     </button>
                                 </div>
@@ -199,7 +199,7 @@
         // 现在 currentTodoitem 有了默认值，可以安全地使用它
         // 例如，您可以在模板中使用 Thymeleaf 表达式来显示这些值
         // <span th:text="${currentTodoitem.title}"></span>
-        document.addEventListener('DOMContentLoaded', function() {
+
             // 获取输入框和按钮元素
             var todoTitleInput = document.getElementById('Todotitleinput');
             var addTodoButton = document.getElementById('addTodoButton');
@@ -264,7 +264,24 @@
                     addTodoButton.click();
                 }
             });
-        });
+
+            var completeButtons = document.querySelectorAll('.todos-complete-button.button');
+
+            // 为每个完成按钮添加点击事件监听器
+            completeButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    // 获取待办事项的ID
+                    var todoId = button.getAttribute('data-todo-finish-id');
+                    // 弹出alert
+                    alert("您点击了待办事项完成按钮，待办事项ID为: " + todoId);
+
+                    // 这里可以添加发送更新请求到后端的代码
+                    // 例如: axios.put('/admin/todolist/' + todoId, { finished: true })
+                    //     .then(function(response) { ... })
+                    //     .catch(function(error) { ... });
+                });
+            });
+
 
         document.getElementById('todolist-form').onsubmit = function(event) {
             event.preventDefault(); // 阻止表单的默认提交行为
@@ -359,5 +376,7 @@
             document.getElementById('currenttodocontent').value =  todoContent
 
         }
+
+
     </script>
     </html>

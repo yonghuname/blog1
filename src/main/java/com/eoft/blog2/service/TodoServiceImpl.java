@@ -51,4 +51,16 @@ public class TodoServiceImpl implements  TodoService{
            todoRepository.deleteById(id);
        else throw new  NoFoundException("你的用户不匹配")  ;
     }
+//还是单独写一个吧
+    @Override
+    public Todoitem Finishtodos(User user, Todoitem todoitem) {
+
+        Long id =  todoitem.getId();
+       if( todoitem.getUser().getId() == user.getId()){
+        Todoitem todo  =  todoRepository.getOne(id);
+        todo.setFinished(todoitem.isFinished());
+        return todoRepository.save(todo);}
+       else throw new  NoFoundException("你的用户不匹配")  ;
+    }
+
 }

@@ -86,8 +86,24 @@
 
             model.addAttribute("todolist", updatedTodos);
             return "admin/todolist :: todolists";
-
+//todo  这里要 更新右边 和左边
         }
+
+        @PutMapping("/todolist")
+        public String finishTodo(@RequestBody Todoitem newtodo ,HttpSession session, Model model ){
+            User currentUser = (User) session.getAttribute("user");
+            newtodo.setUpdateTime(new Date());
+            Todoitem todoitem=  todoService.Finishtodos(currentUser,newtodo);
+            List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);
+
+            model.addAttribute("todolist", updatedTodos);
+            return "admin/todolist :: todolists";
+        }
+//        更新完成状态
+
+
+
+
 
         @DeleteMapping("/todolist")
         public void deleteTodo( HttpSession session,@RequestParam("todoid")Long todoid,Model model) {
@@ -105,5 +121,6 @@
 //            todo 必须 处理当前的必须还是当前的。如果删掉当前的，不让删就完事了，回复一个你正在编辑 比其他好好处理
 
         }
+
 
     }
