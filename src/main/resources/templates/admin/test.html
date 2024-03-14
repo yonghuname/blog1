@@ -1,57 +1,315 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue TodoList</title>
-    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
-    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
-    <link rel="icon" th:href="@{/images/icon1logo32.ico}" href="/favicon.ico">
-    <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
-    <link rel="stylesheet" href="../../static/lib/editormd-master/css/editormd.min.css"  th:href="@{/lib/editormd-master/css/editormd.min.css}">
-    <link rel="stylesheet" href="../../static/vueelement/index.css">
-
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <script src="../../static/vueelement/vue.js"></script>
-
-    <script src="../../static/vueapp/element.js"></script>
-
-
-    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
-    <!--    有时候静态页面比thymeleaf好用 -->
-    <style >
-        body {
-            background-image: url(/images/anime11.png);
-            background-size: cover;/
-        background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-    </style>
-</head>
-<body>
-
-<div>   233</div>
-<div id="app">
-    输入
-    <el-input
-            placeholder="请输入内容"
-            v-model="inputValue"
-    ></el-input>
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- JavaScript 代码 -->
 <script>
-    new Vue({
-        el: '#app',
-        data: {
-            inputValue: ''
+    // 假设 currentTodoitem 是从后端获取的数据
+
+
+    // 现在 currentTodoitem 有了默认值，可以安全地使用它
+    // 例如，您可以在模板中使用 Thymeleaf 表达式来显示这些值
+    // <span th:text="${currentTodoitem.title}"></span>
+
+    // 获取输入框和按钮元素
+    var todoTitleInput = document.getElementById('Todotitleinput');
+    var addTodoButton = document.getElementById('addTodoButton');
+
+    // 为添加按钮添加点击事件监听器
+    addTodoButton.addEventListener('click', function() {
+        // 获取输入框的值
+        var todoTitle = todoTitleInput.value.trim();
+
+        // 验证输入是否为空
+        if (todoTitle === '') {
+            alert('请输入待办事项的标题');
+            return;
+        }
+
+        // 构建待办事项对象
+        var newTodo = {
+            title: todoTitle,
+            finished:false
+            // 如果有其他属性，可以在这里添加
+        };
+
+        // 使用 Axios 发送 POST 请求到后端
+        axios.post('todolist/add', newTodo)
+            .then(function(response) {
+                // 请求成功后的回调函数
+                // alert('待办事项添加成功');
+                // 清空输入框
+                todoTitleInput.value = '';
+                currentTodoitem = newTodo;
+                // var todoListHtml = response.data;
+                // document.body.innerHTML = todoListHtml;
+                var todoListContainer = document.getElementById('alltodolist');
+
+                todoListContainer.innerHTML = response.data;
+                // var todoListContainer = document.get('todolistcolumns');
+
+                // 清空当前的待办事项列表容器
+                // todoListContainer.innerHTML = '';
+
+                // console.log("todoListHtml");
+                //
+                // // 将新的待办事项列表插入到容器中
+                // todoListContainer.innerHTML = todoListHtml;
+                // 这里可以添加代码来更新页面上的待办事项列表
+                //     todo 思考一逻辑，这里是不是可以不刷新整个页面呢 也许还有冲突的可能性，不过新增的时候
+            })
+            .catch(function(error) {
+                // 请求失败后的回调函数
+                alert('待办事项添加失败');
+                alert(error)
+                console.error('Error:', error);
+            });
+
+    });
+    todoTitleInput.addEventListener('keypress', function(event) {
+        // 检查是否按下了回车键（KeyCode: 13）
+        if (event.keyCode === 13) {
+            // 阻止默认的回车键行为（例如提交表单）
+            event.preventDefault();
+
+            // 这里调用点击按钮时的方法
+            addTodoButton.click();
         }
     });
+    // 在页面加载完毕后绑定事件监听器
+    document.addEventListener('DOMContentLoaded', function() {
+        // 获取所有完成和取消按钮的父容器
+        var todoListContainer = document.getElementById('alltodolist');
+
+        // 添加点击事件监听器到父容器，通过事件委托的方式处理点击事件
+        todoListContainer.addEventListener('click', function(event) {
+            var target = event.target;
+
+            // 检查点击的元素是否为完成按钮
+            if (target.classList.contains('todos-complete-button')) {
+                // 获取待办事项的ID
+                var todoId = target.getAttribute('data-todo-finish-id');
+
+                axios.put('/admin/todolist', { id: todoId })
+                    .then(function(response) {
+                        // 更新成功后的操作
+                        todoListContainer.innerHTML = response.data;
+                    })
+                    .catch(function(error) {
+                        // 处理更新失败的情况
+                        console.error('Error:', error);
+                    });
+            } else if (target.classList.contains('todos-cancel-button')) {
+                // 处理取消按钮的点击事件
+                // 这部分的代码与完成按钮类似，根据需要进行相应的处理
+            }
+        });
+    });
+
+
+
+
+    document.getElementById('todolist-form').onsubmit = function(event) {
+        event.preventDefault(); // 阻止表单的默认提交行为
+
+        // 获取表单数据
+        var content = document.getElementById('currenttodocontent').value;
+        var finished = document.getElementById('currenttodofinished').value;
+        var title = document.getElementById('currenttodotitle').value
+        var id =     document.getElementById('currenttodoid').value
+        // 构建待办事项对象
+        var newTodo = {
+            id:id,
+            title: title, // 假设标题是固定的
+            content: content,
+            finished: finished
+        };
+
+        // 使用 Axios 发送 POST 请求到后端
+        axios.post('/admin/todolist', newTodo)
+            .then(function(response) {
+                // 请求成功后的回调函数
+
+
+                var todoListContainer = document.getElementById('alltodolist');
+                todoListContainer.innerHTML = response.data;
+                // 这里可以进行页面跳转或者更新页面内容
+            })
+            .catch(function(error) {
+                // 请求失败后的回调函数
+                alert("更新失败");
+                console.error('Error:', error);
+            });
+    };
+    function deleteTodo(button) {
+
+
+        // 获取最近的兄弟隐藏 input 元素
+        var todoid = button.getAttribute('data-id');
+
+        var res = confirm("确定要删除这个待办事项吗？");
+        if(res){
+
+            // 发送 AJAX 请求到后端以删除待办事项
+            axios.delete('/admin/todolist',
+                {
+                    params:{
+                        todoid:todoid
+                    }
+                }
+            )
+                .then(function(response) {
+                    // 删除成功后的回调函数
+
+                    // 从 DOM 中移除待办事项元素
+                    var todoItem = button.closest('div.ui.segment'); // 获取整个待办事项元素
+                    todoItem.remove();
+                })
+                .catch(function(error) {
+                    // 请求失败后的回调函数
+                    alert("删除失败");
+
+                    console.error('Error:', error);
+                });
+        }
+    }
+
+    // 检查 currentTodoitem 是否为 null 或者缺少标题和内容
+    if (!currentTodoitem  ) {
+        //  currentTodoitem  置默认值
+        currentTodoitem = {
+            title: "输入标题",
+            content: "输入内容",
+            finished: false
+        };
+    }
+
+
+
+
+
+    function editTodo(button) {
+
+
+        // 获取待办事项的ID 还有  是 内容和完成状态
+        var todoId = button.getAttribute('data-todo-id');
+        var todoContent = button.getAttribute('data-content');
+        var todoFinished = button.getAttribute('data-finished')  ;
+        var todoTitle = button.getAttribute("data-title");
+
+        document.getElementById('currenttodotitle').value =   todoTitle
+        document.getElementById('currenttodoid').value =   todoId
+        document.getElementById('currenttodofinished').value =   todoFinished
+        document.getElementById('currenttodocontent').value =  todoContent
+
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        $('.ui.dropdown').dropdown();
+    });
+
+
 </script>
 
 
-</body>
+<div class="ui   container">
 
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-</html>
+    <div class="ui two stackable grid">
+        <div class="six wide column   "   id = "todolistcolumns">
+            <div class="ui segment">
+                <div class="ui container" style="height: 30px">
+                    <h2 class="ui middle aligned header">想要在这里进行切换</h2>
+                </div>
+                <div class="ui action fluid input">
+                    <input type="text" id="Todotitleinput" placeholder="添加任务...">
+                    <button class="ui icon button" id="addTodoButton">
+                        <i class="plus icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="ui m-padded-mini segment " th:fragment="todolists" id ="alltodolist" >
+
+
+                <div class="ui divided relaxed list"  >
+                    <div class="ui  m-padded-tb-small m-margin-tb-small segment" th:each="todo, stat : ${todolist}"
+                         th:if="${todo.finished} == false "  >
+
+
+                        <!-- 使用input type="text"来创建一个输入框，并绑定todo对象的title属性 -->
+                        <div class="ui labeled floating animated m-padded-tb-mini  fluid input" >
+                            <input type="hidden" th:value="${todo.id}"   />
+                            <div class="ui mini button" onclick="editTodo(this)" style="width:2em" th:attr="data-content=${todo.content}, data-title=${todo.title}, data-todo-id=${todo.id}, data-finished =  ${todo.finished}" >
+                                编辑
+                            </div>
+                            <input type="text" th:value="${todo.title}"     class="ui fluid input"   readonly   />
+
+
+                            <div class="ui blue icon todos-complete-button   button" th:attr=" data-todo-finish-id=${todo.id}">
+
+                                <i class=" check circle  icon"></i> 完成
+                            </div>
+                            <button class="ui red icon button" onclick="deleteTodo(this)" th:attr="data-id=${todo.id}"  th:id="'completeIcon' + ${todo.id}" >
+                                <i class="trash alternate outline icon"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ui fluid m-padded-mini dropdown">
+                    <i class="dropdown icon"></i>  已完成
+                    <div class="ui  m-padded-tb-small m-margin-tb-small segment" th:each="todo, stat : ${todolist}"
+                         th:if="${todo.finished} == true "  >
+
+
+                        <!-- 使用input type="text"来创建一个输入框，并绑定todo对象的title属性 -->
+                        <div class="ui labeled floating animated m-padded-tb-mini  fluid input" >
+                            <input type="hidden" th:value="${todo.id}"   />
+                            <div class="ui mini button" onclick="editTodo(this)" style="width:2em" th:attr="data-content=${todo.content}, data-title=${todo.title}, data-todo-id=${todo.id}, data-finished =  ${todo.finished}" >
+                                编辑
+                            </div>
+                            <input type="text" th:value="${todo.title}"     class="ui fluid input"   readonly   />
+
+
+                            <div class="ui basic blue todos-complete-button button" th:attr="data-todo-finish-id=${todo.id}">
+                                <!--                                <i class=" undo icon"></i> -->
+                                取消
+                            </div>
+                            <button class="ui red icon button" onclick="deleteTodo(this)" th:attr="data-id=${todo.id}"  th:id="'completeIcon' + ${todo.id}" >
+                                <i class="trash alternate outline icon"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+        <div class="ten wide column">
+            <!--  -->
+            <form id="todolist-form" action="/admin/todolist" method="post" class="ui form">
+                <div class="ui segment" style="min-height: 300px;">
+                    <div class="ui segment">
+                        <!-- 去掉了 th:checked 属性，使用普通的 checked 属性 -->
+                        <input type="hidden"   id="currenttodoid"  />
+                        <input type="checkbox" name="todo"   th:checked="${  currentTodoitem.finished }" id="currenttodofinished" >
+                        <input type="text"  th:value="${ currentTodoitem.title }"  id="currenttodotitle" class="ui fluid input" />
+                    </div>
+                    <div class="ui input fluid">
+                        <!-- 去掉了 th:text 属性，直接使用 value 属性 -->
+                        <textarea id="currenttodocontent" style="height: 50vh; width: 100%; box-sizing: border-box;" placeholder="todo内容..."></textarea>
+                    </div>
+                    <div class="item">
+                        <button type="submit" class="ui blue button">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
