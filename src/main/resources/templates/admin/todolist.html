@@ -286,33 +286,37 @@
                     addTodoButton.click();
                 }
             });
+        // 在页面加载完毕后绑定事件监听器
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有完成和取消按钮的父容器
+            var todoListContainer = document.getElementById('alltodolist');
 
-            var completeButtons = document.querySelectorAll('.todos-complete-button.button');
+            // 添加点击事件监听器到父容器，通过事件委托的方式处理点击事件
+            todoListContainer.addEventListener('click', function(event) {
+                var target = event.target;
 
-            // 为每个完成按钮添加点击事件监听器
-            completeButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
+                // 检查点击的元素是否为完成按钮
+                if (target.classList.contains('todos-complete-button')) {
                     // 获取待办事项的ID
-                    var todoId = button.getAttribute('data-todo-finish-id');
+                    var todoId = target.getAttribute('data-todo-finish-id');
 
-                    axios.put('/admin/todolist', {
-                        id: todoId,
-
-                    })
-                        // 直接去后端取反就行了 直接充分利用这个按钮
+                    axios.put('/admin/todolist', { id: todoId })
                         .then(function(response) {
-                        // alert("更新完成了");
-                        //     alert(response.data)
-                            var todoListContainer = document.getElementById('alltodolist');
+                            // 更新成功后的操作
                             todoListContainer.innerHTML = response.data;
                         })
                         .catch(function(error) {
-                            // 请求失败后的回调函数
-
+                            // 处理更新失败的情况
                             console.error('Error:', error);
                         });
-                });
+                } else if (target.classList.contains('todos-cancel-button')) {
+                    // 处理取消按钮的点击事件
+                    // 这部分的代码与完成按钮类似，根据需要进行相应的处理
+                }
             });
+        });
+
+
 
 
         document.getElementById('todolist-form').onsubmit = function(event) {
