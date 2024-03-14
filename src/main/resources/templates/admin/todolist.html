@@ -418,7 +418,7 @@
             .then(function(response) {
                 // 请求成功后的回调函数
 
-
+                currentTodoitem = newTodo;
                 var todoListContainer = document.getElementById('alltodolist');
                 todoListContainer.innerHTML = response.data;
                 // 这里可以进行页面跳转或者更新页面内容
@@ -489,6 +489,14 @@
         document.getElementById('currenttodoid').value =   todoId
         document.getElementById('currenttodofinished').value =   todoFinished
         document.getElementById('currenttodocontent').value =  todoContent
+        var newTodo = {
+            id:todoId,
+            title: todoTitle, // 假设标题是固定的
+            content: todoContent,
+            finished: todoFinished
+        };
+        currentTodoitem = newTodo;
+        // alert(currentTodoitem.finished)
 
     }
     document.addEventListener('DOMContentLoaded', function() {
