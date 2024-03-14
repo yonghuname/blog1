@@ -127,7 +127,7 @@
                         <div class="ui segment">
                             <!-- 去掉了 th:checked 属性，使用普通的 checked 属性 -->
                             <input type="checkbox" name="todo" value="0"  th:checked="${  currentTodoitem.finished }">
-                            <input type="text"  th:value="${ currentTodoitem.title }"   class="ui fluid input" />
+                            <input type="text"  th:value="${ currentTodoitem.title }"  id="currenttodotitle" class="ui fluid input" />
                         </div>
                         <div class="ui input fluid">
                             <!-- 去掉了 th:text 属性，直接使用 value 属性 -->
@@ -257,6 +257,16 @@
                     });
 
             });
+            todoTitleInput.addEventListener('keypress', function(event) {
+                // 检查是否按下了回车键（KeyCode: 13）
+                if (event.keyCode === 13) {
+                    // 阻止默认的回车键行为（例如提交表单）
+                    event.preventDefault();
+
+                    // 这里调用点击按钮时的方法
+                    addTodoButton.click();
+                }
+            });
         });
 
         document.getElementById('todolist-form').onsubmit = function(event) {
@@ -265,10 +275,11 @@
             // 获取表单数据
             var content = document.getElementById('content').value;
             var finished = document.querySelector('input[name="todo"]:checked') ? true : false;
+            var title = document.getElementById('currenttodotitle').value
 
             // 构建待办事项对象
             var newTodo = {
-                title: "下班后去拿快递", // 假设标题是固定的
+                title: title, // 假设标题是固定的
                 content: content,
                 finished: finished
             };
@@ -287,6 +298,8 @@
                 });
         };
         function deleteTodo(button) {
+
+
             // 获取最近的兄弟隐藏 input 元素
             var todoid = button.getAttribute('data-id');
 

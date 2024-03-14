@@ -25,7 +25,7 @@
         private TodoService todoService;
         @GetMapping("/todolist")
         public String getTodolist(    Model model , HttpSession session){
-
+            System.out.println("      public String getTodolist(    Model model , HttpSession session){" );
             User currentUser = (User) session.getAttribute("user");
            List<Todoitem> todoList = todoService.getalltodos(currentUser);
             Todoitem  currentTodoitem = new Todoitem();
@@ -88,7 +88,7 @@
         }
 
         @DeleteMapping("/todolist")
-        public void deleteTodo( HttpSession session,@RequestParam("todoid")Long todoid) {
+        public void deleteTodo( HttpSession session,@RequestParam("todoid")Long todoid,Model model) {
 //            参数 id的名字要一样不然就映射
 //            System.out.println("id"+id);
             User currentUser = (User) session.getAttribute("user");
@@ -99,6 +99,7 @@
             currentTodoitem.setTitle("输入标题");
             currentTodoitem.setContent("输入内容 ");
             currentTodoitem.setFinished(false);
+            model.addAttribute("currentTodoitem",currentTodoitem);
 //            todo 必须 处理当前的必须还是当前的。如果删掉当前的，不让删就完事了，回复一个你正在编辑 比其他好好处理
 
         }

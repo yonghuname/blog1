@@ -51,7 +51,6 @@ private BlogService blogService;
            throw new NoFoundException("文章不存在");
         }
 */
-        System.out.println("----------index------------");
         return "index" ;
 
 
@@ -60,7 +59,7 @@ private BlogService blogService;
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model) {
         model.addAttribute("blog", blogService.getAndConvert(id));
-//        System.out.println();
+
         return "blog";
     }
 
@@ -91,7 +90,7 @@ private BlogService blogService;
 
     @GetMapping("/404")
     public String e404(){
-        System.out.println("----------blog------------");
+
         return "404" ;
     }
     @GetMapping("/aboutme")

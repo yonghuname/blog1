@@ -62,7 +62,7 @@ public class BlogController {
         User currentUser = (User) session.getAttribute("user");
 //        Long uid = currentUser.getId();
         model.addAttribute("page", blogService.blogssearch(pageable, blog,currentUser));
-        return "admin/blogs :: blogList";
+        return "admin/blogs ::blogList";
     }
 
 
@@ -89,14 +89,12 @@ public class BlogController {
     public String editInput(@PathVariable Long id, Model model,HttpSession session) {
         Blog blog= blogService.getBlog(id);
 
-        System.out.println("  public String editInput(@PathVariable Long id, Model model,HttpSession session) {调用了" );
         User currentUser = (User) session.getAttribute("user");
         if( currentUser.getId().equals(    blog.getUser().getId() ) || currentUser.getType() == 1)  {
 
 
             setTypeAndTag(model);
             //编辑器
-            System.out.println("编辑文章功能启动");
             blog.init();
 
             model.addAttribute("blog", blog);
@@ -113,8 +111,7 @@ public class BlogController {
 //增 和改 blog的推送
     @PostMapping("/blogs")
     public String post(Blog blog, RedirectAttributes attributes, HttpSession session) {
-//        System.out.println(blog.getUser().getId());
-//        System.out.println(blog.getFirstPicture());
+
         if(blog.getFirstPicture().equals("1")){
 
 //            if  首图地址写1 就会用下面这个代替他
