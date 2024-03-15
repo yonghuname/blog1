@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TodoService {
     List<Todoitem> getalltodos(User user);
-    void Savetodos( Todoitem todoitem);
+    Todoitem Savetodos( Todoitem todoitem);
 //
     Todoitem Updatetodos(User user,Todoitem todoitem);
     void deleteById(User user,Long id);

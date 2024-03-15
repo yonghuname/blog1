@@ -23,8 +23,9 @@ public class TodoServiceImpl implements  TodoService{
        List<Todoitem>  todolist= todoRepository.findAllByUId(uid);
     return todolist;
     }
-    public void Savetodos(Todoitem todoitem){
-        todoRepository.save(todoitem);
+    public Todoitem Savetodos(Todoitem todoitem){
+        Todoitem todoitem2=  todoRepository.save(todoitem);
+        return todoitem2;
     }
 
     @Override

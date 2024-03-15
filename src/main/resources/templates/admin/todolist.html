@@ -47,6 +47,8 @@
 
     <div class="ui two stackable grid">
         <div class="six wide column   "   id = "todolistcolumns">
+            <input type="hidden"   id="hiddencurrentTodoitemid" th:value="${currentTodoitem.id}" />
+<!--            用来存值啊-->
             <div class="ui segment">
                 <div class="ui container" style="height: 30px">
                     <h2 class="ui middle aligned header">想要在这里进行切换</h2>
@@ -70,14 +72,14 @@
                         <div class="ui labeled floating animated m-padded-tb-mini  fluid input" >
                             <input type="hidden" th:value="${todo.id}"   />
                             <div class="ui mini button" onclick="editTodo(this)" style="width:2em" th:attr="data-content=${todo.content}, data-title=${todo.title}, data-todo-id=${todo.id}, data-finished =  ${todo.finished}" >
-                                编辑
+                                改
                             </div>
                             <input type="text" th:value="${todo.title}"     class="ui fluid input"   readonly   />
 
 
                             <div class="ui blue icon todos-complete-button   button" th:attr=" data-todo-finish-id=${todo.id}">
 
-                                <i class=" check circle  icon"></i> 完成
+                                <i class="  check circle  icon"></i> 完成
                             </div>
                             <button class="ui red icon button" onclick="deleteTodo(this)" th:attr="data-id=${todo.id}"  th:id="'completeIcon' + ${todo.id}" >
                                 <i class="trash alternate outline icon"></i>
@@ -91,7 +93,7 @@
 
                 <div class="ui fluid m-padded-mini selection dropdown item" id="completed-dropdown">
                     <i class="dropdown icon"></i>  已完成
-                    <div class="  menu" style="width:100%">
+                    <div class=" finishedtodolist menu" style="width:100%">
                         <div class="container" style="width:100%">
                             <div class="ui  m-padded-tb-small m-margin-tb-small segment" th:each="todo, stat : ${todolist}"
                                  th:if="${todo.finished} == true " >
@@ -101,7 +103,7 @@
                                 <div class="ui labeled floating animated m-padded-tb-mini  fluid input" >
                                     <input type="hidden" th:value="${todo.id}"   />
                                     <div class="ui mini button" onclick="editTodo(this)" style="width:2em" th:attr="data-content=${todo.content}, data-title=${todo.title}, data-todo-id=${todo.id}, data-finished =  ${todo.finished}" >
-                                        编辑
+                                      改
                                     </div>
                                     <input type="text" th:value="${todo.title}"     class="ui fluid input"   style="  text-decoration: line-through;"   readonly   />
 
@@ -137,11 +139,11 @@
                 <form id="todolist-form" action="/admin/todolist" method="post" class="ui form" >
                     <div class="ui segment" style="min-height: 300px;">
                         <div class="ui segment">
-                            <!-- 去掉了 th:checked 属性，使用普通的 checked 属性 -->
-                            <input type="hidden"   id="currenttodoid"  />
+
+                            <input type="hidden"   id="currenttodoid" th:value="${currentTodoitem.id}" />
                             <div class="ui fluid stackable grid">
                                 <div class="one wide column ">
-                                    <input type="checkbox" name="todo" class="ui blue big checkbox"  th:checked="${  currentTodoitem.finished }" id="currenttodofinished" >
+                                    <input type="checkbox" name="todo" class="ui blue big checkbox"   id="currenttodofinished" >
                                 </div>
                                 <div class="fifteen wide columns" style="width: 92%">
                                     <input type="text"  th:value="${ currentTodoitem.title }"  id="currenttodotitle" class="ui fluid   input" />
@@ -156,6 +158,9 @@
                         <div class="item">
                             <button type="submit" class="ui blue button" style="width: 100px">保存</button>
                         </div>
+                    </div>
+                    <div id="success-message" class="ui message success">
+                        保存成功！
                     </div>
                 </form>
 
@@ -251,8 +256,31 @@
                 .closest('.message')
                 .transition('fade');
         });
+    // $('.ui.form').form({
+    //     // 表单验证规则
+    //     fields: {
+    //         // 表单字段验证规则
+    //     },
+    //     // 表单提交成功后的回调函数
+    //     on: 'submit',
+    //     success: function(response) {
+    //         // 显示自定义的提示信息
+    //         $('.ui.success.message').transition('fade in').removeClass('hidden');
+    //
+    //         // 3秒后隐藏提示信息
+    //         setTimeout(function() {
+    //             $('.ui.success.message').transition('fade out').addClass('hidden');
+    //         }, 3000); // 3000毫秒后隐藏提示信息
+    //     }
+    // });
+// 上面几乎是jquery代码下面是常规的js
 
-    // 在页面加载完成后执行以下代码
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- JavaScript 代码 -->
+<script>
+
+    // 下拉的操控
     document.addEventListener('DOMContentLoaded', function() {
         // 获取菜单的父级元素
         var menuParent = document.getElementById('todolistcolumns'); // 根据需要替换为实际的父级元素ID
@@ -286,23 +314,26 @@
             }
         });
     });
+    document.addEventListener('DOMContentLoaded', function() {
+        // 检查 currentTodoitem 是否为 null 或者缺少标题和内容
 
 
-</script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!-- JavaScript 代码 -->
-<script>
-    // 假设 currentTodoitem 是从后端获取的数据
+        var checkbox = document.getElementById('currenttodofinished');
 
+        // 监听复选框的 change 事件
+        // checkbox.addEventListener('change', function () {
+        //     // 获取复选框的选中状态
+        //     var isChecked = this.checked;
+        //
+        //     alert(isChecked); // true 或 false
+        // });
+    });
 
-    // 现在 currentTodoitem 有了默认值，可以安全地使用它
-    // 例如，您可以在模板中使用 Thymeleaf 表达式来显示这些值
-    // <span th:text="${currentTodoitem.title}"></span>
 
     // 获取输入框和按钮元素
     var todoTitleInput = document.getElementById('Todotitleinput');
     var addTodoButton = document.getElementById('addTodoButton');
-
+    var currentTodoitem
     // 为添加按钮添加点击事件监听器
     addTodoButton.addEventListener('click', function() {
         // 获取输入框的值
@@ -332,19 +363,14 @@
                 // var todoListHtml = response.data;
                 // document.body.innerHTML = todoListHtml;
                 var todoListContainer = document.getElementById('alltodolist');
-
+                document.getElementById('currenttodotitle').value =   todoTitle
+                document.getElementById('currenttodoid').value = document.getElementById('hiddencurrentTodoitemid').value
+                document.getElementById('currenttodofinished').checked =   false
+                document.getElementById('currenttodocontent').value =  ""
                 todoListContainer.innerHTML = response.data;
                 // var todoListContainer = document.get('todolistcolumns');
 
-                // 清空当前的待办事项列表容器
-                // todoListContainer.innerHTML = '';
 
-                // console.log("todoListHtml");
-                //
-                // // 将新的待办事项列表插入到容器中
-                // todoListContainer.innerHTML = todoListHtml;
-                // 这里可以添加代码来更新页面上的待办事项列表
-                //     todo 思考一逻辑，这里是不是可以不刷新整个页面呢 也许还有冲突的可能性，不过新增的时候
             })
             .catch(function(error) {
                 // 请求失败后的回调函数
@@ -358,7 +384,7 @@
         // 检查是否按下了回车键（KeyCode: 13）
         if (event.keyCode === 13) {
             // 阻止默认的回车键行为（例如提交表单）
-            event.preventDefault();
+            // event.preventDefault();
 
             // 这里调用点击按钮时的方法
             addTodoButton.click();
@@ -381,7 +407,9 @@
                 axios.put('/admin/todolist', { id: todoId })
                     .then(function(response) {
                         // 更新成功后的操作
+                        alert("保存成功")
                         todoListContainer.innerHTML = response.data;
+
                     })
                     .catch(function(error) {
                         // 处理更新失败的情况
@@ -402,7 +430,7 @@
 
         // 获取表单数据
         var content = document.getElementById('currenttodocontent').value;
-        var finished = document.getElementById('currenttodofinished').value;
+        var finished = document.getElementById('currenttodofinished').checked;
         var title = document.getElementById('currenttodotitle').value
         var id =     document.getElementById('currenttodoid').value
         // 构建待办事项对象
@@ -412,30 +440,52 @@
             content: content,
             finished: finished
         };
-
+        if(!id){
+            alert("请重新点击对应项")
+        }else{
         // 使用 Axios 发送 POST 请求到后端 更新
         axios.post('/admin/todolist', newTodo)
+
             .then(function(response) {
-                // 请求成功后的回调函数
 
                 currentTodoitem = newTodo;
                 var todoListContainer = document.getElementById('alltodolist');
                 todoListContainer.innerHTML = response.data;
-                // 这里可以进行页面跳转或者更新页面内容
+                alert("保存成功")
+
             })
             .catch(function(error) {
                 // 请求失败后的回调函数
                 alert("更新失败");
                 console.error('Error:', error);
             });
+        }
     };
+
+
+    document.getElementById('todolist-form').addEventListener('keydown', function(event) {
+        // 检查是否同时按下了 Ctrl 和 Shift，并且按下的键是 "S"
+        if (event.ctrlKey && event.shiftKey && event.key === 'S') {
+            event.preventDefault(); // 阻止默认的按键行为
+
+            // 调用表单的 onsubmit 事件处理器
+            var form = document.getElementById('todolist-form');
+            form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: false }));
+        }
+    });
     function deleteTodo(button) {
 
 
         // 获取最近的兄弟隐藏 input 元素
         var todoid = button.getAttribute('data-id');
+       var currenttodoid = document.getElementById('currenttodoid').value
 
-        var res = confirm("确定要删除这个待办事项吗？");
+        if (todoid != currenttodoid)
+            var res = confirm("确定要删除这个待办事项吗？");
+        else {
+            alert("不能删除正在编辑的todo,请先保存,或者切换到另外的todo上");
+            res = false;
+        }
         if(res){
 
             // 发送 AJAX 请求到后端以删除待办事项
@@ -462,17 +512,6 @@
         }
     }
 
-    // 检查 currentTodoitem 是否为 null 或者缺少标题和内容
-    if (!currentTodoitem  ) {
-        //  currentTodoitem  置默认值
-        currentTodoitem = {
-            title: "输入标题",
-            content: "输入内容",
-            finished: false
-        };
-    }
-
-
 
 
 
@@ -484,24 +523,32 @@
         var todoContent = button.getAttribute('data-content');
         var todoFinished = button.getAttribute('data-finished')  ;
         var todoTitle = button.getAttribute("data-title");
-
+        // todo 复选框问题 
         document.getElementById('currenttodotitle').value =   todoTitle
         document.getElementById('currenttodoid').value =   todoId
-        document.getElementById('currenttodofinished').value =   todoFinished
         document.getElementById('currenttodocontent').value =  todoContent
-        var newTodo = {
-            id:todoId,
-            title: todoTitle, // 假设标题是固定的
-            content: todoContent,
-            finished: todoFinished
-        };
-        currentTodoitem = newTodo;
-        // alert(currentTodoitem.finished)
+
+        // alert(todoFinished)
+        // alert( document.getElementById('currenttodofinished').checked)
+        document.getElementById('currenttodofinished').checked = false
+        // (我觉得真的一直这个位置的bug查不出来 ,设置上面为todoFinished 一直默认为true
+        // alert( document.getElementById('currenttodofinished').checked)
+        // var newTodo = {
+        //     id:todoId,
+        //     title: todoTitle, // 假设标题是固定的
+        //     content: todoContent,
+        //     finished: todoFinished
+        // };
+
+
+
+
 
     }
     document.addEventListener('DOMContentLoaded', function() {
         $('.ui.dropdown').dropdown();
     });
+
 
 
 </script>

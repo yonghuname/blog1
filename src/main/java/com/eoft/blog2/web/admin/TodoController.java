@@ -58,8 +58,8 @@
             newtodo.setCreateTime(new Date());
             newtodo.setUpdateTime(new Date());
 
-            todoService.Savetodos(newtodo);
-            model.addAttribute("currentTodoitem",newtodo);
+            Todoitem  savedtodo= todoService.Savetodos(newtodo);
+            model.addAttribute("currentTodoitem",savedtodo);
 //            System.out.println("返回了吗");
             List<Todoitem> updatedTodos = todoService.getalltodos(currentUser);
 
@@ -69,7 +69,7 @@
         }
         @PostMapping("/todolist")
         public String updateTodo(@RequestBody Todoitem newtodo, HttpSession session, Model model){
-            System.out.println("updateTodo dodooooooooooooooooo");
+//            System.out.println("updateTodo dodooooooooooooooooo");
            if( newtodo.getId()==null) addTodo(newtodo,session,model);
             User currentUser = (User) session.getAttribute("user");
 

@@ -1,7 +1,9 @@
-.menu {
-    max-height: 450px;
-    overflow-y: scroll; /* 当内容溢出时显示垂直滚动条 */
-}
+/*.finishedtodolist.menu {*/
+/*    max-height: 450px;*/
+/*    overflow-y: auto; !* 当内容溢出时显示垂直滚动条 *!*/
+/*}*/
+
+
 .todos-complete-button {
     width: 80px;
 }

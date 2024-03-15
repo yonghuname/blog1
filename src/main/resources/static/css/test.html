@@ -78,7 +78,9 @@
     </div>
     <div class="ui submit button">Submit</div>
 </div>
-
+<div class="one wide column ">
+    <input type="checkbox" name="todo" class="ui blue big checkbox"   id="currenttodofinished" >233333
+</div>
 <br>
 <br>
 <br>
@@ -159,5 +161,40 @@
 
 <!--<script  src="https://cdn.jsdeliver.net/semantic-ui/2.2.4/semantic.min.js"></script>-->
 <!--<script  src="https://cdn.jsdeliver.net/npm/jquery@3.2/dist/jquery.min.js"></script>-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var checkbox1 = document.getElementById('currenttodofinished');
+        checkbox1.addEventListener('change', function () {
+            // 获取复选框的选中状态
+            var isChecked = this.checked;
 
+            alert(isChecked); // true 或 false
+
+
+            todoFinished = true
+            alert("todoFinished:"+todoFinished)
+            if(todoFinished ){
+                alert("todoFinished:"+todoFinished)
+                checkbox1.checked = true
+                alert("checkbox1.checked:"+checkbox1.checked)
+            }else{
+                alert("todoFinished:"+todoFinished)
+                checkbox1.checked = false
+                alert("checkbox1.checked:"+checkbox1.checked)
+            }
+            alert("checkbox1.checked:"+checkbox1.checked)
+            if (checkbox1.checked ) {
+                alert("checkbox.checked = true");
+                // checkbox1.checked = true;
+            } else {
+                alert("checkbox.checked = false");
+                // checkbox1.checked = false;
+            }
+
+
+
+        });
+    });
+
+</script>
 </html>
