@@ -82,37 +82,58 @@
 <br>
 
 
-<footer th:replace="~{admin/_fragments ::footer}" class="ui inverted vertical segment m-padded-tb-massive  ">
+
+<footer th:replace="~{admin/_fragments ::footer}" class="ui    attached segment m-padded-tb-mini m-shadow-big-up  ">
+
+    <br>
+    <br>
+    <br>
     <div class="ui center aligned container">
-        <div class="ui inverted divided stackable grid">
+        <div class="ui   divided stackable grid">
+
             <div class="three wide column">
+
                 <div class="middle aligned">
-                    <img src="../../static/images/mio1.png"
-                         class="ui middle aligned round image" alt="" style="width: 150px">
+
+                    <img src="../../../static/images/mio1.png"
+                         class="ui middle aligned round image" alt="" style="width: 150px" th:src="@{/images/mio1.png}">
                 </div>
+
+
             </div>
             <div class="three wide column ">
-                <h4 class ="ui inverted header" >最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">等待填充1</a>
-                    <a href="#" class="item">等待填充2</a>
-                    <a href="#" class="item">等待填充3</a>
+                <h4 class ="ui   header" >最新文章</h4>
+                <div class="ui red  link list">
+                    <div id="newblog-container">
+                        <div class="ui   link list" th:fragment="newblogList">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item black m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
+                            <!--/*-->
+                            <!--*/-->
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class ="ui inverted header">github</h4>
-                <div class="ui inverted link list">
+                <h4 class ="ui   header">练习方式</h4>
+                <div class="ui black  link list">
                     <a href="#" class="item">yonghuname@github.com</a>
                     <a href="#" class="item">等待填充</a>
                     <a href="#" class="item">等待填充</a>
                 </div>
             </div>
+
             <div class="seven wide column">
-                <h4 class ="ui inverted header">博客介绍</h4>
-                <p  class="m-text-thin m-text-spaced m-opacity-mini ">这是我的个人博客,会分享文章，也可能被拿来做todolist</p>
+
+                <h4 class ="ui   header">网页介绍</h4>
+
+                <p  class="m-text-thin m-text-spaced m-opacity-mini ">学而不思则罔，思而不学则怠。</p>
+
             </div>
         </div>
-        <div class="ui inverted section divider m-padded-tb-">
+
+        <!--111111111111111111111111111111-->
+
+        <div class="ui   section divider m-padded-tb-">
         </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
     </div>
 </footer>

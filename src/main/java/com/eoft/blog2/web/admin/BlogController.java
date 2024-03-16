@@ -76,7 +76,8 @@ public class BlogController {
         setTypeAndTag(model);
         //要给框框传值你
         Blog blog = new Blog();
-        blog.setTitle("2333333ssa");
+//        blog.setTitle("2333333ssa");
+
         model.addAttribute("blog", new Blog());
 
                 return INPUT;
@@ -165,7 +166,7 @@ public class BlogController {
 
         }
         String blogidstr = b.getId().toString() ; //报错原因
-        String  returnview= "redirect:/blog/"+blogidstr;
+        String  returnview= "/blog/"+blogidstr;
       return returnview;
 
 

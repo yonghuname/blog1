@@ -47,9 +47,9 @@
                     <h3 class="ui  teal header item" ><i class="ui clipboard outline icon"></i>博客管理</h3></a>
                 <a class="m-item m-mobile-hidden  item"  th:classapend = "${(n == 1) ? 'active' : ''}" th:href="@{/admin/blogs/input}"> <i class="ui  home icon">  </i>发文</a>
                 <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 2) ? 'active' : ''}" th:href="@{/admin/todolist}"> <i class="ui tasks  icon">  </i>TODO</a>
-                    <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui chart bar icon">  </i> 图标 </a>
+                    <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/chart}"><i class="ui chart bar icon">  </i> 图表 </a>
                 <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 5) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui compass icon">  </i> 机器人</a>
-                <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 4) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui play  icon">  </i> 学习资源 </a>
+                <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 4) ? 'active' : ''}" th:href="@{/admin/media/bilibiliuser}"><i class="ui play  icon">  </i> 视频 </a>
 
                 <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 6) ? 'active' : ''}" th:href="@{/}"><i class="ui pencil icon">  </i>主页展示</a>
                 <div class="right m-mobile-hidden menu">
@@ -95,6 +95,19 @@
             </div>
         </div>
     </div>
+
+    <div  th:fragment="bilidiv" class="ui attached pointing menu">
+
+        <div class="ui container">
+            <div class="right menu">
+
+                <a href="#" th:href="@{/templates/admin/media/bilibiliuser}" class="item"><i class="edit teal icon"></i>用户表</a>
+                <a href="#" th:href="@{/templates/admin/media/videosget}" class="teal  item"><i class="ui  teal list icon"></i>视频表</a>
+                <a class="   teal item"   th:href="@{/templates/admin/media/videosshowlocal}"> <i class="ui idea teal icon">  </i>本地视频</a>
+
+            </div>
+        </div>
+    </div>
     <br>    <br>    <br>    <br>    <br>    <br>    <br>
     <br>    <br>    <br>    <br>    <br>    <br>    <br>
     <br>    <br>    <br>
@@ -128,19 +141,19 @@
 
                 </div>
                 <div class="three wide column ">
-                    <h4 class ="ui   header" >最新博客</h4>
+                    <h4 class ="ui   header" >最新文章</h4>
                     <div class="ui red  link list">
                         <div id="newblog-container">
                             <div class="ui   link list" th:fragment="newblogList">
                                 <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item black m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
-                                       <!--/*-->
+                                <!--/*-->
                                 <!--*/-->
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="three wide column">
-                    <h4 class ="ui   header">github</h4>
+                    <h4 class ="ui   header">练习方式</h4>
                     <div class="ui black  link list">
                         <a href="#" class="item">yonghuname@github.com</a>
                         <a href="#" class="item">等待填充</a>
@@ -150,9 +163,9 @@
 
                 <div class="seven wide column">
 
-                    <h4 class ="ui   header">博客介绍</h4>
+                    <h4 class ="ui   header">网页介绍</h4>
 
-                    <p  class="m-text-thin m-text-spaced m-opacity-mini ">这是我的个人博客,会分享文章，也可能被拿来做todolist</p>
+                    <p  class="m-text-thin m-text-spaced m-opacity-mini ">学而不思则罔，思而不学则怠。</p>
 
                 </div>
             </div>
@@ -163,7 +176,6 @@
             </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
         </div>
     </footer>
-
 
 
 

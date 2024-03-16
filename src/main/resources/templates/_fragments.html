@@ -546,7 +546,6 @@
 
 <br>
 <br>
-
 <footer th:fragment="footer"  class = "ui    attached segment m-padded-tb-mini m-shadow-big-up">
 
 
@@ -567,34 +566,31 @@
 
             </div>
             <div class="three wide column ">
-                <h4 class ="ui   header" >最新博客</h4>
+                <h4 class ="ui   header" >最新文章</h4>
                 <div class="ui red  link list">
                     <div id="newblog-container">
-                        <div class="ui black  link list" th:fragment="newblogList">
-
-                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class=" item black m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
+                        <div class="ui   link list" th:fragment="newblogList">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item black m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
                             <!--/*-->
-                            <a href="#" class="item">等待填充2</a>
-                            <a href="#" class="item">等待填充3</a>
                             <!--*/-->
                         </div>
                     </div>
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class ="ui   header">github</h4>
-                <div class="ui   link list">
+                <h4 class ="ui   header">练习方式</h4>
+                <div class="ui black  link list">
                     <a href="#" class="item">yonghuname@github.com</a>
-                    <a href="#" class="item">我真的不能在贴其他邮箱了</a>
-                    <a href="#" class="item">联系方式就这样子吧</a>
+                    <a href="#" class="item">等待填充</a>
+                    <a href="#" class="item">等待填充</a>
                 </div>
             </div>
 
             <div class="seven wide column">
 
-                <h4 class ="ui   header">博客介绍</h4>
+                <h4 class ="ui   header">网页介绍</h4>
 
-                <p  class="m-text-thin m-text-spaced m-opacity-mini ">这是我的个人博客,会分享文章，也可能被拿来做todolist</p>
+                <p  class="m-text-thin m-text-spaced m-opacity-mini ">学而不思则罔，思而不学则怠。</p>
 
             </div>
         </div>
@@ -605,6 +601,7 @@
         </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
     </div>
 </footer>
+
 
 </body>
 

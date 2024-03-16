@@ -2,24 +2,44 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 
-<head th:replace="~{/admin/_fragments:: head(~{::title})}">
+<head th:replace="~{/admin/media/_fragments:: head(~{::title})}">
 
-    <!--<head>-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分类管理</title>
-    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
-    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <title>bili管理</title>
+    <link rel="stylesheet" href="../../../static/css/me.css" >
+    <link rel="stylesheet" href="../../../static/semantics-dist/semantic.min.css"  >
+    <link rel="icon"  href="/favicon.ico">
+    <script src="../../../../static/js/jquery-3.7.1.min.js"  ></script>
+    <link rel="stylesheet" href="../../../static/lib/editormd-master/css/editormd.min.css"   >
 
-    <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
-    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>>
+    <script src="../../../static/lib/editormd-master/editormd.min.js"  > </script>
 
+    <script>
+        $(document).ready(function() {
+            $('#newblog-container').load('/footer/newblog' );
+        });
+    </script>
+
+
+
+
+    <script src="../../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
+    <!--    有时候静态页面比thymeleaf好用 -->
+    <style >
+        body {
+            background-image: url(/images/anime11.png);
+            background-size: cover;/
+        background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
 <body>
 
 <!--导航-->
-
-<nav th:replace="~{admin/_fragments :: menu(1)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:replace="~{admin/_fragments :: menu(2)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container"  >
         <div class="ui   secondary stackable menu">
             <a href="#" th:href="@{/admin/blogs}">
@@ -61,76 +81,71 @@
     </a>
 
 </nav>
+<div  th:replace="~{admin/_fragments ::bilidiv}"  class="ui attached pointing menu">
 
-<div  th:replace="~{admin/_fragments ::div1}"  class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
 
-            <a href="#" class="item">发布</a>
-            <a href="#" class="teal active item">列表</a>
+            <a href="#" th:href="@{/admin/media/bilibiliuser}" class="item"><i class="edit teal icon"></i>用户表</a>
+            <a href="#" th:href="@{/admin/media/videosget}"  class="teal  item"><i class="ui  teal list icon"></i>视频表</a>
+            <a class="   teal item"   th:href="@{/admin/media/videosshowlocal}"> <i class="ui idea teal icon">  </i>本地视频</a>
+
         </div>
     </div>
 </div>
 
-<!--中间内容-->
+<!--中间内容th:action="@{/admin/media/bilibiliuser"-->
 <div  class="m-container-small m-padded-tb-big">
-    <div class="ui container">
-        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
-            <i class="close icon"></i>
-            <div class="header">提示：</div>
-            <p th:text="${message}">恭喜，操作成功！</p>
-        </div>
-        <table class="ui celled table">
-            <thead>
-            <tr>
-                <th></th>
-                <th>名称</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="type,iterStat : ${page.content}">
-                <td th:text="${iterStat.count}">1</td>
-                <td th:text="${type.name}">刻意练习清单</td>
-                <td>
+    <div class="ui segment">
+        <form action="#"  method="post"     class="ui form">
 
-                <span th:if="${session.user.type} == 1">
-                    <!-- 使用Thymeleaf的URL模板语法，动态生成一个链接 -->
-                    <a href="#" th:href="@{/admin/types/{id}/input(id=${type.id})}" class="ui mini teal basic button">编辑</a>
-                    <a href="#" th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui mini red basic button">删除</a>
+            <div class=" field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">UPs的uid</label>
+                    <input type="text" name="name" placeholder="up主uid list，使用英文逗号间隔,建议直接存在自己的文章 里面备用, "   id="biliuidlist" >
 
-                </span>
+                </div>
+            </div>
 
-                <span th:unless="${session.user.type} == 1">
-                    <p> 你的 账号没有权限对此进行操作，只能查看</p>
-                </span>
+            <div class="ui error message"></div>
 
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="6" >
-                    <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
-                        <a th:href="@{/admin/types(page=${page.number}-1)}" class="  item" th:unless="${page.first}">上一页</a>
-                        <a th:href="@{/admin/types(page=${page.number}+1)}" class=" item" th:unless="${page.last}">下一页</a>
-                    </div>
-                    <span th:if ="${session.user.type} == 1" class=" right floated">
-                        <a href="#" th:href="@{/admin/types/input}"  class="ui mini right floated teal basic button">新增</a>
-                    </span>
-                    <span th:unless="${session.user.type} == 1">
-                       你的账号权限无法新增哦
-                    </span>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
+            <div class="ui right aligned container">
+                <button type="button" class="ui button" onclick="window.history.go(-1)" >返回</button>
+                <button class="ui teal submit button" id="biliSubmitButton">提交</button>
+            </div>
+
+        </form>
     </div>
 </div>
+<div  class="m-container-small  ">
+    <div  class=" ui container">
 
+    <div class="ui two stackable grid">
+        <div class="six wide column">
+            <div  class=" ui segment">
+                输入示例
+
+                建议直接把字符串存储在里面自己的文章里面。（才不是 不想再来一遍增删改查）
+            </div>
+        </div>
+        <div class="ten wide column">
+            <div  class=" ui segment">
+                 我的list
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 <br>
 <br>
-<!--底部footer-->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <footer th:replace="~{admin/_fragments ::footer}" class="ui    attached segment m-padded-tb-mini m-shadow-big-up  ">
 
@@ -187,7 +202,9 @@
     </div>
 </footer>
 
+
 <script>
+
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });
@@ -196,13 +213,46 @@
         on : 'hover'
     });
 
-    //消息提示关闭初始化
-    $('.message .close')
-        .on('click', function () {
-            $(this)
-                .closest('.message')
-                .transition('fade');
+    $('.ui.form').form({
+        fields : {
+            title : {
+                identifier: 'name2',
+                rules: [{
+                    type : 'empty',
+                    prompt: '请输入正确'
+                }]
+            }
+        }
+    });
+
+    function processInput() {
+        // 获取输入框的值
+        var inputElement = document.getElementById("biliuidlist");
+        var inputValue = inputElement.value;
+
+        // 使用逗号分割字符串，并过滤掉空字符串和非数字项
+        var numbersArray = inputValue.split(',').map(function(item) {
+            var trimmedItem = item.trim(); // 去除空格
+            return isNaN(trimmedItem) ? null : parseInt(trimmedItem, 10); // 尝试转换为数字
+        }).filter(function(item) {
+            return item !== null; // 过滤掉不能转换为数字的项
         });
+
+        // 遍历数组并显示每个元素
+        numbersArray.forEach(function(number) {
+            alert(number);
+        });
+
+        // 返回false以阻止表单提交，因为我们在这里手动处理输入
+        return false;
+    }
+
+    // 获取提交按钮并绑定点击事件
+    var submitButton = document.getElementById("biliSubmitButton");
+    submitButton.addEventListener('click', processInput);
+
+    // 绑定事件监听器到输入框，以便在输入时触发处理函数
+
 </script>
 </body>
 </html>

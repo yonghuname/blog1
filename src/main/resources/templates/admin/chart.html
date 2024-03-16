@@ -4,22 +4,21 @@
 
 <head th:replace="~{/admin/_fragments:: head(~{::title})}">
 
-    <!--<head>-->
-    <meta charset="UTF-8">
+     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分类管理</title>
+   <title>图表</title>
     <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
 
     <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
-    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>>
-
+    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
+    <script src="../../static/js/echarts.min.js" th:src="@{/js/echarts.min.js}" ></script>
+    <!--<head>-->
 </head>
 <body>
 
-<!--导航-->
 
-<nav th:replace="~{admin/_fragments :: menu(1)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:replace="~{admin/_fragments :: menu(3)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container"  >
         <div class="ui   secondary stackable menu">
             <a href="#" th:href="@{/admin/blogs}">
@@ -61,7 +60,6 @@
     </a>
 
 </nav>
-
 <div  th:replace="~{admin/_fragments ::div1}"  class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
@@ -74,60 +72,63 @@
 
 <!--中间内容-->
 <div  class="m-container-small m-padded-tb-big">
-    <div class="ui container">
-        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
-            <i class="close icon"></i>
-            <div class="header">提示：</div>
-            <p th:text="${message}">恭喜，操作成功！</p>
-        </div>
-        <table class="ui celled table">
-            <thead>
-            <tr>
-                <th></th>
-                <th>名称</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="type,iterStat : ${page.content}">
-                <td th:text="${iterStat.count}">1</td>
-                <td th:text="${type.name}">刻意练习清单</td>
-                <td>
+    <div class="ui segment">
 
-                <span th:if="${session.user.type} == 1">
-                    <!-- 使用Thymeleaf的URL模板语法，动态生成一个链接 -->
-                    <a href="#" th:href="@{/admin/types/{id}/input(id=${type.id})}" class="ui mini teal basic button">编辑</a>
-                    <a href="#" th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui mini red basic button">删除</a>
+        <div id="main" style="width: 600px;height:400px;"></div>
+        <script type="text/javascript">
+            // 使用fetch API下载JSON数据
+            fetch('https://gist.githubusercontent.com/yonghuname/14d0a057154f9a4d2c98d9c91137c966/raw/6d2ea3e94bdc77371a7434fef2b8ac95a487ef90/202403_windows-google-chrome-1709530945035.json')
+                .then(response => response.json())
+                .then(data => {
+                    // 解析并分析数据
+                    console.log(data); // 这里可以进行数据分析
 
-                </span>
+                    // 假设数据格式为 [{name: 'Item1', value: 10}, {name: 'Item2', value: 20}]
+                    var seriesData = data.map(item => {
+                        return {
+                            name: item.name,
+                            value: item.value
+                        };
+                    });
 
-                <span th:unless="${session.user.type} == 1">
-                    <p> 你的 账号没有权限对此进行操作，只能查看</p>
-                </span>
-
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="6" >
-                    <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
-                        <a th:href="@{/admin/types(page=${page.number}-1)}" class="  item" th:unless="${page.first}">上一页</a>
-                        <a th:href="@{/admin/types(page=${page.number}+1)}" class=" item" th:unless="${page.last}">下一页</a>
-                    </div>
-                    <span th:if ="${session.user.type} == 1" class=" right floated">
-                        <a href="#" th:href="@{/admin/types/input}"  class="ui mini right floated teal basic button">新增</a>
-                    </span>
-                    <span th:unless="${session.user.type} == 1">
-                       你的账号权限无法新增哦
-                    </span>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
+                    // 使用ECharts绘制图表
+                    var myChart = echarts.init(document.getElementById('main'));
+                    var option = {
+                        title: {
+                            text: '数据分析结果'
+                        },
+                        tooltip: {
+                            trigger: 'item'
+                        },
+                        series: [
+                            {
+                                name: '数据展示',
+                                type: 'pie',
+                                data: seriesData
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        </script>
     </div>
 </div>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <!--底部footer-->
@@ -187,7 +188,9 @@
     </div>
 </footer>
 
+
 <script>
+
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });
@@ -196,13 +199,18 @@
         on : 'hover'
     });
 
-    //消息提示关闭初始化
-    $('.message .close')
-        .on('click', function () {
-            $(this)
-                .closest('.message')
-                .transition('fade');
-        });
+    $('.ui.form').form({
+        fields : {
+            title : {
+                identifier: 'name2',
+                rules: [{
+                    type : 'empty',
+                    prompt: '请输入分类名称'
+                }]
+            }
+        }
+    });
+
 </script>
 </body>
 </html>
