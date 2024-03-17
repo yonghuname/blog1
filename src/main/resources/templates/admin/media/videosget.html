@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频获得列表</title>
+    <link rel="stylesheet" href="../../../static/css/me.css" >
+    <link rel="stylesheet" href="../../../static/semantics-dist/semantic.min.css"  >
+    <link rel="icon"  href="/favicon.ico">
+    <script src="../../../../static/js/jquery-3.7.1.min.js"  ></script>
+    <link rel="stylesheet" href="../../../static/lib/editormd-master/css/editormd.min.css"   >
+
+    <script src="../../../static/lib/editormd-master/editormd.min.js"  > </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#newblog-container').load('/footer/newblog' );
+        });
+    </script>
+
+
+
+
+    <script src="../../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
+    <!--    有时候静态页面比thymeleaf好用 -->
+    <style >
+        body {
+            background-image: url(/images/anime11.png);
+            background-size: cover;/
+        background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+<div  class="m-container-small m-padded-tb-big">
+    <div class="ui segment">
+    <iframe src="//player.bilibili.com/player.html?aid=611294321&bvid=BV1m84y1w7Tb&cid=1430332322&p=1" as_wide="1" high_quality="1" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"
+            scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;height:600px"> </iframe>
+    </div>
+</div>
+
+
+</body>
+</html>

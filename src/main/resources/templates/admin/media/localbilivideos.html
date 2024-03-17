@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+
+<head th:replace="~{/admin/media/_fragments:: head(~{::title})}">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频获得列表</title>
+    <link rel="stylesheet" href="../../../static/css/me.css" >
+    <link rel="stylesheet" href="../../../static/semantics-dist/semantic.min.css"  >
+    <link rel="icon"  href="/favicon.ico">
+    <script src="../../../../static/js/jquery-3.7.1.min.js"  ></script>
+    <link rel="stylesheet" href="../../../static/lib/editormd-master/css/editormd.min.css"   >
+
+    <script src="../../../static/lib/editormd-master/editormd.min.js"  > </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#newblog-container').load('/footer/newblog' );
+        });
+    </script>
+
+
+
+
+    <script src="../../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
+    <!--    有时候静态页面比thymeleaf好用 -->
+    <style >
+        body {
+            background-image: url(/images/anime11.png);
+            background-size: cover;/
+        background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+<!--导航-->
+<nav th:replace="~{admin/_fragments :: menu(2)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
+    <div class="ui container"  >
+        <div class="ui   secondary stackable menu">
+            <a href="#" th:href="@{/admin/blogs}">
+                <h3 class="ui  teal header item" ><i class="ui clipboard outline icon"></i>博客管理</h3></a>
+            <a class="m-item m-mobile-hidden  item"  th:classapend = "${(n == 1) ? 'active' : ''}" th:href="@{/admin/blogs/input}"> <i class="ui  home icon">  </i>发文</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 2) ? 'active' : ''}" th:href="@{/admin/todolist}"> <i class="ui tasks  icon">  </i>TODO</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/chart}"><i class="ui chart bar icon">  </i> 图表 </a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 5) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui compass icon">  </i> 机器人</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 4) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui play  icon">  </i> 视频 </a>
+
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 6) ? 'active' : ''}" th:href="@{/}"><i class="ui pencil icon">  </i>主页展示</a>
+            <div class="right m-mobile-hidden menu">
+                <!--                    <div class="ui dropdown item">-->
+                <!--                        <img class="ui avatar image" src="../../static/images/mio3.jpg" th:src="@{/images/mio3.jpg}">-->
+                <!--                        长野原美绪-->
+                <!--                        <i class="dropdown icon"></i>-->
+                <!--                        <div class="menu">-->
+                <!--                            <a href="#" class="item" th:href="@{/admin/user}">管理账号</a>-->
+                <!--                            <a href="#" class="item" th:href="@{/admin/logout}">退出登录</a>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <div class="ui dropdown item">
+                    <img class="ui avatar image" src="../../static/images/mio3.jpg" th:src="@{${session.user.avatar}}" >
+
+                    <a href="#" class="header" th:text="${session.user.nickname}"> </a>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item" th:href="@{/admin/user}">管理账号</a>
+                        <a href="#" class="item" th:href="@{/admin/logout}">退出登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <a href="#" class="ui menu toggle m-mobile-show   button">
+        展开
+        <i class="sidebar  icon m-top-right "></i>
+    </a>
+
+</nav>
+<div  th:replace="~{admin/_fragments ::bilidiv}"  class="ui attached pointing menu">
+
+    <div class="ui container">
+        <div class="right menu">
+
+            <a href="#" th:href="@{/admin/media/bilibiliuser}" class="item"><i class="edit teal icon"></i>用户表</a>
+            <a href="#" th:href="@{/admin/media/videosget}"  class="teal  item"><i class="ui  teal list icon"></i>视频表</a>
+            <a class="   teal item"   th:href="@{/admin/media/videosshowlocal}"> <i class="ui idea teal icon">  </i>本地视频</a>
+
+        </div>
+    </div>
+</div>
+<div  class="m-container-small m-padded-tb-big">
+    <div class="ui segment">
+
+        <div class=" field">
+            <div class="ui left labeled input" style="width: 100%">
+                <label class="ui teal basic label">BV</label>
+                <input type="text" name="name" placeholder="bv "
+                       value="BV13K411w7Gs" th:value="${bv}" id="biliuidlist" class="fluid "  >
+                <button class="ui teal button" id="bilimadeButton"  >提交</button>
+            </div>
+        </div>
+
+        <div class="ui right aligned container">
+
+        </div>
+    </div>
+
+    <div class="ui segment" id = "localbili" data-bv="BV13K411w7Gs"  th:data-bv="${bv}" >
+
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<footer th:replace="~{admin/_fragments ::footer}" class="ui    attached segment m-padded-tb-mini m-shadow-big-up  ">
+
+    <br>
+    <br>
+    <br>
+    <div class="ui center aligned container">
+        <div class="ui   divided stackable grid">
+
+            <div class="three wide column">
+
+                <div class="middle aligned">
+
+                    <img src="../../../static/images/mio1.png"
+                         class="ui middle aligned round image" alt="" style="width: 150px" th:src="@{/images/mio1.png}">
+                </div>
+
+
+            </div>
+            <div class="three wide column ">
+                <h4 class ="ui   header" >最新文章</h4>
+                <div class="ui red  link list">
+                    <div id="newblog-container">
+                        <div class="ui   link list" th:fragment="newblogList">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item black m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
+                            <!--/*-->
+                            <!--*/-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class ="ui   header">练习方式</h4>
+                <div class="ui black  link list">
+                    <a href="#" class="item">yonghuname@github.com</a>
+                    <a href="#" class="item">等待填充</a>
+                    <a href="#" class="item">等待填充</a>
+                </div>
+            </div>
+
+            <div class="seven wide column">
+
+                <h4 class ="ui   header">网页介绍</h4>
+
+                <p  class="m-text-thin m-text-spaced m-opacity-mini ">学而不思则罔，思而不学则怠。</p>
+
+            </div>
+        </div>
+
+        <!--111111111111111111111111111111-->
+
+        <div class="ui   section divider m-padded-tb-">
+        </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
+    </div>
+</footer>
+
+
+<script>
+
+
+
+
+        function fetchVideoCid(bv) {
+            var  bvid = bv; // 假设这是您要查询的Bilibili视频的bvid
+            fetch(`/admin/media/bilibili/video?bvid=${encodeURIComponent(bvid)}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 如果需要，可以添加其他headers
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 0) {
+                        var cid = data.data[0].cid;
+
+                        var iframeSrc = "//player.bilibili.com/player.html?bvid=" + bv + "&cid=" + cid + "&p=1";
+
+                                       // 创建iframe元素
+                                       var iframe = document.createElement("iframe");
+                                       iframe.src = iframeSrc; // 设置iframe的src属性
+                        iframe.as_wide = "1"; // 假设这是您想要设置的宽度属性
+                        iframe.high_quality = "1"; // 假设这是您想要设置的质量属性
+                        iframe.sandbox = "allow-top-navigation allow-same-origin allow-forms allow-scripts"; // 设置sandbox属性
+                        iframe.scrolling = "no"; // 设置滚动属性为“no”
+                        iframe.border = "0"; // 设置边框为0
+                        iframe.frameborder = "0"; // 设置frameborder为0
+                        iframe.framespacing = "0"; // 设置framespacing为0
+                        iframe.allowfullscreen = "true"; // 设置allowfullscreen为true
+                        iframe.style.width = "100%"; // 设置宽度样式
+                        iframe.style.height = "600px"; // 设置高度样式
+
+                        var localBiliElement = document.getElementById("localbili");
+                                       // 清空localBiliElement的内容并添加iframe
+                                       localBiliElement.innerHTML = '';
+                                       localBiliElement.appendChild(iframe);
+
+
+
+
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+
+
+
+
+
+
+
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+        on : 'hover'
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var bv = document.getElementById("biliuidlist").value;
+        if(bv!="")
+        fetchVideoCid(bv);
+    });
+ //
+
+ document.getElementById("bilimadeButton").addEventListener('click', function() {
+
+        var localBiliElement = document.getElementById("localbili");
+
+        // 获取data-bv属性的值
+        var bv = document.getElementById("biliuidlist").value;
+        if(bv!="")
+     fetchVideoCid(bv);
+
+
+        });
+
+
+</script>
+</body>
+</html>

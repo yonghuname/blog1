@@ -86,9 +86,8 @@
     <div class="ui container">
         <div class="right menu">
 
-            <a href="#" th:href="@{/admin/media/bilibiliuser}" class="item"><i class="edit teal icon"></i>用户表</a>
-            <a href="#" th:href="@{/admin/media/videosget}"  class="teal  item"><i class="ui  teal list icon"></i>视频表</a>
-            <a class="   teal item"   th:href="@{/admin/media/videosshowlocal}"> <i class="ui idea teal icon">  </i>本地视频</a>
+            <a href="#" th:href="@{/admin/media/bilibiliuser}" class="item"><i class="edit teal icon"></i>用户视频表</a>
+            <a class="   teal item"   th:href="@{/admin/media/videosshowlocal/}"> <i class="ui idea teal icon">  </i>本地视频</a>
 
         </div>
     </div>
@@ -97,46 +96,61 @@
 <!--中间内容th:action="@{/admin/media/bilibiliuser"-->
 <div  class="m-container-small m-padded-tb-big">
     <div class="ui segment">
-        <form action="#"  method="post"     class="ui form">
+
 
             <div class=" field">
-                <div class="ui left labeled input">
+                <div class="ui left labeled input" style="width: 100%">
                     <label class="ui teal basic label">UPs的uid</label>
-                    <input type="text" name="name" placeholder="up主uid list，使用英文逗号间隔,建议直接存在自己的文章 里面备用, "   id="biliuidlist" >
+                    <input type="text" name="name" placeholder="up主uid list，使用英文逗号间隔,建议直接存在自己的文章 里面备用, "   id="biliuidlist" class="fluid"  >
 
                 </div>
             </div>
 
-            <div class="ui error message"></div>
 
             <div class="ui right aligned container">
                 <button type="button" class="ui button" onclick="window.history.go(-1)" >返回</button>
-                <button class="ui teal submit button" id="biliSubmitButton">提交</button>
+                <button class="ui teal   button" id="biliSubmitButton">提交</button>
             </div>
 
-        </form>
+
     </div>
 </div>
 <div  class="m-container-small  ">
     <div  class=" ui container">
 
-    <div class="ui two stackable grid">
-        <div class="six wide column">
-            <div  class=" ui segment">
-                输入示例
+        <div class="ui two stackable grid">
+            <div class="six wide column">
+                <div  class=" ui segment" >
+                    输入示例
 
-                建议直接把字符串存储在里面自己的文章里面。（才不是 不想再来一遍增删改查）
+                    建议直接把字符串存储在里面自己的文章里面。（才不是 不想再来一遍增删改查）
+                    <div class="ui   secondary vertical  stackable menu" id="uplist">
+
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="ten wide column">
-            <div  class=" ui segment">
-                 我的list
+            <div class="ten wide column">
+                <div  class=" ui segment" >
+                    我的list
+                    <div class="segment" id ="videolist">
 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
+
+
+<!--<div  class="m-container-small  ">-->
+<!--    <div  class=" ui container">-->
+<!--        <iframe src="//player.bilibili.com/player.html?bvid=BV19B421B799&cid=1431716532&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+
+
 <br>
 <br>
 <br>
@@ -224,6 +238,86 @@
             }
         }
     });
+    var videosdata  = [
+        {
+            "user_name": "程序员Aurora",
+            "bv": "BV13K411w7Gs",
+            "url": "https://www.bilibili.com/video/BV13K411w7Gs/",
+            "title": "nginx反向代理实现域名访问项目",
+            "play": 7459,
+            "duration": 1160,
+            "pub_date": "2021-04-03",
+            "now": "2024-03-16 21:04:44"
+        },
+        {
+            "user_name": "程序员Aurora",
+            "bv": "BV1SK4y1K7R7",
+            "url": "https://www.bilibili.com/video/BV1SK4y1K7R7/",
+            "title": "一个由springboot搭建的简洁而又美观的个人博客系统",
+            "play": 1715,
+            "duration": 316,
+            "pub_date": "2021-03-13",
+            "now": "2024-03-16 21:04:44"
+        }
+    ];
+    function listVideos(videosData) {
+        var videoListElement = document.getElementById("videolist");
+        videoListElement.innerHTML = ""; // 清空videoListElement元素
+
+        videosData.forEach(function(video) {
+            // 创建一个新的列表项元素
+            var listItem = document.createElement("div");
+            listItem.className = "item";
+
+            // 创建一个包含视频标题的链接元素
+            var linkElement = document.createElement("a");
+            linkElement.href = "https://www.bilibili.com/video/" + video.bv + "/";
+            linkElement.target = "_blank";
+            linkElement.className = "title";
+            linkElement.textContent = video.title;
+
+            // 创建一个显示发布日期的元素，并将其放置在同一行
+            var dateElement = document.createElement("a");
+            dateElement.className = "date";
+            dateElement.textContent = " - " + video.pub_date + "  ";
+
+            // 创建一个本地构建按钮元素
+            var buttonElement = document.createElement("button");
+            buttonElement.className = "ui basic mini right aligned blue localshowbilibili button";
+            buttonElement.dataset.bv = video.bv;
+            buttonElement.textContent = "本地构建";
+
+            // 将发布日期元素添加到链接元素中
+            linkElement.appendChild(dateElement);
+
+            // 创建一个包裹标题和按钮的div元素
+            var titleAndButtonWrapper = document.createElement("div");
+            titleAndButtonWrapper.className = "title-and-button-wrapper";
+            titleAndButtonWrapper.appendChild(linkElement);
+            titleAndButtonWrapper.appendChild(buttonElement);
+
+            // 将标题和按钮的包裹元素添加到列表项中
+            listItem.appendChild(titleAndButtonWrapper);
+
+            // 将列表项添加到videoListElement中
+            videoListElement.appendChild(listItem);
+        });
+        document.querySelectorAll('.localshowbilibili').forEach(function(button) {
+            button.addEventListener('click', function() {
+                // 获取按钮的data-bv属性值
+                var bvValue = this.getAttribute('data-bv');
+
+                // 构建跳转链接
+                var url = '/admin/media/showlocalbilibili/' + encodeURIComponent(bvValue);
+
+                window.open(url, '_blank');
+            });
+        });
+    }
+
+    // 为所有具有localshowbilibili类的按钮添加点击事件监听器
+
+
 
     function processInput() {
         // 获取输入框的值
@@ -238,20 +332,41 @@
             return item !== null; // 过滤掉不能转换为数字的项
         });
 
-        // 遍历数组并显示每个元素
+        var uplistElement = document.getElementById("uplist");
         numbersArray.forEach(function(number) {
-            alert(number);
+            // 创建一个新的div元素，它将包含a元素
+            var divElement = document.createElement("div");
+            divElement.className = "m-padded-tb-small segment"; // 添加必要的类
+
+            // 创建一个新的a元素，它将包含图标和数字
+            var linkElement = document.createElement("a");
+            linkElement.className = "m-item m-padded-tb-small biliuplistitem"; // 添加必要的类
+
+            // 创建ui用户图标
+            var userIcon = document.createElement("i");
+            userIcon.className = "ui user icon"; // 添加用户图标的类
+            var textNode = document.createTextNode(number);
+            linkElement.appendChild(userIcon);
+            linkElement.appendChild(textNode);
+            divElement.appendChild(linkElement);
+            uplistElement.appendChild(divElement);
+            linkElement.addEventListener('click', function() {
+                getbilibiliuploadervideos(this.textContent)
+            });
         });
+        return false; // 阻止表单提交
 
-        // 返回false以阻止表单提交，因为我们在这里手动处理输入
-        return false;
     }
+    function getbilibiliuploadervideos(uploaderId) {
+        // 假设这个函数用于获取指定up主的视频列表
 
+        listVideos(videosdata)
+
+    }
     // 获取提交按钮并绑定点击事件
     var submitButton = document.getElementById("biliSubmitButton");
     submitButton.addEventListener('click', processInput);
 
-    // 绑定事件监听器到输入框，以便在输入时触发处理函数
 
 </script>
 </body>
