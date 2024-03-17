@@ -31,13 +31,19 @@ public class BilibiliuserController {
 
     @GetMapping("/showlocalbilibili/{bv}")
     public String showLocalBilibili(@PathVariable String bv, Model model) {
-        System.out.println("bn:"+bv);
+            if(bv=="0")  model.addAttribute("bv",bv);
             return "admin/media/localbilivideos";
         }
 
+//      下面是  访问api的
 private static final String API_URL = "https://api.bilibili.com/x/player/pagelist";
 @GetMapping("/bilibili/video")
 public ResponseEntity<String> getBilibiliVideo(@RequestParam("bvid") String bvid) {
+
+    if(bvid.equals("0")) {
+        return null;
+    }
+
     RestTemplate restTemplate = new RestTemplate();
     String url = API_URL + "?bvid=" + bvid;
 

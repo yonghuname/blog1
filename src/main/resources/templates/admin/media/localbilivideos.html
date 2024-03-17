@@ -260,8 +260,10 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         var bv = document.getElementById("biliuidlist").value;
-        if(bv!="")
+        if(bv==="" || bv===null)  bv =0
+            else
         fetchVideoCid(bv);
+
     });
  //
 
@@ -271,8 +273,8 @@
 
         // 获取data-bv属性的值
         var bv = document.getElementById("biliuidlist").value;
-        if(bv!="")
-     fetchVideoCid(bv);
+     if(bv==="" )  bv =0
+     else    fetchVideoCid(bv);
 
 
         });
