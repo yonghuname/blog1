@@ -65,7 +65,7 @@
                 Hi
             </h3>
            <p th:text="${session.user.nickname}">  欢迎回来</p>
-            <p>距离xx多少天 </p>
+            <p>距离今年2025考研还有 <span id="days-remaining">0</span> 天</p>
         </div>
 
     </div>
@@ -96,8 +96,9 @@
                             <h5 th:text="${user.slogan}">233333</h5>
 
                         </div>
-                        <div class="ui attached segment">
-                     <a class="ui orange    button" th:href="@{/admin/user}">编辑用户信息</a>
+                        <div class="ui m-padded-lr-mini  segment">
+                     <a class="ui teal  small m-padded-l r-mini  button" th:href="@{/admin/user}">编辑用户信息</a>
+<!--                            <a class="ui blue    mini  button" th:href="@{/admin/aim}">编辑目标日期</a>-->
 
                         </div>
 
@@ -244,5 +245,21 @@
             // transition: 'drop',
             on:  'hover'
         })
+
+    function calculateDaysRemaining(targetYear, targetMonth, targetDay) {
+        const targetDate = new Date(targetYear, targetMonth - 1, targetDay);
+        const currentDate = new Date();
+
+        var timeDiff = targetDate - currentDate;
+        var  daysRemaining = timeDiff / (1000 * 60 * 60 * 24);
+
+        // 确保时间差是正数
+        daysRemaining=(daysRemaining<0 ? 0:daysRemaining);
+
+        return Math.floor(daysRemaining);
+    }
+
+    const daysUntilDecember21st = calculateDaysRemaining(2024, 12, 21);
+    document.getElementById('days-remaining').textContent = daysUntilDecember21st;
 
 </script>

@@ -124,6 +124,9 @@ public BlogService blogService;
 
 
     }
-
+    @GetMapping("/aim")
+    public String getaim(){
+        return "admin/aim";
+    }
 
 }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-
+<!--有需要就加 -->
 
 <head th:replace="~{/admin/_fragments:: head(~{::title})}">
 
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>aichat</title>
+    <title>目标</title>
     <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
 
@@ -18,7 +18,7 @@
 <body>
 
 
-<nav th:replace="~{admin/_fragments :: menu(5)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:replace="~{admin/_fragments :: menu(7)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container"  >
         <div class="ui   secondary stackable menu">
             <a href="#" th:href="@{/admin/blogs}">
@@ -62,50 +62,25 @@
 </nav>
 
 
-<!--中间内容-->
 <div  class="m-container-small m-padded-tb-big">
-    <div class="ui segment">
+    <div class="ui container">
+        <form action="#" method="post"  th:object="${aim}" th:action="*{id}==null ? @{/admin/aim} : @{/admin/aim/{id}(id=*{id})} "  class="ui form">
+            <input type="hidden" name="id" th:value="*{id}">
+            <div class=" field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">目标</label>
+                    <input type="text" name="name" placeholder="目标名字" th:value="*{name}" >
+                </div>
+            </div>
 
-        <div id="main" style="width: 600px;height:400px;"></div>
-        <script type="text/javascript">
-            // 使用fetch API下载JSON数据
-            fetch('https://gist.githubusercontent.com/yonghuname/14d0a057154f9a4d2c98d9c91137c966/raw/6d2ea3e94bdc77371a7434fef2b8ac95a487ef90/202403_windows-google-chrome-1709530945035.json')
-                .then(response => response.json())
-                .then(data => {
-                    // 解析并分析数据
-                    console.log(data); // 这里可以进行数据分析
+            <div class="ui error message"></div>
 
-                    // 假设数据格式为 [{name: 'Item1', value: 10}, {name: 'Item2', value: 20}]
-                    var seriesData = data.map(item => {
-                        return {
-                            name: item.name,
-                            value: item.value
-                        };
-                    });
+            <div class="ui right aligned container">
+                <button type="button" class="ui button" onclick="window.history.go(-1)" >返回</button>
+                <button class="ui teal submit button">提交</button>
+            </div>
 
-                    // 使用ECharts绘制图表
-                    var myChart = echarts.init(document.getElementById('main'));
-                    var option = {
-                        title: {
-                            text: '数据分析结果'
-                        },
-                        tooltip: {
-                            trigger: 'item'
-                        },
-                        series: [
-                            {
-                                name: '数据展示',
-                                type: 'pie',
-                                data: seriesData
-                            }
-                        ]
-                    };
-                    myChart.setOption(option);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        </script>
+        </form>
     </div>
 </div>
 
@@ -197,7 +172,7 @@
                 identifier: 'name2',
                 rules: [{
                     type : 'empty',
-                    prompt: '请输入分类名称'
+                    prompt: '请输入 名称'
                 }]
             }
         }
