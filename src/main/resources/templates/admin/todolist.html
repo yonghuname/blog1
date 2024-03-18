@@ -82,7 +82,7 @@
                 <div class="ui divided relaxed list"  >
                     <div class="ui  m-padded-tb-small m-margin-tb-small segment" th:each="todo, stat : ${todolist}"
                          th:if="${todo.finished} == false "  >
-                        <input type="hidden"   id="hiddencurrentTodoitemid" th:value="${currentTodoitem.id}" />
+                        <input type="hidden"   id="hiddencurrentTodoitemid" th:value="${currentTodoitem.id}" th:if="${currentTodoitem}!=null" />
 
                         <!-- 使用input type="text"来创建一个输入框，并绑定todo对象的title属性 -->
                         <div class="ui labeled floating animated m-padded-tb-mini  fluid input" >
@@ -156,7 +156,7 @@
                     <div class="ui segment" style="min-height: 300px;">
                         <div class="ui segment">
 
-                            <input type="hidden"   id="currenttodoid" th:value="${currentTodoitem.id}" />
+                            <input type="hidden"   id="currenttodoid" th:value="${currentTodoitem.id}" th:if="${currentTodoitem}!=null" />
                             <div class="ui fluid stackable grid">
                                 <div class="one wide column ">
                                     <input type="checkbox" name="todo" class="ui blue big checkbox"   id="currenttodofinished" >
