@@ -47,49 +47,68 @@
             <div class="ui grid">
                 <div class="eleven wide column">
                     <div class="ui segment">
-                    <img class="ui fluid image" src="../static/images/mio1.png" th:src="@{/images/mio1.png} ">
+                        <div class=" article ">
+                            <div class="ui top attached segment">
+                                <div class="ui header">关于本网站</div>
+                            </div>
+                            <div class="ui attached segment">
+                                <p class="m-text-big">     学途智伴。致力于解决大学生特别是计算机专业学生学习面临的各种需求。学习有东西想要快速记下来，多端同步。
+                                    学习没有计划，学习一会想要看个网课却被首页视频吸引走，想要知道自己学习时候的网站情况分析，学习太久太累没有聊天对象，</p>
+                                <h4 href="">学习笔记文章分享</h4><p class="m-text-big">
+
+                                    学习笔记太杂乱不知道写哪里？ markdown笔记托管与云端，适配手机端，从网页到移动端都可以访问本网站。
+                                    可以把文章分享出去。互相交流。
+                                <h4 href="">TODOlist</h4>  <p class="m-text-big">任务太多不知道要干什么，自己构建todo，类滴答清单的todolist，记录完成你要干的事情     </p>
+                                <h4 href="">规避视频网站首页的推荐系统</h4>  <p class="m-text-big">    学习网课，登录b站？被推荐系统勾走了魂儿。通过本站爬虫工具，可以跳过推荐系统的首页，本地构建视频。 </p>
+                                <h4 href="">浏览器使用情况可视化</h4>    <p class="m-text-big">  手机可以下软件禁止，但是浏览器又不得不用，结合开源插件上传到云端的数据，直观可视化呈现你的网络使用情况，帮助你整理你的学习情况。  </p>
+                                <h4 href="">只能前几日辅助</h4>    <p class="m-text-big"> 学习太累，需要心里疏导。学习知识，需要机器人辅助。本站特配机器人。解决你的烦恼。</p>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
                 <div class="five wide column">
                     <!-- 关于我的标题和正文 -->
-                    <div class="ui top attached segment">
-                        <div class="ui header">关于我</div>
-                    </div>
-                    <div class="ui attached segment">
-                        <p class="m-text">长野原mio是京都动画日常的主人公之一，
-                            长野原美绪是漫画《日常》及其衍生作品中的角色，
-                            留着勿忘草色的双孖辫，几乎每次都会扎着木立方体的头饰。
-                            经常会做出一些惊人的举动。(ai生成)
-                        只是模板上有这个东西，只好找人代写了
-                        </p>
-                    </div>
+                    <div class="aboutmeinfo  ui segment" style="  max-width:400px; ">
+                        <div class=" article ">
+                        <div class="ui top attached segment">
+                            <div class="ui header">关于本网站</div>
+                        </div>
+                            <img class="ui fluid image" src="../static/images/mio1.png" th:src="@{/images/mio1.png} ">
+                        </div>
+
+                        </div>
 
 
-                    <div class="ui attached segment">
-                        <div class="ui orange basic left pointing label">编程</div>
-                        <div class="ui orange basic left pointing label">编程</div>
-                        <div class="ui orange basic left pointing label">编程</div>
-                        <div class="ui orange basic left pointing label">编程</div>
-                    </div>
+                        <div class="ui attached segment">
+                            <div class="ui orange basic left pointing label">文章笔记分享</div>
+                            <div class="ui orange basic left pointing label">TODO</div>
+                            <div class="ui orange basic left pointing label">图表</div>
+                            <div class="ui orange basic left pointing label">AI机器人陪聊</div>
+                            <div class="ui orange basic left pointing label">网课自爬取</div>
+                        </div>
 
-                    <div class="ui attached segment">
+                        <div class="ui attached segment">
 
-                        <div class="ui teal basic left pointing label">C++</div>
-                        <div class="ui teal basic left pointing label">java</div>
-                        <div class="ui teal basic left pointing label">python</div>
-                        <div class="ui teal basic left pointing label">SQL</div>>
-                    </div>
-                    <div class="ui bottom attached segment">
-                        <a href="#" class="ui mygithub circular icon button" data-content="yonghuname">
-                            <i class="github icon"></i>
-                        </a>
-                        <a href="#" class="ui circular icon button">
-                            <i class="weixin icon"></i>
-                        </a>
-                        <a href="#" class="ui mymail circular icon button" data-content="yonghuname@github.com">
-                            <i class="mail icon"></i>
-                        </a>
+                            <div class="ui teal basic left pointing label">C++</div>
+                            <div class="ui teal basic left pointing label">java</div>
+                            <div class="ui teal basic left pointing label">python</div>
+                            <div class="ui teal basic left pointing label">SQL</div>
+                        </div>
+                        <div class="ui bottom attached segment">
+                            <a href="#" class="ui mygithub circular icon button" data-content="yonghuname">
+                                <i class="github icon"></i>
+                            </a>
+                            <a href="https://gitee.com/tzjm" class=" ui circular   middle aligned icon button  " target="_blank" data-content="yonghuname">
+                                <image class="circular mygitee center  aligned icon button" src="../static/images/gitee-logo.ico" data-content="tzjm" th:src="@{images/gitee-logo.ico}" style=" filter: grayscale(100%); ">
 
+                                </image></a>
+
+                            <a href="#" class="ui mymail circular icon button" data-content="yonghuname@github.com">
+                                <i class="mail icon"></i>
+                            </a>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -168,5 +187,5 @@
     $('.mymail').popup(   );
 
     $('.mygithub').popup(   );
-
+    $('.mygitee').popup(   );
 </script>

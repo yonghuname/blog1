@@ -57,7 +57,7 @@
     <style >
         body {
 
-            background-image: url(/images/anime11.png );
+            background-image: url(/images/background2.png);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -87,12 +87,13 @@
 <nav th:fragment="menu(n)" id="myNavbar" class = "nav-show  ui attached  segment m-padded-tb-mini m-shadow-small">
     <div class="ui container"  >
         <div class="ui    secondary stackable menu">
-              <h4 class="ui  teal header item" th:href="@{/}" ><i class="ui  pencil icon"></i>T's blog</h4>
-            <a class="m-item m-mobile-hidden item" th:href="@{/}" th:classapend = "${(n == 1) ? 'active' : ''}"> <i class="ui home icon">  </i>首页</a>
-            <a class="m-item m-mobile-hidden item" th:href="@{'/types?page=0&id=-1' }" th:classapend = "${(n == 2) ? 'active' : ''}"> <i class="ui idea icon" > </i>分类</a>
-            <a class="m-item m-mobile-hidden item" th:href="@{'/tags?page=0&id=-1' }"th:classapend = "${(n == 3) ? 'active' : ''}"><i class="ui tags icon" >   </i>标签</a>
+              <h4 class="ui  teal header item" th:href="@{/}" ><i class="ui  pencil icon"></i>学途智伴</h4>
             <a class="m-item m-mobile-hidden item" th:href="@{/admin/blogs}" th:classapend = "${(n == 4) ? 'active' : ''}"><i class="ui clone icon">  </i>管理后台 </a>
-            <a class="m-item m-mobile-hidden item" th:href="@{/aboutme}" th:classapend = "${(n == 5) ? 'active' : ''}"><i class="ui info icon" ></i>关于我</a>
+            <a class="m-item m-mobile-hidden item" th:href="@{/}" th:classapend = "${(n == 1) ? 'active' : ''}"> <i class="ui home icon">  </i>首页</a>
+            <a class="m-item m-mobile-hidden item" th:href="@{'/types?page=0&id=-1' }" th:classapend = "${(n == 2) ? 'active' : ''}"> <i class="ui folder  icon" > </i>分类</a>
+            <a class="m-item m-mobile-hidden item" th:href="@{'/tags?page=0&id=-1' }"th:classapend = "${(n == 3) ? 'active' : ''}"><i class="ui tags icon" >   </i>标签</a>
+
+            <a class="m-item m-mobile-hidden item" th:href="@{/aboutme}" th:classapend = "${(n == 5) ? 'active' : ''}"><i class="ui info icon" ></i>关于网站</a>
             <div class=" m-item m-mobile-hidden right item">
                 <form name="search" action="#"  id="searchForm"  th:action="@{/search}" method="get" target="_blank">
                     <div class="ui icon   tiny  input m-margin-tb-mini">
@@ -111,7 +112,7 @@
     </div>
 
 </nav>
-<!--    中间内容 -->
+
 <div class="m-padded-tb-large " >
 
     <div class="ui container">
@@ -546,6 +547,8 @@
 
 <br>
 <br>
+
+
 <footer th:fragment="footer"  class = "ui    attached segment m-padded-tb-mini m-shadow-big-up">
 
 
@@ -578,11 +581,11 @@
                 </div>
             </div>
             <div class="three wide column">
-                <h4 class ="ui   header">练习方式</h4>
+                <h4 class ="ui   header">联系方式</h4>
                 <div class="ui black  link list">
-                    <a href="#" class="item">yonghuname@github.com</a>
-                    <a href="#" class="item">等待填充</a>
-                    <a href="#" class="item">等待填充</a>
+                    <a href="https://github.com/yonghuname" target="_blank" class="item"> <i class="github icon"></i>Github</a>
+                    <a href="https://gitee.com/tzjm" class="item" target="_blank"> <image class=" mini icon" src="../static/images/gitee-logo.ico" th:src="@{images/gitee-logo.ico}" style="max-width: 13px;max-height:13px"></image> Gitee</a>
+
                 </div>
             </div>
 
@@ -590,7 +593,7 @@
 
                 <h4 class ="ui   header">网页介绍</h4>
 
-                <p  class="m-text-thin m-text-spaced m-opacity-mini ">学而不思则罔，思而不学则怠。</p>
+                <p  class="m-text-thin m-text-spaced m-opacity-mini ">"全方位学习伙伴，智慧记录每一步 —— 学途智伴，让知识触手可及，心灵沟通无间。"</p>
 
             </div>
         </div>
@@ -601,7 +604,6 @@
         </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
     </div>
 </footer>
-
 
 </body>
 
