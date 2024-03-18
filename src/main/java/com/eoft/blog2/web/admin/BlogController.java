@@ -166,7 +166,7 @@ public class BlogController {
 
         }
         String blogidstr = b.getId().toString() ; //报错原因
-        String  returnview= "/blog/"+blogidstr;
+        String  returnview= "/blog";
       return returnview;
 
 
@@ -181,14 +181,16 @@ public class BlogController {
 
         User currentUser = (User) session.getAttribute("user");
 //获得当前用户，检测当前用户和文章用户一样不一样。一样或者是管理员。不一样就报错到404，
-       if( currentUser.getId().equals(    blog.getUser().getId() ) || currentUser.getType() ==2){
+       if( currentUser.getId().equals(blog.getUser().getId())
+               || currentUser.getType() ==2){
         blogService.deleteBlog(id);
         attributes.addFlashAttribute("message", "删除成功");
+        return "redirect:/admin/blogs";
        }
        else {  attributes.addFlashAttribute("message", "删除失败");
 
-
-       } return "/error/noright";
+           return "/error/noright";
+       }
     }
 
 
