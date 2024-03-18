@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 
 <head th:replace="~{/admin/_fragments:: head(~{::title})}">
 
-    <!--<head>-->
-    <meta charset="UTF-8">
+     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户信息修改</title>
+   <title>图表</title>
     <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
 
     <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
     <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
+    <script src="../../static/js/echarts.min.js" th:src="@{/js/echarts.min.js}" ></script>
+    <!--<head>-->
 </head>
 <body>
-<nav th:replace="~{admin/_fragments :: menu(0)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
+
+
+<nav th:replace="~{admin/_fragments :: menu(5)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container"  >
         <div class="ui   secondary stackable menu">
             <a href="#" th:href="@{/admin/blogs}">
@@ -58,81 +62,68 @@
 </nav>
 
 
+<!--中间内容-->
+<div  class="m-container-small m-padded-tb-big">
+    <div class="ui segment">
 
+        <div id="main" style="width: 600px;height:400px;"></div>
+        <script type="text/javascript">
+            // 使用fetch API下载JSON数据
+            fetch('https://gist.githubusercontent.com/yonghuname/14d0a057154f9a4d2c98d9c91137c966/raw/6d2ea3e94bdc77371a7434fef2b8ac95a487ef90/202403_windows-google-chrome-1709530945035.json')
+                .then(response => response.json())
+                .then(data => {
+                    // 解析并分析数据
+                    console.log(data); // 这里可以进行数据分析
 
+                    // 假设数据格式为 [{name: 'Item1', value: 10}, {name: 'Item2', value: 20}]
+                    var seriesData = data.map(item => {
+                        return {
+                            name: item.name,
+                            value: item.value
+                        };
+                    });
 
-<!--二级导航-->
-<div  th:replace="~{admin/_fragments ::div1}"  class="ui attached pointing menu">
-    <div class="ui container">
-        <div class="right menu">
-
-            <a href="#" class="item">发布</a>
-            <a href="#" class="teal active item">列表</a>
-        </div>
+                    // 使用ECharts绘制图表
+                    var myChart = echarts.init(document.getElementById('main'));
+                    var option = {
+                        title: {
+                            text: '数据分析结果'
+                        },
+                        tooltip: {
+                            trigger: 'item'
+                        },
+                        series: [
+                            {
+                                name: '数据展示',
+                                type: 'pie',
+                                data: seriesData
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        </script>
     </div>
 </div>
 
-
-    <div class="m-container-small m-padded-lr-massive" style="max-width: 45em;">
-        <div class="ui container">
-            <div class="ui middle aligned center aligned grid">
-                <div class="column">
-                    <h2 class="ui teal image header">
-                        <img src="../../static/images/mio3.jpg" class="image" th:src="@{/images/mio3.jpg}">
-                        <div class="content">
-                            用户管理
-                        </div>
-                    </h2>
-                    <!-- 用户信息表单 -->
-                    <form class="ui large form" method="post" action="/admin/user">
-                        <div class="ui stacked segment">
-
-
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="lock icon"></i>
-                                    <input type="password" name="password1" placeholder="密码,不修改密码，只修改头像和名字，留空 " th:value="${password1}">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="lock icon"></i>
-                                    <input type="password" name="password2" placeholder="确认密码,不修改密码可以不用输入哦" th:value="${password1}">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="nickname" placeholder="昵称" th:value="${nickname}">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="picture icon"></i>
-                                    <input type="text" name="avatar" placeholder="头像的url" th:value="${avatar}">
-                                </div>
-                            </div>
-                            <button class="ui fluid large teal submit button">信息更新</button>
-                        </div>
-
-                        <div class="ui error mini message"></div>
-                        <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名和密码错误</div>
-
-
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <br>
 <br>
 <br>
 <br>
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--底部footer-->
 
 <footer th:replace="~{admin/_fragments ::footer}" class="ui    attached segment m-padded-tb-mini m-shadow-big-up  ">
 
@@ -189,46 +180,29 @@
     </div>
 </footer>
 
-</body>
 
 <script>
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+        on : 'hover'
+    });
+
     $('.ui.form').form({
-        fields: {
-
-            nickname: {
-                identifier: 'nickname',
+        fields : {
+            title : {
+                identifier: 'name2',
                 rules: [{
-                    type: 'empty',
-                    prompt: '请输入昵称'
+                    type : 'empty',
+                    prompt: '请输入分类名称'
                 }]
-            },
-
-            password2: {
-                identifier: 'password2',
-                rules: [
-
-                    {
-                        type: 'match[password1]',
-                        prompt: '两次输入的密码不一致'
-                    }
-                ]
-            },
-
-        },
+            }
+        }
     });
-
-
-    $(document).ready(function() {
-        $('.menu.toggle').click(function() {
-            $('.m-item').toggleClass('m-mobile-hidden');
-        });
-    });
-    $('.ui.dropdown')
-        .dropdown({
-            // you can use any ui transition
-            // transition: 'drop',
-            on:  'hover'
-        })
 
 </script>
+</body>
 </html>

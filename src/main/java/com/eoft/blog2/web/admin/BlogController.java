@@ -6,11 +6,13 @@ import com.eoft.blog2.po.User;
 import com.eoft.blog2.service.BlogService;
 import com.eoft.blog2.service.TagService;
 import com.eoft.blog2.service.TypeService;
+import com.eoft.blog2.service.UserService;
 import com.eoft.blog2.vo.BlogQuery;
 import com.eoft.blog2.web.NoFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -34,11 +36,31 @@ public class BlogController {
 
     @Autowired
     private BlogService blogService;
-
+@Autowired
+private UserService userService;
     @Autowired
     private TypeService typeService;
     @Autowired
     private TagService tagService;
+
+
+    @GetMapping("/index")
+    public String index(@PageableDefault(size = 100, sort = {"updateTime"}, direction = Sort.Direction.DESC)
+                        Pageable pageable, BlogQuery blog, Model model,HttpSession session ,
+                        @RequestParam(value = "page", required = false, defaultValue = "0") Integer page  ){
+        User user = (User) session.getAttribute("user");
+
+        PageRequest pageRequest = PageRequest.of(page, pageable.getPageSize(), pageable.getSort());
+
+        model.addAttribute("page",blogService.listmyBlog(user.getId(),pageRequest));
+        model.addAttribute("user",  user);
+
+
+        return "/admin/index";
+//        重定向链接和thymeleaf 的定位html一回事
+
+
+    }
 
 //    todo 要按userid 搜索
     @GetMapping("/blogs")

@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.yaml.snakeyaml.events.Event;
 
 @Controller
 @RequestMapping("/admin")
@@ -23,24 +21,28 @@ public class UserController {
         User user =  (User) session.getAttribute("user");
         model.addAttribute("avatar",user.getAvatar());
         model.addAttribute("nickname",user.getNickname());
-
-        return "admin/user";
+        if(user.getSlogan()!=null)     model.addAttribute("slogan",user.getSlogan());
+        return "/admin/useredit";
     }
     @PostMapping("/user")
-    public String userpost(HttpSession session, String password1,String avatar,String nickname){
+    public String userpost(HttpSession session, String password1,String avatar,String nickname,String slogan ){
 //        userService.
         User user =  (User) session.getAttribute("user");
             Long id = user.getId();
         System.out.println(id);
-             User user2 =   userService.updateUser(password1,nickname,id,avatar);
+             User user2 =   userService.updateUser(password1,nickname,id,avatar,slogan);
         System.out.println("用户新的id是"+user2.getNickname());
          if(user2!= null ) {
+             System.out.println(23333);
              user2.setPassword(null);
              session.setAttribute("user",user2);
+             return "redirect:/admin/index";
          }
          else{
+
              throw new NoFoundException("用户 没找到.");
          }
-        return "admin/index";
+
+
     }
 }

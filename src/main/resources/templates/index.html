@@ -108,7 +108,7 @@
                         <div class="ui middle aligned two column grid">
 <!--                            two column 要一起 不分开-->
                             <div class="  column">
-                                <h3 class="ui teal header">博客  </h3>
+                                <h3 class="ui teal header">文章 </h3>
                             </div>
 
                             <div class="   right aligned column">
@@ -149,20 +149,20 @@
                                                         <img alt=""  class="ui avatar image"   th:src="@{${blog.user.avatar}}" > <!-- 头像 -->
 
                                                         <div class="content">
-                                                            <a href="#" class="header" th:text="${blog.user.nickname}">长野原美绪</a> <!-- 名字 -->
+                                                            <a href="#" class="header" th:href="@{/user/{id}(id=${blog.user.id})}" th:text="${blog.user.nickname}">长野原美绪</a><!-- 名字 -->
                                                         </div>
                                                     </div>
                                                     <div class="item">
                                                         <i class="calendar icon" ></i> <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2024-2-15</span>
-                                                    </div> <!-- 时间 -->
+                                                    </div> <!--    时间 -->
                                                     <div class="item">
                                                         <i class="eye icon"></i> <span th:text="${blog.views} ">55555</span>
-                                                    </div> <!-- 观看数 -->
+                                                    </div> <!--    观看数   -->
 
                                                 </div>
                                             </div>
                                            <div class="ui right aligned middle aligned four wide  column m-padded-mini m-text-thin">
-                                                <a href="#" target="_blank" class="ui teal mini basic  left pointing label" th:text="${blog.type.name}">认知升级</a>
+                                                <a href="#" target="_blank" class="ui teal mini basic  left pointing label" th:href="@{'/types?page=' + ${0} + '&id=' + ${blog.type.id}}"  th:text="${blog.type.name}">认知升级</a>
 
                                             </div>
                                         </div>
@@ -223,28 +223,27 @@
                                     <span th:text="${type.name}">学习日志</span>
                                     <div class="ui teal basic left   label" th:text="${#arrays.length(type.blogs)}">13</div>
                                 </a>
-<!--                                    <div class="ui teal basic left   label" th:text="${types.blogCountInType}">13</div>-->
-<!--                                    拿到集合的长度-->
+<!----->
 
 
-                                <!--/*-->
-                                <a href="#" class="item">学习日志
-                                    <div class="ui teal basic left   label">13</div>
-                                </a>
-                                <a href="#" class="item">学习日志
-                                    <div class="ui teal basic left   label">13</div>
-                                </a>
-                                <a href="#" class="item">学习日志
-                                    <div class="ui teal basic left   label">13</div>
-                                </a>
-                                <a href="#" class="item">学习日志
-                                    <div class="ui teal basic left   label">13</div>
-                                </a>
-                                <a href="#" class="item">学习日志
-                                    <div class="ui teal basic left   label">13</div>
-                                </a>
+<!--                                &lt;!&ndash; /*&ndash;&gt;-->
+<!--                                <a href="#" class="item">学习日志-->
+<!--                                    <div class="ui teal basic left   label">13</div>-->
+<!--                                </a>-->
+<!--                                <a href="#" class="item">学习日志-->
+<!--                                    <div class="ui teal basic left   label">13</div>-->
+<!--                                </a>-->
+<!--                                <a href="#" class="item">学习日志-->
+<!--                                    <div class="ui teal basic left   label">13</div>-->
+<!--                                </a>-->
+<!--                                <a href="#" class="item">学习日志-->
+<!--                                    <div class="ui teal basic left   label">13</div>-->
+<!--                                </a>-->
+<!--                                <a href="#" class="item">学习日志-->
+<!--                                    <div class="ui teal basic left   label">13</div>-->
+<!--                                </a>-->
 
-                                <!--*/-->
+<!--                                &lt;!&ndash;*/&ndash;&gt;-->
                             </div>
                         </div>
 

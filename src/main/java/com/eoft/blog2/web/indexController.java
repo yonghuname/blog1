@@ -36,7 +36,7 @@ private BlogService blogService;
     @Autowired
     private TagService tagService;
     @GetMapping("/")
-    public String index(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC)
+    public String index(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC)
                             Pageable pageable, BlogQuery blog, Model model){
 
         model.addAttribute("page",blogService.listBlog(pageable));
@@ -108,7 +108,7 @@ private BlogService blogService;
     }
     @GetMapping("/footer/newblog")
     public String newblogs(Model model) {
-        System.out.println("底部渲染");
+//        System.out.println("底部渲染");
         model.addAttribute("newblogs", blogService.listRecommendBlogTop(3));
         return "_fragments :: newblogList";
     }

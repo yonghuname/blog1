@@ -3,8 +3,12 @@ package com.eoft.blog2.web.admin;
 import com.eoft.blog2.po.User;
 import com.eoft.blog2.service.BlogService;
 import com.eoft.blog2.service.UserService;
+import com.eoft.blog2.vo.BlogQuery;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +40,7 @@ public class loginController {
                          @RequestParam String password,
                          HttpSession session,
                          RedirectAttributes attributes
+
                          )
     {
         User user = userService.checkUser(username,password);
@@ -48,7 +53,7 @@ public class loginController {
 
 //            System.out.println("登录成功了啊了哈哈哈哈哈哈哈 ");
 
-            return "admin/index";
+            return  "redirect:/admin/index";
         } else{
             System.out.println("登录失败了了了了了了了");
             attributes.addFlashAttribute("message","用户名或密码错误");
@@ -75,7 +80,7 @@ public class loginController {
 public BlogService blogService;
     @GetMapping("/footer/newblog")
     public String newblogs(Model model) {
-        System.out.println("底部渲染");
+//        System.out.println("底部渲染");
         model.addAttribute("newblogs", blogService.listRecommendBlogTop(3));
         return "_fragments :: newblogList";
     }

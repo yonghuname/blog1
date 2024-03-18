@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>后台首页</title>
+    <title>用户页面</title>
     <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
 
@@ -16,63 +16,47 @@
 </head>
 
 
-<nav th:replace="~{admin/_fragments :: menu(7)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
-    <div class="ui container"  >
-        <div class="ui   secondary stackable menu">
-            <a href="#" th:href="@{/admin/blogs}">
-                <h3 class="ui  teal header item" ><i class="ui clipboard outline icon"></i>我的文章</h3></a>
-            <a class="m-item m-mobile-hidden  item"  th:classapend = "${(n == 1) ? 'active' : ''}" th:href="@{/admin/blogs/input}"> <i class="ui  home icon">  </i>发文</a>
-            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 2) ? 'active' : ''}" th:href="@{/admin/todolist}"> <i class="ui tasks  icon">  </i>TODO</a>
-            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/chart}"><i class="ui chart bar icon">  </i> 图表 </a>
-            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 5) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui compass icon">  </i> 机器人</a>
-            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 4) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui play  icon">  </i> 视频 </a>
+<nav  th:replace="~{_fragments ::menu(1)}" class = "ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container m-shadow-small"  >
+        <div class="ui inverted secondary stackable menu">
+            <h3 class="ui teal header item">学途智伴</h3>
+            <a class="m-item m-mobile-hidden item"> <i class="ui home icon">  </i>首页</a>
+            <a class="m-item m-mobile-hidden item"> <i class="ui idea icon">  </i>分类</a>
+            <a class="m-item m-mobile-hidden item"><i class="ui tags icon">  </i>标签</a>
+            <a class="m-item m-mobile-hidden item"><i class="ui clone icon">  </i>归档</a>
+            <a class="m-item m-mobile-hidden item"><i class="ui info icon"></i>关于我</a>
+            <div class="right item">
+                <div class="ui icon inverted input">
+                    <input type="text" placeholder="搜索....">
+                    <i class="ui search icon"></i>
 
-            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 6) ? 'active' : ''}" th:href="@{/}"><i class="ui pencil icon">  </i>主页展示</a>
-            <div class="right m-mobile-hidden menu">
-
-                <div class="ui dropdown item">
-                    <img class="ui avatar image" src="../../static/images/mio3.jpg" th:src="@{${session.user.avatar}}" >
-
-                    <a href="#" class="header" th:text="${session.user.nickname}"> </a>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <a href="#" class="item" th:href="@{/admin/user}">管理账号</a>
-                        <a href="#" class="item" th:href="@{/admin/logout}">退出登录</a>
-                    </div>
                 </div>
             </div>
         </div>
 
     </div>
-    <a href="#" class="ui menu toggle m-mobile-show   button">
-        展开
-        <i class="sidebar  icon m-top-right "></i>
+    <a href="#" class="ui menu toggle m-mobile-show black button">
+        <i class="sidebar icon m-top-right "></i>
     </a>
-
 </nav>
-
-
+<!--<div alt="" id="cz-bg-img" class="cz-bg-section cz-bg-img " th:style="'background: url(/images/anime11.png;); background-position: 50% 90px;'">-->
+<!--    <div class="m-bg-class_cover" align="center" style="bottom: -180px;">-->
+<!--        <p class="cz-index-title" style="transform: translateY(90px);">- EEETTTT's Blog -</p>-->
+<!--        <p class="cz-index-title2" style="transform: translateY(90px);">这是一个还要加功能，还在开发的网站</p>-->
+<!--    </div>-->
+<!--</div>-->
 
 <body>
 
+<!--二级导航-->
 
+<!--    中间内容 -->
+<!---->
 <br>
-<div class="  m-container-small " >
 
-    <div class="ui container">
-        <div class="ui success large  message">
-            <h3>
-                Hi
-            </h3>
-           <p th:text="${session.user.nickname}">  欢迎回来</p>
-            <p>距离xx多少天 </p>
-        </div>
-
-    </div>
-</div>
 <br>
 <input type="hidden" name="page" th:attr="value=${page == null ? 0 : page.number}">
-<div  class="m-container-small  ">
+<div  class="m-container-big  ">
     <div class="ui container">
         <div class="ui two stackable grid">
 
@@ -90,20 +74,14 @@
                                 </div>
                                 <img class="ui fluid image" src="../../static/images/mio1.png" th:src="@{${user.avatar}} ">
                             </div>
-
                         </div>
                         <div class="ui   segment">
                             <h5 th:text="${user.slogan}">233333</h5>
-
                         </div>
                         <div class="ui attached segment">
-                     <a class="ui orange    button" th:href="@{/admin/user}">编辑用户信息</a>
-
                         </div>
-
                     </div>
                 </div>
-
             </div>
 
             <div class="eleven wide column m-padded-tb-small">
@@ -118,7 +96,6 @@
                         <div class="   right aligned column">
                             共
                             <h2 class="ui orange header m-inline-block" th:text="${page.totalElements}">14</h2>
-
                             篇
                         </div>
 
@@ -199,6 +176,8 @@
 <!--                            <div class=" right aligned column">-->
 <!--                                <a href="#" class="ui teal basic button" th:href="@{'/admin/index?page='+${page.number +1}}"  th:unless="${page.last}">下一页</a>-->
 <!--                            </div>-->
+                                只能看到这里哦
+
                         </div>
                     </div>
                 </div>

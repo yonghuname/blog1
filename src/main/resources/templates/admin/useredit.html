@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{/admin/_fragments:: head(~{::title})}">
+
+    <!--<head>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户信息修改</title>
+    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+
+    <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
+    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
+</head>
+<body>
+<nav th:replace="~{admin/_fragments :: menu(0)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
+    <div class="ui container"  >
+        <div class="ui   secondary stackable menu">
+            <a href="#" th:href="@{/admin/blogs}">
+                <h3 class="ui  teal header item" ><i class="ui clipboard outline icon"></i>博客管理</h3></a>
+            <a class="m-item m-mobile-hidden  item"  th:classapend = "${(n == 1) ? 'active' : ''}" th:href="@{/admin/blogs/input}"> <i class="ui  home icon">  </i>发文</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 2) ? 'active' : ''}" th:href="@{/admin/todolist}"> <i class="ui tasks  icon">  </i>TODO</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/chart}"><i class="ui chart bar icon">  </i> 图表 </a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 5) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui compass icon">  </i> 机器人</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 4) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui play  icon">  </i> 视频 </a>
+
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 6) ? 'active' : ''}" th:href="@{/}"><i class="ui pencil icon">  </i>主页展示</a>
+            <div class="right m-mobile-hidden menu">
+                <!--                    <div class="ui dropdown item">-->
+                <!--                        <img class="ui avatar image" src="../../static/images/mio3.jpg" th:src="@{/images/mio3.jpg}">-->
+                <!--                        长野原美绪-->
+                <!--                        <i class="dropdown icon"></i>-->
+                <!--                        <div class="menu">-->
+                <!--                            <a href="#" class="item" th:href="@{/admin/user}">管理账号</a>-->
+                <!--                            <a href="#" class="item" th:href="@{/admin/logout}">退出登录</a>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <div class="ui dropdown item">
+                    <img class="ui avatar image" src="../../static/images/mio3.jpg" th:src="@{${session.user.avatar}}" >
+
+                    <a href="#" class="header" th:text="${session.user.nickname}"> </a>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item" th:href="@{/admin/user}">管理账号</a>
+                        <a href="#" class="item" th:href="@{/admin/logout}">退出登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <a href="#" class="ui menu toggle m-mobile-show   button">
+        展开
+        <i class="sidebar  icon m-top-right "></i>
+    </a>
+
+</nav>
+
+
+
+
+
+
+
+    <div class="m-container-small m-padded-lr-massive" style="max-width: 45em;">
+        <div class="ui container">
+            <div class="ui middle aligned center aligned grid">
+                <div class="column">
+                    <h2 class="ui teal image header">
+                        <img src="../../static/images/mio3.jpg" class="image" th:src="@{/images/mio3.jpg}">
+                        <div class="content">
+                            用户管理
+                        </div>
+                    </h2>
+                    <!-- 用户信息表单 -->
+                    <form class="ui large form" method="post" action="/admin/user">
+                        <div class="ui stacked segment">
+
+
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="lock icon"></i>
+                                    <input type="password" name="password1" placeholder="密码,不修改密码，只修改头像和名字，留空 " th:value="${password1}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="lock icon"></i>
+                                    <input type="password" name="password2" placeholder="确认密码,不修改密码可以不用输入哦" th:value="${password1}">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="user icon"></i>
+                                    <input type="text" name="nickname" placeholder="昵称" th:value="${nickname}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="edit  icon"></i>
+                                    <input type="text" name="slogan" placeholder="个性签名" th:value="${slogan}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="picture icon"></i>
+                                    <input type="text" name="avatar" placeholder="头像的url" th:value="${avatar}">
+                                </div>
+                            </div>
+                            <button class="ui fluid large teal submit button">信息更新</button>
+                        </div>
+
+                        <div class="ui error mini message"></div>
+                        <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名和密码错误</div>
+
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+
+
+<footer th:replace="~{admin/_fragments ::footer}" class="ui    attached segment m-padded-tb-mini m-shadow-big-up  ">
+
+    <br>
+    <br>
+    <br>
+    <div class="ui center aligned container">
+        <div class="ui   divided stackable grid">
+
+            <div class="three wide column">
+
+                <div class="middle aligned">
+
+                    <img src="../../../static/images/mio1.png"
+                         class="ui middle aligned round image" alt="" style="width: 150px" th:src="@{/images/mio1.png}">
+                </div>
+
+
+            </div>
+            <div class="three wide column ">
+                <h4 class ="ui   header" >最新文章</h4>
+                <div class="ui red  link list">
+                    <div id="newblog-container">
+                        <div class="ui   link list" th:fragment="newblogList">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item black m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
+                            <!--/*-->
+                            <!--*/-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class ="ui   header">练习方式</h4>
+                <div class="ui black  link list">
+                    <a href="#" class="item">yonghuname@github.com</a>
+                    <a href="#" class="item">等待填充</a>
+                    <a href="#" class="item">等待填充</a>
+                </div>
+            </div>
+
+            <div class="seven wide column">
+
+                <h4 class ="ui   header">网页介绍</h4>
+
+                <p  class="m-text-thin m-text-spaced m-opacity-mini ">学而不思则罔，思而不学则怠。</p>
+
+            </div>
+        </div>
+
+        <!--111111111111111111111111111111-->
+
+        <div class="ui   section divider m-padded-tb-">
+        </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
+    </div>
+</footer>
+
+</body>
+
+<script>
+    $('.ui.form').form({
+        fields: {
+
+            nickname: {
+                identifier: 'nickname',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入昵称'
+                }]
+            },
+
+            password2: {
+                identifier: 'password2',
+                rules: [
+
+                    {
+                        type: 'match[password1]',
+                        prompt: '两次输入的密码不一致'
+                    }
+                ]
+            },
+
+        },
+    });
+
+
+    $(document).ready(function() {
+        $('.menu.toggle').click(function() {
+            $('.m-item').toggleClass('m-mobile-hidden');
+        });
+    });
+    $('.ui.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            // transition: 'drop',
+            on:  'hover'
+        })
+
+</script>
+</html>

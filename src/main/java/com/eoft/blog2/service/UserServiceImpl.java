@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService {
      }
 
     @Override
+    public User getbyid(Long uid) {
+      return userRepository.getOne(uid);
+    }
+
+    @Override
     public String registerUser(String email, String username, String password, String invitecode, String nickname) {
        User samenameuser= userRepository.findByUsername(username);
 //       p判断重复用户名和 邀请码正确否
@@ -53,18 +58,21 @@ public class UserServiceImpl implements UserService {
             return "registrationFailed";
         }
     }
-    public User updateUser(  String password, String nickname, Long id,String avatar) {
+    public User updateUser(  String password, String nickname, Long id,String avatar ,String slogan) {
         System.out.println("开始查找了");
         User user= userRepository.getOne(id);
 //        getone确保只有一个’
         System.out.println("找到了 他叫"+user.getNickname());
-        user.setAvatar(avatar);
-        System.out.println("password" + password);
+
+//        System.out.println("password" + password);
       if(password != null && password !="")  user.setPassword(MD5util.code(password));
         user.setNickname(nickname);
+        user.setAvatar(avatar);
+        user.setSlogan(slogan);
         user.setUpdateTime(new Date());
         userRepository.save(user);
         System.out.println("找到了 他现在 是 "+user.getNickname());
     return user;
     }
+
 }

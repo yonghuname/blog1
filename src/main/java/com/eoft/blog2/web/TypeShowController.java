@@ -69,7 +69,7 @@ public class TypeShowController {
             @RequestParam(value = "id", required = false) Long id,
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             Model model) {
-        // 如果没有提供类型ID，获取所有类型
+        // 如果没有提供类型ID，获取所有类型 10000 是表示真不可能有一万种类型吧
         List<Type> types = typeService.listTypeTop(10000);
         if (id == -1) {
             id = types.get(0).getId();

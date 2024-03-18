@@ -116,7 +116,7 @@
                                             <img alt=""  class="ui avatar image"   th:src="@{${blog.user.avatar}}" > <!-- 头像 -->
 
                                             <div class="content">
-                                                <a href="#" class="header" th:text="${blog.user.nickname}">长野原美绪</a> <!-- 名字 -->
+                                                <a href="#" class="header" th:href="@{/user/{id}(id=${blog.user.id})}"  th:text="${blog.user.nickname}">长野原美绪</a> <!-- 名字 -->
                                             </div>
                                         </div>
                                         <div class="item">

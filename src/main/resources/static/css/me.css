@@ -212,6 +212,10 @@ opacity:0.8 !important;
     margin:auto!important;
     max-width: 70em!important;
 }
+.m-container-big{
+    margin:auto!important;
+    max-width: 80em!important;
+}
 /*color*/
 .m-black
 {

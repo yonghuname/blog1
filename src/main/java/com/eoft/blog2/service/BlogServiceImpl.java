@@ -44,7 +44,15 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.getOne(id);
 
     }
+    @Override
 
+    public Page<Blog> listmyBlog(Long uid,Pageable pageable){
+
+
+
+        return blogRepository.findmyblog(uid,pageable);
+    }
+@Override
     public Blog getAndConvert(Long id){
         Blog blog = blogRepository.getOne(id);
 
