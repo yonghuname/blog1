@@ -30,7 +30,7 @@
         body {
             background-image: url(/images/background2.png);
             background-size: cover;/
-        background-position: center;
+            background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
@@ -316,7 +316,25 @@
     }
 
     // 为所有具有localshowbilibili类的按钮添加点击事件监听器
+    function getBilibiliUploaderVideos(uid) {
+        const url = `/admin/media/bilibiliuserget?uid=${encodeURIComponent(uid)}`;
 
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // 获取响应文本
+            })
+            .then(data => {
+                alert(data); // 处理响应数据
+                listVideos(data);
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                alert('网络请求失败，可能是网络问题或链接错误。请检查链接并重试。');
+            });
+    }
 
 
     function processInput() {
@@ -351,18 +369,16 @@
             divElement.appendChild(linkElement);
             uplistElement.appendChild(divElement);
             linkElement.addEventListener('click', function() {
-                getbilibiliuploadervideos(this.textContent)
+                alert(this.textContent);
+                getBilibiliUploaderVideos(this.textContent)
             });
         });
         return false; // 阻止表单提交
 
     }
-    function getbilibiliuploadervideos(uploaderId) {
-        // 假设这个函数用于获取指定up主的视频列表
 
-        listVideos(videosdata)
 
-    }
+
     // 获取提交按钮并绑定点击事件
     var submitButton = document.getElementById("biliSubmitButton");
     submitButton.addEventListener('click', processInput);
