@@ -19,6 +19,8 @@ public interface BlogService {
     Page<Blog> listBlog(String query,Pageable pageable);
     Page<Blog> listBlog(Pageable pageable);
     Page<Blog> listmyBlog(Long uid,Pageable pageable);
+    Page<Blog> listmyshowBlog(Long uid,Pageable pageable);
+
     Page<Blog> listBlog3(Long tagId,Pageable pageable);
     Blog saveBlog(Blog blog);
 

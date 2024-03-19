@@ -43,15 +43,18 @@
     <nav th:fragment="menu(n)" class = "ui   attached segment m-padded-tb-mini m-shadow-small">
         <div class="ui container"  >
             <div class="ui   secondary stackable menu">
-                <a href="#" th:href="@{/admin/blogs}">
-                    <h3 class="ui  teal header item" ><i class="ui archive  clipboard outline icon"></i>文章管理</h3></a>
-                <a class="m-item m-mobile-hidden item"  th:classappend = "${(n == 7) ? 'active' : ''}" th:href="@{/admin/index}"><i class="ui  home icon">  </i> 我的 </a>
-                <a class="m-item m-mobile-hidden item"  th:classappend = "${(n == 6) ? 'active' : ''}" th:href="@{/}"><i class="ui archive  icon">  </i>游客主页</a>
-                <a class="m-item m-mobile-hidden  item"  th:classappend = "${(n == 1) ? 'active' : ''}" th:href="@{/admin/blogs/input}"> <i class="ui pencil icon">  </i>新增文章</a>
+
+                    <h3 class="ui  teal header item" ><i class="ui pencil  icon"></i>学途智伴</h3>
+
+
+                <a class="m-item m-mobile-hidden  item"  th:classappend = "${(n == 8) ? 'active' : ''}"  th:href="@{/admin/blogs}" > <i class="ui archive  clipboard icon">  </i>管理文章</a>
+                <a class="m-item m-mobile-hidden  item"  th:classappend = "${(n == 1) ? 'active' : ''}" th:href="@{/admin/blogs/input}"> <i class="ui edit icon">  </i>新增文章</a>
                 <a class="m-item m-mobile-hidden item"  th:classappend = "${(n == 2) ? 'active' : ''}" th:href="@{/admin/todolist}"> <i class="ui tasks  icon">  </i>TODO</a>
                 <a class="m-item m-mobile-hidden item"  th:classappend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/chart}"><i class="ui chart bar icon">  </i> 图表 </a>
                 <a class="m-item m-mobile-hidden item"  th:classappend = "${(n == 5) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui compass icon">  </i> 机器人</a>
                 <a class="m-item m-mobile-hidden item"  th:classappend = "${(n == 4) ? 'active' : ''}" th:href="@{/admin/media/bilibiliuser}"><i class="ui play  icon">  </i> 视频 </a>
+                <a class="m-item m-mobile-hidden item"  th:classappend = "${(n == 7) ? 'active' : ''}" th:href="@{/admin/index}"><i class="ui  home icon">  </i> 我的 </a>
+                <a class="m-item m-mobile-hidden item"  th:classappend = "${(n == 6) ? 'active' : ''}" th:href="@{/}"><i class="ui archive  icon">  </i>游客主页</a>
 
 
                 <div class="right m-mobile-hidden menu">

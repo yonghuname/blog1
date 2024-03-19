@@ -52,7 +52,13 @@ public class BlogServiceImpl implements BlogService {
 
         return blogRepository.findmyblog(uid,pageable);
     }
-@Override
+
+    @Override
+    public Page<Blog> listmyshowBlog(Long uid, Pageable pageable) {
+        return blogRepository.findmyshowblog(uid,pageable);
+    }
+
+    @Override
     public Blog getAndConvert(Long id){
         Blog blog = blogRepository.getOne(id);
 
@@ -161,7 +167,7 @@ public Page<Blog> listBlog(String query,Pageable pageable){
 //        System.out.println("-*------update blog  ");
         Blog b = blogRepository.getOne(id) ;
         if (b == null) {
-            throw new NoFoundException("该博客不存在");
+            throw new NoFoundException("该文章不存在");
         }
 
         BeanUtils.copyProperties(blog,b

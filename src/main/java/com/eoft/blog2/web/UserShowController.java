@@ -34,7 +34,7 @@ public class UserShowController {
 
 
 
-        model.addAttribute("page",blogService.listmyBlog(user.getId(),pageable));
+        model.addAttribute("page",blogService.listmyshowBlog(user.getId(),pageable));
         return "user";
     }
 }

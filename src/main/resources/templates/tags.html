@@ -61,7 +61,7 @@
     <div class="ui attached segment">
 
         <div class="ui basic segment">
-            <a href="#" th:href="@{'/tags?page=0'+'&id=' +${tag.id }}"  th:classappend="${tag.id==activeTagId} ? 'teal'" th:each="tag : ${tags}" target="_blank" class="ui   basic left pointing label m-margin-tb-tiny">
+            <a href="#" th:href="@{'/tags?page=0'+'&id=' +${tag.id }}"  th:classappend="${tag.id==activeTagId} ? 'teal'" th:each="tag : ${tags}"  class="ui   basic left pointing label m-margin-tb-tiny">
                 <span th:text="${tag.name}">方法</span>   <div th:text="${#arrays.length(tag.blogs)}" class="detail">23</div>
             </a>
 <!--/*-->

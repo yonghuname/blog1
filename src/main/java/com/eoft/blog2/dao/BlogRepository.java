@@ -18,6 +18,10 @@ public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificat
 
     @Query("SELECT b FROM Blog b WHERE   b.user.id = :uid")
     Page<Blog> findmyblog(Long uid, Pageable page);
+    @Query("SELECT b FROM Blog b WHERE   b.user.id = :uid AND b.published = true")
+    Page<Blog> findmyshowblog(Long uid, Pageable page);
+
+
 
     @Query("SELECT b FROM Blog b WHERE (b.title LIKE ?1 OR b.content LIKE ?1) AND b.published = true")
     Page<Blog> findbyQuery(String query, Pageable page);
