@@ -1,4 +1,4 @@
-package com.eoft.blog2.web.admin;
+package com.eoft.blog2.web;
 
 import com.eoft.blog2.po.User;
 import com.eoft.blog2.service.BlogService;
