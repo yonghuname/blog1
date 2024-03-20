@@ -30,7 +30,7 @@ public class BilibiliuserController {
     }
 
     @GetMapping("/bilibiliuserget")
-    public ResponseEntity<String> getBilibiliUploaderVideos(@RequestParam("uid") String uid) {
+    public ResponseEntity<String> getBilibiliUploaderVideos(@RequestParam("uid") String uid,@RequestParam("page_num") String page_num) {
         if (uid == null || uid.isEmpty()) {
             return ResponseEntity.badRequest().body("UID is required.");
         }
@@ -39,10 +39,11 @@ public class BilibiliuserController {
                 .setConnectTimeout(Duration.ofSeconds(120)) // 连接超时增加到30秒
                 .setReadTimeout(Duration.ofSeconds(120)) // 读取超时增加到30秒
                 .build();
-        String pythonurl = "http://118.31.237.220:888/api/crawl?uid=";
+
+        String url =   "http://118.31.237.220:888/api/crawl?uid="   + uid+"&page_num="+page_num;
         try {
 //             uid = URLEncoder.encode(uid, StandardCharsets.UTF_8.toString());
-            String url = pythonurl + uid;
+
             String responseBody = restTemplate.getForObject(url, String.class);
             System.out.println(url);
 

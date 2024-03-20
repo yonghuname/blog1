@@ -109,7 +109,7 @@
 
             <div class="ui right aligned container">
                 <button type="button" class="ui button" onclick="window.history.go(-1)" >返回</button>
-                <button class="ui teal   button" id="biliSubmitButton">提交</button>
+                <button class="ui teal   button" id="biliSubmitButton">添加</button>
             </div>
 
 
@@ -131,8 +131,10 @@
             </div>
             <div class="ten wide column">
                 <div  class=" ui segment" >
-                    我的list
+                    我的list  <input type="number" class="fluid" style="width:50%" id="bilibilipagenum" placeholder="请输入你需要获得页面数 默认为1" min="1" step="1">
                     <div class="segment" id ="videolist">
+
+
 
                     </div>
                 </div>
@@ -142,12 +144,6 @@
 </div>
 
 
-<!--<div  class="m-container-small  ">-->
-<!--    <div  class=" ui container">-->
-<!--        <iframe src="//player.bilibili.com/player.html?bvid=BV19B421B799&cid=1431716532&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>-->
-
-<!--    </div>-->
-<!--</div>-->
 
 
 
@@ -238,69 +234,89 @@
             }
         }
     });
-    var videosdata  = [
-        {
-            "user_name": "程序员Aurora",
-            "bv": "BV13K411w7Gs",
-            "url": "https://www.bilibili.com/video/BV13K411w7Gs/",
-            "title": "nginx反向代理实现域名访问项目",
-            "play": 7459,
-            "duration": 1160,
-            "pub_date": "2021-04-03",
-            "now": "2024-03-16 21:04:44"
-        },
-        {
-            "user_name": "程序员Aurora",
-            "bv": "BV1SK4y1K7R7",
-            "url": "https://www.bilibili.com/video/BV1SK4y1K7R7/",
-            "title": "一个由springboot搭建的简洁而又美观的个人博客系统",
-            "play": 1715,
-            "duration": 316,
-            "pub_date": "2021-03-13",
-            "now": "2024-03-16 21:04:44"
-        }
-    ];
+    // var videosdata  = [
+    //     {
+    //         "user_name": "程序员Aurora",
+    //         "bv": "BV13K411w7Gs",
+    //         "url": "https://www.bilibili.com/video/BV13K411w7Gs/",
+    //         "title": "nginx反向代理实现域名访问项目",
+    //         "play": 7459,
+    //         "duration": 1160,
+    //         "pub_date": "2021-04-03",
+    //         "now": "2024-03-16 21:04:44"
+    //     },
+    //     {
+    //         "user_name": "程序员Aurora",
+    //         "bv": "BV1SK4y1K7R7",
+    //         "url": "https://www.bilibili.com/video/BV1SK4y1K7R7/",
+    //         "title": "一个由springboot搭建的简洁而又美观的个人博客系统",
+    //         "play": 1715,
+    //         "duration": 316,
+    //         "pub_date": "2021-03-13",
+    //         "now": "2024-03-16 21:04:44"
+    //     }
+    // ];
     function listVideos(videosData) {
         var videoListElement = document.getElementById("videolist");
         videoListElement.innerHTML = ""; // 清空videoListElement元素
 
         videosData.forEach(function(video) {
+
+            var listblock = document.createElement("div");
+            listblock.className = "ui segment";
             // 创建一个新的列表项元素
-            var listItem = document.createElement("div");
-            listItem.className = "item";
+
 
             // 创建一个包含视频标题的链接元素
             var linkElement = document.createElement("a");
             linkElement.href = "https://www.bilibili.com/video/" + video.bv + "/";
-            linkElement.target = "_blank";
+            linkElement.target = "_blank ";
             linkElement.className = "title";
             linkElement.textContent = video.title;
 
-            // 创建一个显示发布日期的元素，并将其放置在同一行
+            var titleWrapper = document.createElement("div");
+            titleWrapper.className = "left aligned";
+            titleWrapper.appendChild(linkElement);
+            listblock.appendChild(titleWrapper);
+
+            var grid = document.createElement('div');
+            grid.className = 'ui two column stackable grid';
+            var dateColumn = document.createElement('div');
+            dateColumn.className = 'four wide column';
+            var dateContainer = document.createElement('div');
+            dateContainer.className = 'ui middle aligned container';
+
+
             var dateElement = document.createElement("a");
             dateElement.className = "date";
             dateElement.textContent = " - " + video.pub_date + "  ";
+            dateContainer.appendChild(dateElement);
+            dateColumn.appendChild(dateContainer);
 
-            // 创建一个本地构建按钮元素
-            var buttonElement = document.createElement("button");
-            buttonElement.className = "ui basic mini right aligned blue localshowbilibili button";
-            buttonElement.dataset.bv = video.bv;
-            buttonElement.textContent = "本地构建";
+            var buttonColumn = document.createElement('div');
+            buttonColumn.className = 'twelve wide column';
+            var buttonContainer = document.createElement('div');
+            buttonContainer.className = 'ui right aligned container';
+            var button = document.createElement('button');
+            button.className = 'ui basic mini right aligned blue my-paddle-tb-mini localshowbilibili button';
 
-            // 将发布日期元素添加到链接元素中
-            linkElement.appendChild(dateElement);
 
-            // 创建一个包裹标题和按钮的div元素
-            var titleAndButtonWrapper = document.createElement("div");
-            titleAndButtonWrapper.className = "title-and-button-wrapper";
-            titleAndButtonWrapper.appendChild(linkElement);
-            titleAndButtonWrapper.appendChild(buttonElement);
+            button.dataset.bv = video.bv;
+            button.textContent = "本地构建";
+
+            buttonContainer.appendChild(button);
+            buttonColumn.appendChild(buttonContainer);
+
+
+            grid.appendChild(dateColumn);
+            grid.appendChild(buttonColumn);
+
 
             // 将标题和按钮的包裹元素添加到列表项中
-            listItem.appendChild(titleAndButtonWrapper);
 
+            listblock.appendChild(grid)
             // 将列表项添加到videoListElement中
-            videoListElement.appendChild(listItem);
+            videoListElement.appendChild(listblock);
         });
         document.querySelectorAll('.localshowbilibili').forEach(function(button) {
             button.addEventListener('click', function() {
@@ -316,8 +332,8 @@
     }
 
     // 为所有具有localshowbilibili类的按钮添加点击事件监听器
-    function getBilibiliUploaderVideos(uid) {
-        const url = `/admin/media/bilibiliuserget?uid=${encodeURIComponent(uid)}`;
+    function getBilibiliUploaderVideos(uid,page_num) {
+        const url = `/admin/media/bilibiliuserget?uid=${encodeURIComponent(uid)}&page_num=${encodeURIComponent(page_num)}`;
 
         fetch(url)
             .then(response => {
@@ -354,7 +370,7 @@
         numbersArray.forEach(function(number) {
             // 创建一个新的div元素，它将包含a元素
             var divElement = document.createElement("div");
-            divElement.className = "m-padded-tb-small segment"; // 添加必要的类
+            divElement.className = "ui m-padded-tb-small segment"; // 添加必要的类
 
             // 创建一个新的a元素，它将包含图标和数字
             var linkElement = document.createElement("a");
@@ -368,9 +384,12 @@
             linkElement.appendChild(textNode);
             divElement.appendChild(linkElement);
             uplistElement.appendChild(divElement);
+            var pagenum = document.getElementById("bilibilipagenum").value;
+            if(pagenum ==="")  pagenum = 1;
             linkElement.addEventListener('click', function() {
-                alert(this.textContent);
-                getBilibiliUploaderVideos(this.textContent)
+                alert('正在获取当前uid的视频：'+this.textContent+'页面数'+pagenum);
+
+                getBilibiliUploaderVideos(this.textContent,pagenum.toString())
             });
         });
         return false; // 阻止表单提交
