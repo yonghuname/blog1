@@ -18,7 +18,7 @@
 <body>
 
 
-<nav th:replace="~{admin/_fragments :: menu(5)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:replace="~{admin/_fragments :: menu(5)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small"   style="z-index: 999">
     <div class="ui container"  >
         <div class="ui   secondary stackable menu">
             <a href="#" th:href="@{/admin/blogs}">
@@ -63,49 +63,47 @@
 
 
 <!--中间内容-->
-<div  class="m-container-small m-padded-tb-big">
+<div  class="m-container-small m-padded-tb-big ">
+
+
     <div class="ui segment">
+        <div class="ui vertical divided stackable aichatlist container" id="aichatlist">
 
-        <div id="main" style="width: 600px;height:400px;"></div>
-        <script type="text/javascript">
-            // 使用fetch API下载JSON数据
-            fetch('https://gist.githubusercontent.com/yonghuname/14d0a057154f9a4d2c98d9c91137c966/raw/6d2ea3e94bdc77371a7434fef2b8ac95a487ef90/202403_windows-google-chrome-1709530945035.json')
-                .then(response => response.json())
-                .then(data => {
-                    // 解析并分析数据
-                    console.log(data); // 这里可以进行数据分析
+            <div class="ui segment">
+                <div class="ui divided grid robotchat">
 
-                    // 假设数据格式为 [{name: 'Item1', value: 10}, {name: 'Item2', value: 20}]
-                    var seriesData = data.map(item => {
-                        return {
-                            name: item.name,
-                            value: item.value
-                        };
-                    });
+                    <div class="two wide column">
+                        <i class="ui compass icon">  </i> AiChat
+                    </div>
+                    <div class="fourteen wide column">
+                       你好哦
+                    </div>
+                </div>
+            </div>
 
-                    // 使用ECharts绘制图表
-                    var myChart = echarts.init(document.getElementById('main'));
-                    var option = {
-                        title: {
-                            text: '数据分析结果'
-                        },
-                        tooltip: {
-                            trigger: 'item'
-                        },
-                        series: [
-                            {
-                                name: '数据展示',
-                                type: 'pie',
-                                data: seriesData
-                            }
-                        ]
-                    };
-                    myChart.setOption(option);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        </script>
+
+        </div>
+
+    </div>
+
+    <div class="ui fluid segment" id="inputSegment">
+        <h4>聊天机器人</h4>
+        <div class="ui form m-padded-tb-small">
+            <div class="field">
+                <textarea id="messageInput" placeholder="输入您的问题..." style="height:3em;max-height: 10em;"></textarea>
+            </div>
+            <button class="ui senduChatButton blue button">发送</button>
+            <div class="ui updateChatButton teal button" id="updateChatButton">更新</div>
+            <label ></label>
+        </div>
+        <div class="success message">
+            <div class="m-padded-tb-small m-text-big">
+                采用异步刷新方式，回答获取需要手动更新哦。
+                为了节省token，不开放使用记忆功能。一次发言尽量发全。（记忆功能使得token消耗速度是o（n）级别的变为o（n²）级别的）
+                <div>按ctrl+enter也可以快速发送哦</div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -123,62 +121,115 @@
 <br>
 <br>
 <br>
+</body>
 <!--底部footer-->
-
-<footer th:replace="~{admin/_fragments ::footer}" class="ui    attached segment m-padded-tb-mini m-shadow-big-up  ">
-
-    <br>
-    <br>
-    <br>
-    <div class="ui center aligned container">
-        <div class="ui   divided stackable grid">
-
-            <div class="three wide column">
-
-                <div class="middle aligned">
-
-                    <img src="../../../static/images/mio1.png"
-                         class="ui middle aligned round image" alt="" style="width: 150px" th:src="@{/images/mio1.png}">
-                </div>
+    <script>
+        // 当文档加载完毕时，调整输入框位置到底部
 
 
-            </div>
-            <div class="three wide column ">
-                <h4 class ="ui   header" >最新文章</h4>
-                <div class="ui red  link list">
-                    <div id="newblog-container">
-                        <div class="ui   link list" th:fragment="newblogList">
-                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item black m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
-                            <!--/*-->
-                            <!--*/-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class ="ui   header">练习方式</h4>
-                <div class="ui black  link list">
-                    <a href="#" class="item">yonghuname@github.com</a>
-                    <a href="#" class="item">等待填充</a>
-                    <a href="#" class="item">等待填充</a>
-                </div>
-            </div>
+        $(document).ready(function() {
+            // 为更新按钮绑定点击事件
+            $('#updateChatButton').click(function() {
 
-            <div class="seven wide column">
+                var updateButton = $('#updateChatButton');
+                var taskid =  updateButton.attr('data-id')
+                // 发送GET请求
+                $.get('/admin/aichatmore', { taskid: taskid }, function(data) {
+                    // 弹出返回的数据
+                    // alert(data);
+                    var responseObject = JSON.parse(data);
+                    var choices = responseObject.data.choices;
 
-                <h4 class ="ui   header">网页介绍</h4>
+                    var firstChoiceMessage = choices[0].message;
 
-                <p  class="m-text-thin m-text-spaced m-opacity-mini ">学而不思则罔，思而不学则怠。</p>
+                    var content = firstChoiceMessage.content;
 
-            </div>
-        </div>
 
-        <!--111111111111111111111111111111-->
+                    // alert(content); // 弹出内容
 
-        <div class="ui   section divider m-padded-tb-">
-        </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
-    </div>
-</footer>
+                    renderChatMessage("AiChat",content)
+                })
+                    .fail(function() {
+                        // 如果请求失败，弹出错误信息
+                        alert('请求失败，请稍后再试！');
+                    });
+            });
+        });
+
+
+        $(document).ready(function() {
+            // 监听保存按钮的点击事件
+            $('.senduChatButton').click(function() {
+                // 获取文本框内的信息
+                var message = $('#messageInput').val();
+
+                // 向后端发送文本框内的信息（你需要使用适当的 AJAX 请求来实现这一步）
+                $.ajax({
+                    type: 'POST', // 选择你的请求类型，这里是 POST
+                    url: '/admin/aichat', // 后端接收请求的地址
+                    data: {
+                        message: message // 将文本框内的信息作为数据发送
+                    },
+                    success: function(response) {
+                      var taskid=  response
+                        // alert(taskid)
+                        var updateButton = $('#updateChatButton');
+
+                        // 设置按钮的data-id属性
+                        updateButton.attr('data-id', taskid);
+                        // alert(updateButton.attr('data-id'))
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('请求失败：', error);
+                    }
+                });
+
+                // 向页面中添加用户发送的消息
+                renderChatMessage('User', message); // 在页面中渲染用户发送的消息
+
+                // 清空文本框
+                $('#messageInput').val('');
+            });
+        });
+
+        // 渲染聊天消息的函数
+        function renderChatMessage(role, message) {
+            // 创建消息元素
+            var chatSegment = $('<div class="ui segment">');
+            var chatGrid = $('<div class="ui divided grid">');
+            var iconColumn = $('<div class="two wide column">').html('<i class="ui ' + (role === 'User' ? 'user' : 'compass') + ' icon"></i> ' + role);
+            var messageColumn = $('<div class="fourteen wide column">').text(message);
+
+            // 将消息元素添加到聊天列表中
+            chatGrid.append(iconColumn);
+            chatGrid.append(messageColumn);
+            chatSegment.append(chatGrid);
+
+            // 将消息添加到合适的位置
+
+                $('.aichatlist').append(chatSegment); // 将机器人的回复添加到机器人聊天框中
+
+        }
+
+        $(document).ready(function() {
+            // 监听文本框的键盘按下事件
+            $('#messageInput').keydown(function(event) {
+                // Ctrl+Enter 的键码分别是 17 (Ctrl) 和 13 (Enter)
+                if (event.ctrlKey && event.which === 13) {
+                    // 阻止默认的回车键行为
+                    event.preventDefault();
+
+                    // 触发发送按钮的点击事件
+                    $('.senduChatButton').trigger('click');
+                }
+            });
+
+            // 其他代码...
+        });
+
+
+
+    </script>
 
 
 <script>
@@ -197,12 +248,12 @@
                 identifier: 'name2',
                 rules: [{
                     type : 'empty',
-                    prompt: '请输入分类名称'
+                    prompt: '请输入信息'
                 }]
             }
         }
     });
 
 </script>
-</body>
+
 </html>
