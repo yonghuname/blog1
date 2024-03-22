@@ -249,14 +249,17 @@
 
 
 
-
-    $('.menu.toggle').click(function () {
-        $('.m-item').toggleClass('m-mobile-hide');
-    });
-
-    $('.ui.dropdown').dropdown({
-        on : 'hover'
-    });
+        $(document).ready(function() {
+            $('.menu.toggle').click(function() {
+                $('.m-item').toggleClass('m-mobile-hidden');
+            });
+        });
+        $('.ui.dropdown')
+            .dropdown({
+                // you can use any ui transition
+                // transition: 'drop',
+                on:  'hover'
+            })
     document.addEventListener('DOMContentLoaded', function() {
 
         var bv = document.getElementById("biliuidlist").value;

@@ -253,6 +253,19 @@
 
 
 <script>
+
+    $(document).ready(function() {
+        $('.menu.toggle').click(function() {
+            $('.m-item').toggleClass('m-mobile-hidden');
+        });
+    });
+    $('.ui.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            // transition: 'drop',
+            on:  'hover'
+        })
+
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });

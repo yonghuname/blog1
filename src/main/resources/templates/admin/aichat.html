@@ -126,6 +126,17 @@
     <script>
         // 当文档加载完毕时，调整输入框位置到底部
 
+        $(document).ready(function() {
+            $('.menu.toggle').click(function() {
+                $('.m-item').toggleClass('m-mobile-hidden');
+            });
+        });
+        $('.ui.dropdown')
+            .dropdown({
+                // you can use any ui transition
+                // transition: 'drop',
+                on:  'hover'
+            })
 
         $(document).ready(function() {
             // 为更新按钮绑定点击事件
