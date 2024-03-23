@@ -71,57 +71,14 @@
 </div>
 
 <!--中间内容-->
-<div  class="m-container-small m-padded-tb-big">
+<!--<div  class="m-container-small m-padded-tb-big">-->
     <div class="ui segment">
 
-        <div id="main" style="width: 600px;height:400px;"></div>
-        <script type="text/javascript">
-            // 使用fetch API下载JSON数据
-            fetch('https://gist.githubusercontent.com/yonghuname/14d0a057154f9a4d2c98d9c91137c966/raw/6d2ea3e94bdc77371a7434fef2b8ac95a487ef90/202403_windows-google-chrome-1709530945035.json')
-                .then(response => response.json())
-                .then(data => {
-                    // 解析并分析数据
-                    console.log(data); // 这里可以进行数据分析
+        <div id="targetDivId" ></div>
 
-                    // 假设数据格式为 [{name: 'Item1', value: 10}, {name: 'Item2', value: 20}]
-                    var seriesData = data.map(item => {
-                        return {
-                            name: item.name,
-                            value: item.value
-                        };
-                    });
-
-                    // 使用ECharts绘制图表
-                    var myChart = echarts.init(document.getElementById('main'));
-                    var option = {
-                        title: {
-                            text: '数据分析结果'
-                        },
-                        tooltip: {
-                            trigger: 'item'
-                        },
-                        series: [
-                            {
-                                name: '数据展示',
-                                type: 'pie',
-                                data: seriesData
-                            }
-                        ]
-                    };
-                    myChart.setOption(option);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        </script>
     </div>
-</div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
+
 <br>
 <br>
 <br>
@@ -220,6 +177,34 @@
             }
         }
     });
+    // 页面加载完成后获取图表数据
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     fetch('/admin/charts1')
+    //         .then(response => {
+    //             if (!response.ok) {
+    //                 throw new Error('Network response was not ok');
+    //             }
+    //             return response.text(); // 解析响应体为文本
+    //         })
+    //         .then(html => {
+    //             // 将获取到的HTML内容设置到页面上的targetDivId div中
+    //             // 使用正则表达式提取<body>标签的内容
+    //             const bodyRegex = /<body[^>]*>\s*([\s\S]*?)\s*<\/body>/i;
+    //             const matches = html.match(bodyRegex);
+    //             if (matches && matches[1]) {
+    //                 // 将提取的<body>内容设置到targetDivId div中
+    //                 document.getElementById('targetDivId').innerHTML = matches[1];
+    //             } else {
+    //                 // 如果没有匹配到<body>标签，显示错误信息
+    //                 document.getElementById('targetDivId').innerHTML = 'Error loading content or <body> tag not found.';
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('There has been a problem with your fetch operation:', error);
+    //             // 显示错误信息
+    //             document.getElementById('targetDivId').innerHTML = 'Error loading chart data.';
+    //         });
+    // });
 
 </script>
 </body>
