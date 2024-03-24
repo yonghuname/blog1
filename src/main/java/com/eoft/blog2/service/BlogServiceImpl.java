@@ -70,6 +70,7 @@ public class BlogServiceImpl implements BlogService {
         } else {
             blog.setViews(blog.getViews() + 1);
         }
+        blogRepository.save(blog);
 //        Blog b = new Blog();
 //        BeanUtils.copyProperties(blog,b);
 //        String content = b.getContent();
