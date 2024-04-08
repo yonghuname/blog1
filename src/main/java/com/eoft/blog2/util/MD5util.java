@@ -1,19 +1,7 @@
 package com.eoft.blog2.util;
-
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-/**
- * Created by limi on 2017/10/15.
- */
 public class MD5util {
-
-    /**
-     * MD5加密类
-     * @param str 要加密的字符串
-     * @return    加密后的字符串
-     */
     public static String code(String str){
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -39,9 +27,11 @@ public class MD5util {
         }
 
     }
-//blog123456
+
 
     public static void main(String[] args) {
         System.out.println(code("123456"));
     }
 }
+
+//blog123456
