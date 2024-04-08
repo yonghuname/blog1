@@ -145,7 +145,9 @@ private UserService userService;
         if(blog.getFirstPicture().equals("1")){
 
 //            if  首图地址写1 就会用下面这个代替他
-            blog.setFirstPicture("https://img1.baidu.com/it/u=314735915,3692012565&fm=253&fmt=auto&app=138&f=JPEG?w=417&h=260");
+//            blog.setFirstPicture("https://img1.baidu.com/it/u=314735915,3692012565&fm=253&fmt=auto&app=138&f=JPEG?w=417&h=260");
+            blog.setFirstPicture("https://img.mp.itc.cn/upload/20170216/6a26efad2d524700b3f1f7706a3e6d7d.jpg");
+
         }
 
         User currentUser = (User) session.getAttribute("user");
