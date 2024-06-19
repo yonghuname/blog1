@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{/admin/_fragments:: head(~{::title})}">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat</title>
+    <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+
+    <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
+    <script src="../../static/semantics-dist/semantic.min.js" th:src="@{/semantics-dist/semantic.min.js}" ></script>
+    <script src="../../static/js/echarts.min.js" th:src="@{/js/echarts.min.js}" ></script>
+    <!--<head>-->
+</head>
+<body>
+<nav th:replace="~{admin/_fragments :: menu(7)}"  class="ui   attached segment m-padded-tb-mini m-shadow-small"   style="z-index: 999">
+    <div class="ui container"  >
+        <div class="ui   secondary stackable menu">
+            <a href="#" th:href="@{/admin/blogs}">
+                <h3 class="ui  teal header item" ><i class="ui clipboard outline icon"></i>博客管理</h3></a>
+            <a class="m-item m-mobile-hidden  item"  th:classapend = "${(n == 1) ? 'active' : ''}" th:href="@{/admin/blogs/input}"> <i class="ui  home icon">  </i>发文</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 2) ? 'active' : ''}" th:href="@{/admin/todolist}"> <i class="ui tasks  icon">  </i>TODO</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 3) ? 'active' : ''}" th:href="@{/admin/chart}"><i class="ui chart bar icon">  </i> 图表 </a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 5) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui compass icon">  </i> 机器人</a>
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 4) ? 'active' : ''}" th:href="@{/admin/tags}"><i class="ui play  icon">  </i> 视频 </a>
+
+            <a class="m-item m-mobile-hidden item"  th:classapend = "${(n == 6) ? 'active' : ''}" th:href="@{/}"><i class="ui pencil icon">  </i>主页展示</a>
+            <div class="right m-mobile-hidden menu">
+                <!--                    <div class="ui dropdown item">-->
+                <!--                        <img class="ui avatar image" src="../../static/images/mio3.jpg" th:src="@{/images/mio3.jpg}">-->
+                <!--                        长野原美绪-->
+                <!--                        <i class="dropdown icon"></i>-->
+                <!--                        <div class="menu">-->
+                <!--                            <a href="#" class="item" th:href="@{/admin/user}">管理账号</a>-->
+                <!--                            <a href="#" class="item" th:href="@{/admin/logout}">退出登录</a>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <div class="ui dropdown item">
+                    <img class="ui avatar image" src="../../static/images/mio3.jpg" th:src="@{${session.user.avatar}}" >
+
+                    <a href="#" class="header" th:text="${session.user.nickname}"> </a>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item" th:href="@{/admin/user}">管理账号</a>
+                        <a href="#" class="item" th:href="@{/admin/logout}">退出登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <a href="#" class="ui menu toggle m-mobile-show   button">
+        展开
+        <i class="sidebar  icon m-top-right "></i>
+    </a>
+
+</nav>
+
+<input type="hidden" id="senderId" th:value="${senderId}">
+<input type="hidden" id="receiverId" th:value="${receiverId}">
+
+<div class="ui container">
+<div class="ui segment">
+    <div class="ui container">
+    <h2 class="ui header">Chat Room</h2>
+        <div class="ui segment" id="chatBox">
+            <div class="ui comments" id="messages">
+                <!-- Thymeleaf迭代消息 -->
+                <div th:each="message : ${messages}" class="comment" th:classappend="${message.sender.id == session.user.id} ? 'right' : 'left'">
+                    <div class="content">
+                        <div class="author" th:text="${message.sender.nickname}"></div>
+                        <div class="metadata">
+                            <span class="date" th:text="${#dates.format(message.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        </div>
+                        <div class="text" th:text="${message.content}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="ui form">
+        <div class="field">
+            <input type="text" id="messageInput" placeholder="Type a message...">
+        </div>
+        <button class="ui primary button" id="send">Send</button>
+    </div>
+</div>
+ <br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+ </div>
+<footer th:replace="~{admin/_fragments ::footer}" class="ui    attached segment m-padded-tb-mini m-shadow-big-up  ">
+
+    <br>
+    <br>
+    <br>
+    <div class="ui center aligned container">
+        <div class="ui   divided stackable grid">
+
+            <div class="three wide column">
+
+                <div class="middle aligned">
+
+                    <img src="../../../static/images/mio1.png"
+                         class="ui middle aligned round image" alt="" style="width: 150px" th:src="@{/images/mio1.png}">
+                </div>
+
+
+            </div>
+            <div class="three wide column ">
+                <h4 class ="ui   header" >最新文章</h4>
+                <div class="ui red  link list">
+                    <div id="newblog-container">
+                        <div class="ui   link list" th:fragment="newblogList">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item black m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（User Story）</a>
+                            <!--/*-->
+                            <!--*/-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class ="ui   header">练习方式</h4>
+                <div class="ui black  link list">
+                    <a href="#" class="item">yonghuname@github.com</a>
+                    <a href="#" class="item">等待填充</a>
+                    <a href="#" class="item">等待填充</a>
+                </div>
+            </div>
+
+            <div class="seven wide column">
+
+                <h4 class ="ui   header">网页介绍</h4>
+
+                <p  class="m-text-thin m-text-spaced m-opacity-mini ">学而不思则罔，思而不学则怠。</p>
+
+            </div>
+        </div>
+
+        <!--111111111111111111111111111111-->
+
+        <div class="ui   section divider m-padded-tb-">
+        </div> <p class="m-text-thin m-text-spaced m-opacity-mini">All rights reserved  </p>
+    </div>
+</footer>
+
+<script>
+
+    $(document).ready(function() {
+        // 获取隐藏字段中的senderId和receiverId
+        var senderId = $('#senderId').val();
+        var receiverId = $('#receiverId').val();
+        var content = $('#messageInput').val();
+
+        // 建立WebSocket连接
+        var socket = new WebSocket('ws://localhost:8081/admin/chat/' + receiverId + '/' + senderId);
+
+        // 当收到消息时的处理逻辑
+        socket.onmessage = function(event) {
+            var message = JSON.parse(event.data);
+            $('#messages').append('<div class="comment">' +
+                '<div class="content">' +message.content+
+                '<div class="author">' + message.sender.nickname + '</div>' +
+                '<div class="metadata">' +
+                '<span class="date">' + message.timestamp + '</span>' +
+                '</div>' +
+                '<div class="text">' + message.content + '</div>' +
+                '</div>' +
+                '</div>');
+        };
+
+        // 点击发送按钮时的处理逻辑
+        $('#send').click(function() {
+
+            var content = $('#messageInput').val().toString();
+            console.log('Content:', content);
+            alert("发送； ");
+            // alert(senderId)
+            // alert(receiverId)
+            // alert(content);
+            var message = {
+                senderId: senderId,
+                receiverId: receiverId,
+                content: content,
+                timestamp: new Date().toISOString()
+            }; alert("发送预备");
+            socket.send(JSON.stringify(message));
+            alert("发送成功");
+            $('#messageInput').val('');
+        });
+    });
+
+    $(document).ready(function() {
+        $('.menu.toggle').click(function() {
+            $('.m-item').toggleClass('m-mobile-hidden');
+        });
+    });
+    $('.ui.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            // transition: 'drop',
+            on:  'hover'
+        })
+
+    function calculateDaysRemaining(targetYear, targetMonth, targetDay) {
+        const targetDate = new Date(targetYear, targetMonth - 1, targetDay);
+        const currentDate = new Date();
+
+        var timeDiff = targetDate - currentDate;
+        var  daysRemaining = timeDiff / (1000 * 60 * 60 * 24);
+
+        // 确保时间差是正数
+        daysRemaining=(daysRemaining<0 ? 0:daysRemaining);
+
+        return Math.floor(daysRemaining);
+    }
+
+
+</script>
+</body>
+</html>
