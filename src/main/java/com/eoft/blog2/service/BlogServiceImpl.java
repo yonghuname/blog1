@@ -174,6 +174,7 @@ public Page<Blog> listBlog(String query,Pageable pageable){
         BeanUtils.copyProperties(blog,b
 //                , MyBeanUtils.getNullPropertyNames(blog)
         );
+
         b.setUpdateTime(new Date());
 
         return blogRepository.save(b);

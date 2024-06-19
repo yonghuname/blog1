@@ -4,7 +4,11 @@
 <head th:replace="~{/admin/_fragments:: head(~{::title})}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文章输入</title>
+
+    <title th:if="${blog.id} != null" th:text="${blog.title}">文章输入</title>
+    <title th:if="${blog.id} == null">文章输入</title>
+
+
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" href="../../static/semantics-dist/semantic.min.css" th:href="@{/semantics-dist/semantic.min.css}">
     <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}" ></script>
@@ -66,7 +70,6 @@
 <div class="m-padded-tb-large " >
 
     <div class="ui container">
-
         <div class="ui top attached segment" th:if="${blog.id != null}">
             <div class="ui mini horizontal link list">
                 <div class="item">
