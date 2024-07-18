@@ -13,7 +13,7 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/admin")
 public class ChartController {
-    @GetMapping("/chart22")// 先废弃
+    @GetMapping("/chart22")// 先废弃 这是什么啊 占位符 建议删掉
         public String getchart(){
         return "/admin/chart";
     }
