@@ -40,7 +40,7 @@ public class BilibiliuserController {
                 .setReadTimeout(Duration.ofSeconds(120)) // 读取超时增加到30秒
                 .build();
 
-        String url =   "http://118.31.237.220:888/api/crawl?uid="   + uid+"&page_num="+page_num;
+        String url =   "http://47.121.131.164:888/api/crawl?uid="   + uid+"&page_num="+page_num;
         try {
 //             uid = URLEncoder.encode(uid, StandardCharsets.UTF_8.toString());
 

@@ -22,7 +22,7 @@ public class ChartController {
     @GetMapping("/chart")
      public ResponseEntity<String>  getchart1() throws IOException {
         RestTemplate restTemplate = new RestTemplate();
-        String htmlContent = restTemplate.getForObject("http://118.31.237.220:889/", String.class);
+        String htmlContent = restTemplate.getForObject("http://47.121.131.164:889/", String.class);
 
         return new ResponseEntity<>(htmlContent, HttpStatus.OK);
     }
